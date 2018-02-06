@@ -5,4 +5,4 @@
 * Added README.md
 * Added CHANGELOG.md
 * Added LICENSE.md
-* Added CONTRIB.md
+* Added CONTRIBUTING.md
