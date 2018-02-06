@@ -29,19 +29,22 @@
 
 * To build up your commit onto the latest dev branch, don't forget to do this often :
     
-    git pull origin dev
-    git rebase master <name_of_your_branch>
+`git pull origin dev`
+
+`git rebase master <name_of_your_branch>`
 
 * To make a branch:
     
-    git branch <name_of_your_branch>
-    git checkout <name_of_your_branch>
+`git branch <name_of_your_branch>`
+
+`git checkout <name_of_your_branch>`
 
 * To merge your branch:
  
-    git checkout dev
-    git merge <name_of_your_branch>
+`git checkout dev`
+
+`git merge <name_of_your_branch>`
 
 * To fix the "unrelated histoires" issue:
 
-    Add --allow-unrelated-histories options to git commands
+`Add --allow-unrelated-histories options to git commands`
