@@ -8,6 +8,7 @@
 #ifndef COREWAR_H_
 #define COREWAR_H_
 
+#include "args.h"
 #include "op.h"
 #include "prog.h"
 
@@ -35,6 +36,7 @@ typedef struct core_s {
 	register_t registers[REG_NUMBER];
 	pointer pc;
 	byte memory[MEM_SIZE];
+	struct program_l *program_list;
 	int cycle_to_die;
 	int nbr_cycle;
 	int nb_progs;
