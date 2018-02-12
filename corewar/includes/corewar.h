@@ -34,7 +34,7 @@ typedef struct register_s {
 typedef struct core_s {
 	register_t registers[REG_NUMBER];
 	byte memory[MEM_SIZE];
-	struct program_l *program_list;
+        program_t program_tab[MAX_ARGS_NUMBER];
 	int cycle_to_die;
 	int nbr_cycle;
 	int nb_progs;
