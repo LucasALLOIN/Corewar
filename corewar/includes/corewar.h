@@ -9,8 +9,10 @@
 #define COREWAR_H_
 
 #include "op.h"
+#include "prog.h"
 
 typedef unsigned char byte;
+typedef void* pointer;
 
 /* 
  * Register_t: Register structure.
@@ -20,11 +22,10 @@ typedef unsigned char byte;
 */
 typedef struct register_s {
 	int num;
-	int is_pc;
 	byte memory[REG_SIZE];
 } register_t;
 
-/* 
+/*
  * Core_t: Main corewar structure.
  *
  * Virtual cpu: with virtual register defined in op.h.
@@ -32,6 +33,7 @@ typedef struct register_s {
 */
 typedef struct core_s {
 	register_t registers[REG_NUMBER];
+	pointer pc;
 	byte memory[MEM_SIZE];
 	int cycle_to_die;
 	int nbr_cycle;

@@ -79,6 +79,7 @@ all:			$(NAME)
 $(NAME):		echo_build $(REAL)/$(NAME)
 			$(V)cp $(REAL)/$(NAME) $(ROOT)
 			$(V)printf "$(GREEN)Dup $(NAME) into root directory.$(WHITE)\n"
+			$(V)todo="$(shell grep -rni $(SRC_DIR)/*.c -e "//TODO" | tr -d '/')" && [ "$$todo" != "0" ] && printf "${RED}Don't forget !\n$$todo${WHITE}\n"
 
 
 $(REAL)/$(NAME):	buildrepo $(OBJS)
