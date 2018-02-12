@@ -20,7 +20,10 @@ NAME	?=	corewar
 
 REAL	=	$(ROOT)/release
 
-SRC	=
+SRC	=	$(SRC_DIR)/core.c		\
+		$(SRC_DIR)/main.c		\
+		$(SRC_DIR)/utils/my_calloc.c	\
+		$(SRC_DIR)/utils/str_utils.c
 
 WARN	=	-W -Wall -Wextra
 

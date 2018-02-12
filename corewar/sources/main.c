@@ -10,16 +10,18 @@
 #include "corewar.h"
 
 //TODO: add to the structure during the initialisation
-int get_args(char *argv[], int i)
+int get_args(char *argv[], int i, core_t *core, int nb_champ)
 {
 	switch (argv[i][1]) {
 	case 'n':
-		//live code = my_getnbr(argv[i + 1]);
+		core->program_tab[nb_champ].live_code = my_getnbr(argv[i + 1]);
+		break;
 	case 'a':
-		//adress load = my_getnbr(argv[i + 1]);
+		core->program_tab[nb_champ].adress = my_getnbr(argv[i + 1]);
+		break;
 	default:
 		if (my_strcmp(argv[i], "-dump")) {
-			//int nb_cycle = my_getnbr(argv[i + 1]);
+			core->nb_dump = my_getnbr(argv[i + 1]);
 		} else {
 			my_printf("%s: No such argument\n", argv[i]);
 			return (-1);
@@ -28,19 +30,17 @@ int get_args(char *argv[], int i)
 	return (0);
 }
 
-int parse_args(char *argv[])
+int parse_args(int argc, char *argv[], core_t *corewar)
 {
-	int i = 0;
+	int i = -1;
 	int nb_champ = 0;
 	int err = 0;
 	
-	while (argc >= i && argv[i] != 0x0) {
-		if (argv[i][0] == '-') {
-			err = get_args(argv, i);
-		} else if (i && argv[i - 1][0] != '-') {
-			//add champion to the list
+	while (argc >= ++i && argv[i] != 0x0) {
+		if (argv[i][0] == '-')
+			err = get_args(argv, i, corewar, nb_champ);
+		else if (i && argv[i - 1][0] != '-')
 			nb_champ++;
-		}
 		if (err != 0)
 			return (-1);
 	}
@@ -49,7 +49,9 @@ int parse_args(char *argv[])
 
 int main(int argc, char *argv[])
 {
-	if (parse_args(argv) == -1) {
+	core_t *corewar = create_core();
+	
+	if (parse_args(argc, argv, corewar) == -1) {
 		my_printf("usage\n");
 		return (84);
 	}

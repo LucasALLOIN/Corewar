@@ -40,6 +40,9 @@ typedef struct core_s {
 	int cycle_to_die;
 	int nbr_cycle;
 	int nb_progs;
+	int nb_dump;
 } core_t;
+
+core_t *create_core(void);
 
 #endif /* COREWAR_H_ */
