@@ -8,6 +8,7 @@
 #ifndef COREWAR_H_
 #define COREWAR_H_
 
+#include "args.h"
 #include "op.h"
 
 typedef unsigned char byte;
@@ -33,6 +34,7 @@ typedef struct register_s {
 typedef struct core_s {
 	register_t registers[REG_NUMBER];
 	byte memory[MEM_SIZE];
+	struct program_l *program_list;
 	int cycle_to_die;
 	int nbr_cycle;
 	int nb_progs;
