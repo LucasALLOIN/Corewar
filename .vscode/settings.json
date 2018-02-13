@@ -1,0 +1,7 @@
+{
+	"files.associations": {
+		"*.dox": "c",
+		"array": "cpp",
+		"string_view": "cpp"
+	}
+}
