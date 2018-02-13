@@ -33,7 +33,6 @@ typedef struct register_s {
  * Virtual memory: size defined in op.h.
 */
 typedef struct core_s {
-	register_t registers[REG_NUMBER];
 	pointer pc;
 	byte memory[MEM_SIZE];
         program_t program_tab[MAX_ARGS_NUMBER];

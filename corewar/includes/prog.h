@@ -8,8 +8,12 @@
 #ifndef PROG_H_
 #define PROG_H_
 
+#include "prog.h"
+#include "corewar.h"
+
 typedef struct prog_s {
-	unsigned long load_adress;
+	register_t registers[REG_NUMBER];
+        unsigned long load_adress;
 	char *name;
 	int number;
 } prog_t;
