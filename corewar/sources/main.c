@@ -38,7 +38,7 @@ int parse_args(int argc, char *argv[], core_t *corewar)
 	int i = -1;
 	int nb_champ = 0;
 	int err = 0;
-	
+
 	while (argc >= ++i && argv[i] != 0x0) {
 		if (argv[i][0] == '-' && argc > i)
 			err = get_args(argv, i, corewar, nb_champ);
@@ -53,11 +53,10 @@ int parse_args(int argc, char *argv[], core_t *corewar)
 int main(int argc, char *argv[])
 {
 	core_t *corewar = create_core();
-	
+
 	if (parse_args(argc, argv, corewar) == -1) {
 		my_printf("usage\n");
 		return (84);
 	}
-	
 	return (0);
 }
