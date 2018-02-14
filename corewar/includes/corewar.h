@@ -10,7 +10,6 @@
 
 #include "args.h"
 #include "op.h"
-#include "prog.h"
 
 typedef unsigned char byte;
 typedef void* pointer;
@@ -26,6 +25,8 @@ typedef struct register_s {
 	byte memory[REG_SIZE];
 } register_t;
 
+#include "prog.h"
+
 /*
  * Core_t: Main corewar structure.
  *
@@ -36,6 +37,7 @@ typedef struct core_s {
 	pointer pc;
 	byte memory[MEM_SIZE];
         program_t program_tab[MAX_ARGS_NUMBER];
+	prog_t prog[MAX_ARGS_NUMBER];
 	int cycle_to_die;
 	int nbr_cycle;
 	int nb_progs;

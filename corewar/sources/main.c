@@ -8,6 +8,7 @@
 #include "utils.h"
 #include "my_printf.h"
 #include "corewar.h"
+#include "bin_parser.h"
 
 int get_args(char *argv[], int i, core_t *core, int nb_champ)
 {
@@ -40,13 +41,17 @@ int parse_args(int argc, char *argv[], core_t *corewar)
 	int err = 0;
 
 	while (argc >= ++i && argv[i] != 0x0) {
-		if (argv[i][0] == '-' && argc > i)
+	        if (argv[i][0] == '-' && argc > i)
 			err = get_args(argv, i, corewar, nb_champ);
-		else if (i && argv[i - 1][0] != '-')
-			nb_champ++;
+		else if (i && argv[i][0] != '-') {
+			corewar->program_tab[nb_champ].file_name = my_calloc(my_strlen(argv[i]) + 1);
+			my_strcpy(corewar->program_tab[nb_champ].file_name, argv[i]);
+		        nb_champ++;
+		}
 		if (err != 0)
 			return (-1);
 	}
+	corewar->nb_progs = nb_champ;
 	return (0);
 }
 
@@ -58,5 +63,7 @@ int main(int argc, char *argv[])
 		my_printf("usage\n");
 		return (84);
 	}
+	for (int i = 0; i < corewar->nb_progs; i++)
+		bin_parser(corewar, i);
 	return (0);
 }
