@@ -66,6 +66,8 @@ int main(int argc, char *argv[])
 	}
 	for (int i = 0; i < corewar->nb_progs; i++)
 		err = bin_parser(corewar, i);
+	if (err == -1)
+		return (84);
 	corewar_init(corewar);
 	return (0);
 }
