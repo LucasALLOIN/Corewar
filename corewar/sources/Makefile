@@ -38,7 +38,7 @@ TEST	?=	0
 
 DEB	?=      0
 
-MACRO	=	DEBUG_MODE
+MACRO	=	-D DEBUG_MODE
 
 G	=	-g
 

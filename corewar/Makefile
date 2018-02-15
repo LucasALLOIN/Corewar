@@ -21,7 +21,7 @@ re:
 
 debug:
 	@make --no-print-directory -C library/my_printf/src re DEB=1
-	@make --no-print-directory -C sources/ re DEB=1
+	@make --no-print-directory -C sources/ re DEB=1 TEST=1
 
 clean:
 	@make --no-print-directory -C sources/ clean
