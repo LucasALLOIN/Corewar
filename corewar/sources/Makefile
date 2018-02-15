@@ -42,6 +42,8 @@ G	=	-g
 
 V	?=	@
 
+MACRO	=	DEBUG_MODE
+
 OBJS	=	$(patsubst $(SRC_DIR)/%.c, $(REAL)/%.o, $(SRC))
 
 
