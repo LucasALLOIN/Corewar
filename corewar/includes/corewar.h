@@ -11,8 +11,7 @@
 #include "args.h"
 #include "op.h"
 
-typedef unsigned char byte;
-typedef void* pointer;
+typedef unsigned char byte_t;
 
 #include "prog.h"
 
@@ -23,8 +22,7 @@ typedef void* pointer;
  * Virtual memory: size defined in op.h.
 */
 typedef struct core_s {
-	pointer pc;
-	byte memory[MEM_SIZE];
+	byte_t memory[MEM_SIZE];
         program_t program_tab[MAX_ARGS_NUMBER];
 	prog_t prog[MAX_ARGS_NUMBER];
 	int cycle_to_die;

@@ -58,12 +58,14 @@ int parse_args(int argc, char *argv[], core_t *corewar)
 int main(int argc, char *argv[])
 {
 	core_t *corewar = create_core();
+	int err = 0;
 
 	if (parse_args(argc, argv, corewar) == -1) {
 		my_printf("usage\n");
 		return (84);
 	}
 	for (int i = 0; i < corewar->nb_progs; i++)
-		bin_parser(corewar, i);
+		err = bin_parser(corewar, i);
+	corewar_init(corewar);
 	return (0);
 }
