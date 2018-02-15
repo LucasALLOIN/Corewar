@@ -13,7 +13,7 @@
 
 typedef unsigned char byte_t;
 
-#include "prog.h"
+#include "process.h"
 
 /*
  * Core_t: Main corewar structure.
@@ -24,7 +24,7 @@ typedef unsigned char byte_t;
 typedef struct core_s {
 	byte_t memory[MEM_SIZE];
         program_t program_tab[MAX_ARGS_NUMBER];
-	prog_t prog[MAX_ARGS_NUMBER];
+	process_t process_tab[MAX_ARGS_NUMBER];
 	int cycle_to_die;
 	int nbr_cycle;
 	int nb_progs;
@@ -32,5 +32,6 @@ typedef struct core_s {
 } core_t;
 
 core_t *create_core(void);
+int corewar_init(core_t *core);
 
 #endif /* COREWAR_H_ */

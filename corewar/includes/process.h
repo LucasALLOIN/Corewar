@@ -15,6 +15,6 @@ typedef struct prog_s {
 	int pc;
 	int fd;
 	int number;
-} prog_t;
+} process_t;
 
 #endif /* PROG_H_ */

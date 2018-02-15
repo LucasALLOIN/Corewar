@@ -5,21 +5,28 @@
 ** initialisation of the file
 */
 
+#include "unistd.h"
 #include "corewar.h"
+#include "utils.h"
 
-int load_memory(int fd, byte memory[])
+static int load_memory(process_t process, byte_t memory[])
 {
+	char buffer[process.header.prog_size];
 
+	if (read(process.fd, buffer, process.header.prog_size) == -1)
+		return (84);
+	my_memcpy(memory, buffer, process.header.prog_size);
+	return (0);
 }
 
-int init_prog(core_t *core, program_t *prog)
-{	
-	core->memory	
-}
+//int init_prog(core_t *core, program_t prog)
+//{	
+//	load_memory(prog, core->memory);
+//}
 
 int corewar_init(core_t *core)
 {
-	for (int i = 0; i < core->nb_progs; ++i) {
-			init_prog(core, core->program_tab[i]);
-	}
+	for (int i = 0; i < core->nb_progs; ++i)
+		load_memory(core->process_tab[i], core->memory);
+	return (0);
 }
