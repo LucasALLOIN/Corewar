@@ -10,22 +10,29 @@
 #include "utils.h"
 #include "my_printf.h"
 
+int get_offset(int nbr)
+{
+
+}
+
 static int load_memory(process_t process, byte_t memory[])
 {
-	char buffer[process.header.prog_size];
+	static int nb = 0;
+	char *buffer = my_calloc(process.header.prog_size);
+	int offset = 0;
 
 	if (read(process.fd, buffer, process.header.prog_size) == -1)
 		return (84);
-	my_memcpy(memory, buffer, process.header.prog_size);
+	//TODO: alloin fait la fonction get offset stp qui \
+	retourne la taille en fonction du num du process\n
+	offset = get_offset(nb);
+	offset = 0;     		//TODO: remove this line
+	my_memcpy(memory, buffer + offset, process.header.prog_size);
 	my_printf("allo\n");
 	dump_virtual_mem(memory);
+	nb++;
 	return (0);
 }
-
-//int init_prog(core_t *core, program_t prog)
-//{	
-//	load_memory(prog, core->memory);
-//}
 
 int corewar_init(core_t *core)
 {
