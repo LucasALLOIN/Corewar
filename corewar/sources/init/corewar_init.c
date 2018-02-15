@@ -10,10 +10,16 @@
 #include "utils.h"
 #include "my_printf.h"
 
-int get_load_adress(core_t *core, int free_mem, int i)
+int get_offset(int nbr)
 {
-	int separator = (free_mem / core->nb_progs) * i;
-	int prog_space = 0;
+
+}
+
+static int load_memory(process_t process, byte_t memory[])
+{
+	static int nb = 0;
+	char *buffer = my_calloc(process.header.prog_size);
+	int offset = 0;
 
 	for (int x = 0; x < i; x++)
 		prog_space += core->process_tab[x].header.prog_size;
@@ -37,21 +43,15 @@ static int load_memory(process_t process, core_t *core, int free_mem, int i)
 #endif
 	if (read(process.fd, &core->memory[adress], process.header.prog_size) == -1)
 		return (84);
+	//TODO: alloin fait la fonction get offset stp qui \
+	retourne la taille en fonction du num du process\n
+	offset = get_offset(nb);
+	offset = 0;     		//TODO: remove this line
+	my_memcpy(memory, buffer + offset, process.header.prog_size);
+	my_printf("allo\n");
+	dump_virtual_mem(memory);
+	nb++;
 	return (0);
-}
-
-//int init_prog(core_t *core, program_t prog)
-//{	
-//	load_memory(prog, core->memory);
-//}
-
-int total_size(core_t *core)
-{
-	int res = 0;
-
-        for (int i = 0; i  < core->nb_progs; i++)
-		res += core->process_tab[i].header.prog_size;
-	return (res);
 }
 
 int corewar_init(core_t *core)
