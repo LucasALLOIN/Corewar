@@ -10,7 +10,7 @@
 
 typedef struct prog_s {
 	byte_t registers[REG_NUMBER][REG_SIZE];
-        unsigned long load_adress;
+	int load_adress;
 	header_t header;
 	int pc;
 	int fd;
