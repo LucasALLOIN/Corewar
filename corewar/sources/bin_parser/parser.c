@@ -29,6 +29,12 @@ int header_parser(int fd, core_t *corewar, int i)
 	int rd;
 
 	rd = read(fd, &corewar->process_tab[i].header, sizeof(header_t));
+#ifdef DEBUG_MODE
+	my_printf("Magic before bitwise: %d\n", \
+	corewar->process_tab[i].header.magic);
+	my_printf("ProgSize before bitwise: %d\n\n", \
+	corewar->process_tab[i].header.prog_size);
+#endif
 	corewar->process_tab[i].header.prog_size = \
 	bitwise_value(corewar->process_tab[i].header.prog_size);
 	corewar->process_tab[i].header.magic = \
@@ -42,14 +48,22 @@ int bin_parser(core_t *corewar, int i)
 {
 	int fd = open(corewar->program_tab[i].file_name, O_RDONLY);
 
-	if (fd == -1 || header_parser(fd, corewar, i))
+#ifdef DEBUG_MODE
+	my_printf("==== Parsing file %s ====\n\n", \
+	corewar->program_tab[i].file_name);
+#endif
+	if (fd == -1 || header_parser(fd, corewar, i)) {
+#ifdef DEBUG_MODE
+		my_printf("Error\n");
+#endif
 		return (-1);
+	}
 	corewar->process_tab[i].fd = fd;
 #ifdef DEBUG_MODE
 	my_printf("%s: %s\n", corewar->process_tab[i].header.prog_name, \
 	corewar->process_tab[i].header.comment);
-	my_printf("Magic: %d, Size: %d\n", corewar->process_tab[i].header.magic, \
-	corewar->process_tab[i].header.prog_size);
+	my_printf("Magic: %d, Size: ", corewar->process_tab[i].header.magic);
+	my_printf("%d\n\n", corewar->process_tab[i].header.prog_size);
 #endif
 	return (0);
 }
