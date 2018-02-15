@@ -14,17 +14,6 @@
 typedef unsigned char byte;
 typedef void* pointer;
 
-/* 
- * Register_t: Register structure.
- *
- * bool if it's the pc.
- * Virtual memory: size defined in op.h.
-*/
-typedef struct register_s {
-	int num;
-	byte memory[REG_SIZE];
-} register_t;
-
 #include "prog.h"
 
 /*
