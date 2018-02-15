@@ -9,7 +9,7 @@
 #define PROG_H_
 
 typedef struct prog_s {
-	byte registers[REG_NUMBER][REG_SIZE];
+	byte_t registers[REG_NUMBER][REG_SIZE];
         unsigned long load_adress;
 	header_t header;
 	int pc;
