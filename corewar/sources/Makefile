@@ -38,11 +38,8 @@ TEST	?=	0
 
 DEB	?=      0
 
-<<<<<<< HEAD
 MACRO	=	DEBUG_MODE
 
-=======
->>>>>>> Revert "Merge branch 'revert-b198357f' into 'dev'"
 G	=	-g
 
 V	?=	@
