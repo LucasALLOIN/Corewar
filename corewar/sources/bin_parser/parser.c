@@ -29,8 +29,10 @@ int header_parser(int fd, core_t *corewar, int i)
 	int rd;
 
 	rd = read(fd, &corewar->prog[i].header, sizeof(header_t));
-	corewar->prog[i].header.prog_size = bitwise_value(corewar->prog[i].header.prog_size);
-	corewar->prog[i].header.magic = bitwise_value(corewar->prog[i].header.magic);
+	corewar->prog[i].header.prog_size = \
+	bitwise_value(corewar->prog[i].header.prog_size);
+	corewar->prog[i].header.magic = \
+	bitwise_value(corewar->prog[i].header.magic);
 	if (rd == -1)
 		return (0);
 	return (0);
