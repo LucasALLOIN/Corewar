@@ -38,6 +38,8 @@ TEST	?=	0
 
 DEB	?=      0
 
+MACRO	=	DEBUG_MODE
+
 G	=	-g
 
 V	?=	@
