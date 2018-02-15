@@ -2,4 +2,5 @@
 *#*#
 vgcore.*
 *.o
+*.swp
 .dir*
