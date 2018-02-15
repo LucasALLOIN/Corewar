@@ -12,6 +12,7 @@ typedef struct prog_s {
 	register_t registers[REG_NUMBER];
         unsigned long load_adress;
 	header_t header;
+	int fd;
 	int number;
 } prog_t;
 
