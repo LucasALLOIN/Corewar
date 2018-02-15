@@ -29,10 +29,15 @@ int header_parser(int fd, core_t *corewar, int i)
 	int rd;
 
 	rd = read(fd, &corewar->prog[i].header, sizeof(header_t));
+<<<<<<< HEAD
 	corewar->prog[i].header.prog_size = \
 	bitwise_value(corewar->prog[i].header.prog_size);
 	corewar->prog[i].header.magic = \
 	bitwise_value(corewar->prog[i].header.magic);
+=======
+	corewar->prog[i].header.prog_size = bitwise_value(corewar->prog[i].header.prog_size);
+	corewar->prog[i].header.magic = bitwise_value(corewar->prog[i].header.magic);
+>>>>>>> Revert "Merge branch 'revert-b198357f' into 'dev'"
 	if (rd == -1)
 		return (0);
 	return (0);
