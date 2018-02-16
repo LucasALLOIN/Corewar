@@ -26,8 +26,9 @@ SRC	=	$(SRC_DIR)/core/core.c		\
 		$(SRC_DIR)/utils/str_utils.c	\
 		$(SRC_DIR)/bin_parser/parser.c	\
 		$(SRC_DIR)/utils/my_memcpy.c	\
-		$(SRC_DIR)/memory/corewar_init.c
-						
+		$(SRC_DIR)/memory/corewar_init.c\
+		$(SRC_DIR)/cycle/cycle.c
+
 WARN	=	-W -Wall -Wextra
 
 CFLAGS	=	-I $(ROOT)/includes $(WARN) -g

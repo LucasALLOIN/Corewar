@@ -71,5 +71,6 @@ int main(int argc, char *argv[])
 	if (err == -1)
 		return (84);
 	corewar_init(corewar);
+	cycle(corewar);
 	return (0);
 }

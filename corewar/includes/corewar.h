@@ -35,5 +35,7 @@ typedef struct core_s {
 
 core_t *create_core(void);
 int corewar_init(core_t *core);
+int cycle(core_t *core);
+int bitwise_value(int val);
 
 #endif /* COREWAR_H_ */
