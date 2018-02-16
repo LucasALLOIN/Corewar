@@ -20,6 +20,7 @@ int get_args(char *argv[], int i, core_t *core, int nb_champ)
 		break;
 	case 'a':
 		core->program_tab[nb_champ].adress = my_getnbr(argv[i + 1]);
+		core->process_tab[nb_champ].load_adress = my_getnbr(argv[i + 1]);
 		my_printf("a = %s\n", argv[i + 1]);
 		break;
 	default:
