@@ -7,24 +7,34 @@
 
 #include "corewar.h"
 
-int set_process_counter(process_t *process, core_t *core)
+int set_process_counter(process_t *process, core_t *core, int instruction)
 {
 	int temp_pc = process.pc;
 	
-	while (core->memory[GET_ADRESS(++temp_pc)] > NB_INSTRUCTIONS);
-	process.pc = temp_pc;
+	if (instruction == 0x01 || instruction == 0x09 ||
+	    instruction == 0x0c || instruction == 0x0f || 
+	    instruction == 0x10)
+		process.pc += 4;
+	else if (instruction == 0x02 || instruction == 0x03 ||
+		 instruction == 0x0d)
+		process.pc += 8;	
+	else
+		process.pc += 12;
 	return (0);
 }
 
 int exec_process(process_t process, core_t *core)
 {
-	if (!process.turn_to_exec) {
-		process.turn_to_exec--;
-		return (1);
-	}
-	//TODO: array function pointer
-	//inst[core->memory(GET_ADRESS(process.pc))](core, process);
-	set_process_counter(process);
+	int *args = NULL;
+	int instruction = NULL;
+
+	if (!process.turn_to_exec)
+		return (process.turn_to_exec--);
+	//TODO: get instruction get args 
+	//args = get_args(core->memory, process);
+	//instruction = get_instruction(core->memory, process);
+	//INSTRUCTION_ARRAY[core->memory(GET_ADRESS(process.pc))](core, process, args);
+	set_process_counter(process, core, instruction);
 }
 
 int cycle(core_t *core)
