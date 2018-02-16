@@ -12,6 +12,7 @@ typedef struct prog_s {
 	byte_t registers[REG_NUMBER][REG_SIZE];
 	int load_adress;
 	header_t header;
+	int turn_to_exec;
 	int pc;
 	int fd;
 	int number;
