@@ -37,7 +37,7 @@ void val_to_b(byte_t byte)
 	val[5] = (byte & 0x04) ? '1' : '0';
 	val[6] = (byte & 0x02) ? '1' : '0';
 	val[7] = (byte & 0x01) ? '1' : '0';
-	my_printf("Params in bin: %s\n", val);
+	my_printf("Instruction Params: %s\n", val);
 }
 
 int exec_process(process_t process, core_t *core, int i)
@@ -46,7 +46,7 @@ int exec_process(process_t process, core_t *core, int i)
 	int instruction = NULL;
 
 	my_printf("PC: %d\nLoad Adress: %d\nInstuction: %#04x\n", core->process_tab[i].pc, process.load_adress, core->memory[process.pc]);
-	val_to_b(process.pc + 1);
+	val_to_b(core->memory[process.pc + 1]);
 	//if (!process.turn_to_exec)
 	//	return (process.turn_to_exec--);
 	//TODO: get instruction get args
