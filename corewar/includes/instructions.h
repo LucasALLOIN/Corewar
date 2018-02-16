@@ -8,7 +8,9 @@
 #ifndef INSTRUCTIONS_H_
 #define INSTRUCTIONS_H_
 
-enum cmd {
+#define NB_INSTRUCTIONS 0x10
+
+enum instruction {
 	ZERO,
 	LIVE,
 	LD,
