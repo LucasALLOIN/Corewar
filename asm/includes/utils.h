@@ -9,5 +9,6 @@
 #define UTILS_H_
 
 void *my_calloc(int size);
+int my_strlen(char const *str);
 
 #endif /* UTILS_H_ */
