@@ -20,7 +20,11 @@ NAME	?=	asm
 
 REAL	=	$(ROOT)/release
 
-SRC	=	
+SRC	=	$(SRC_DIR)/main.c 		\
+		$(SRC_DIR)/asm.c 		\
+		$(SRC_DIR)/utils/my_calloc.c 	\
+		$(SRC_DIR)/utils/my_strlen.c 	\
+		$(SRC_DIR)/utils/free_it.c
 
 WARN	=	-W -Wall -Wextra
 
