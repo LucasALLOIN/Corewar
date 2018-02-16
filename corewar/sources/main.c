@@ -10,6 +10,7 @@
 #include "corewar.h"
 #include "bin_parser.h"
 
+//TODO: -a make it create an extra prog
 int get_args(char *argv[], int i, core_t *core, int nb_champ)
 {
 	switch (argv[i][1]) {
@@ -43,7 +44,7 @@ int parse_args(int argc, char *argv[], core_t *corewar)
 	while (argc >= ++i && argv[i] != 0x0) {
 	        if (argv[i][0] == '-' && argc > i)
 			err = get_args(argv, i, corewar, nb_champ);
-		else if (i && argv[i][0] != '-') {
+		else if (i && argv[i - 1][0] != '-') {
 			corewar->program_tab[nb_champ].file_name = my_calloc(my_strlen(argv[i]) + 1);
 			my_strcpy(corewar->program_tab[nb_champ].file_name, argv[i]);
 		        nb_champ++;
