@@ -26,15 +26,18 @@ static int load_memory(process_t process, core_t *core, int free_mem, int i)
 {
         int adress = 0;
 
-	if (process.load_adress == -1)
-		process.load_adress = get_load_adress(core, free_mem, i);
+	if (process.load_adress == -1) {
+		core->process_tab[i].load_adress = \
+		get_load_adress(core, free_mem, i);
+		core->process_tab[i].pc = core->process_tab[i].load_adress;
+	}
 #ifdef DEBUG_MODE
 	my_printf("=============== CHAMPION %s LOADING ================\n\n", \
 	process.header.prog_name);
-	my_printf("Adress: %d\nProg_size: %d\nMEM_SIZE %d\n\n", \
-	process.load_adress, process.header.prog_size, MEM_SIZE);
+	my_printf("Adress: %d\nProg_size: %d\nPC %d\n\n", \
+	process.load_adress, process.header.prog_size, process.pc);
 #endif
-	if (read(process.fd, &core->memory[process.load_adress], process.header.prog_size) == -1)
+	if (read(process.fd, &core->memory[core->process_tab[i].load_adress], process.header.prog_size) == -1)
 		return (84);
 	return (0);
 }
