@@ -23,11 +23,10 @@ void my_memcpy(void *mem_dest, const void *mem_src, int len)
 
 void dump_virtual_mem(byte_t memory[])
 {
-	for (int i = 0; i < MEM_SIZE + 1; ++i) {
-		my_putnbr_hexa(memory[i]);
-		if (i && (i % (MEM_SIZE / 250)) == 0)
-			write(1, "\n", 2);
-		else
-			write(1, " ", 1);
+	write(1, "0x000000 : ", 11);
+	for (int i = 1; i <= MEM_SIZE; ++i) {
+		my_printf("%#04x ", memory[i - 1]);
+		if ((i % (MEM_SIZE / 500)) == 0)
+			my_printf("\n%#08x : ", i - 1);
 	}
 }
