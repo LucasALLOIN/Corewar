@@ -25,7 +25,10 @@ void dump_virtual_mem(byte_t memory[])
 {
 	write(1, "0x000000 : ", 11);
 	for (int i = 1; i <= MEM_SIZE; ++i) {
-		my_printf("%#04x ", memory[i - 1]);
+		if (!memory[i - 1])
+			my_printf("%#04x ", memory[i - 1]);
+		else
+			my_printf("\e[1;32m%#04x \e[0m", memory[i - 1]);
 		if ((i % (MEM_SIZE / 500)) == 0)
 			my_printf("\n%#08x : ", i - 1);
 	}
