@@ -8,6 +8,8 @@
 #include "corewar.h"
 #include "instructions.h"
 
+//TODO: add | sub | and | or | xor
+
 int instruction_add(core_t *core, process_t *process, int *args)
 {
 	return(1);

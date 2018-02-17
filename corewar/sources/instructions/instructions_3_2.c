@@ -8,6 +8,8 @@
 #include "corewar.h"
 #include "instructions.h"
 
+//TODO: ldi | sti | lldi
+
 int instruction_ldi(core_t *core, process_t *process, int *args)
 {
 	return(1);

@@ -11,6 +11,7 @@
 #include "mem_manage.h"
 #include "utils.h"
 
+//TODO: fork | lfork | aff
 int instruction_live(core_t *core, process_t *process, int *args)
 {
 	int adress = GET_ADRESS(process->pc + 1);
