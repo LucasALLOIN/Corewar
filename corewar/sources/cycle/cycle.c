@@ -56,28 +56,39 @@ int exec_process(process_t *process, core_t *core, int i)
 	int inst = 0;
 	int actual_pc = uchar_to_int(&core->memory[GET_ADRESS(process->pc + 1)]);
 
-	my_printf("PC: %d\nLoad Adress: %d\nInstuction: %#04x\n", actual_pc, process->load_adress, core->memory[process->pc]);
+	my_printf("PC: %d\nLoad Adress: %d\nInstuction: %#04x\n", process->pc, core->cycle_to_die, core->memory[process->pc]);
 	get_ins_args(core->memory[GET_ADRESS(process->pc + 1)], args);
 	for (int i = 0; i < 3; i++)
 		my_printf("Args %d: %d\n", i, args[i]);
 	inst = core->memory[GET_ADRESS(process->pc)];
-	if (process.was_wating) {
-		process_was_waiting = 0;
-		INSTRUCTION_ARRAY[(inst <= 0x0f) ? inst : 0](core, process, args);
-		args = get_args(core->memory, process);
-		set_process_counter(process, core, inst);
-	} else if (!process.was_waiting) {
-		process->turn_to_exec = get_wating_cycle(instruction);
-		process->was_waiting = 1;
-	}
+	INSTRUCTION_ARRAY[(inst <= 0x0f) ? inst : 0](core, process, args);
+	//set_process_counter(process, core, inst);
 	return (0);
+}
+
+void check_death(process_t *process)
+{
+	if (process->last_live_cycle == -1) {
+		process->is_alive = 0;
+	} else
+		process->last_live_cycle = -1;
 }
 
 int cycle(core_t *core)
 {
 
 	for (int i = 0; i < core->nb_progs; ++i) {
-		exec_process(&core->process_tab[i], core, i);
+		if (core->process_tab[i].is_alive)
+			exec_process(&core->process_tab[i], core, i);
+	}
+	if (core->nb_live >= NBR_LIVE) {
+		core->nb_live == 0;
+		core->cycle_to_die -= CYCLE_DELTA;
+	}
+	if (core->nbr_cycle == core->cycle_to_die) {
+		for (int i = 0; i < core->nb_progs; i++)
+			check_death(&core->process_tab[i]);
+		core->nbr_cycle = 0;
 	}
 	/*
 	if (!(cycle % cycle_to_die)) {

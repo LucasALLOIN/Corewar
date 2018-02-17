@@ -29,6 +29,7 @@ typedef struct core_s {
 	process_t process_tab[MAX_ARGS_NUMBER];
 	int cycle_to_die;
 	int nbr_cycle;
+	int nb_live;
 	int nb_progs;
 	int nb_dump;
 } core_t;

@@ -35,6 +35,8 @@ static int load_memory(process_t process, core_t *core, int free_mem, int i)
 	core->process_tab[i].number = i;
 	int_to_uchar(i, core->process_tab[i].registers[0]);
 	core->process_tab[i].carry = 0;
+	core->process_tab[i].is_alive = 1;
+	core->process_tab[i].last_live_cycle = -1;
 #ifdef DEBUG_MODE
 	my_printf("=============== CHAMPION %s LOADING ================\n\n", \
 	process.header.prog_name);

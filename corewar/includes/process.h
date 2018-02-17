@@ -16,6 +16,8 @@ typedef struct prog_s {
 	int was_waiting;
 	int pc;
 	int carry;
+	int is_alive;
+	int last_live_cycle;
 	int fd;
 	int number;
 } process_t;
