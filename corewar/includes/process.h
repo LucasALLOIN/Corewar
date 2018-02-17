@@ -13,6 +13,7 @@ typedef struct prog_s {
 	int load_adress;
 	header_t header;
 	int turn_to_exec;
+	int was_waiting;
 	int pc;
 	int carry;
 	int fd;
