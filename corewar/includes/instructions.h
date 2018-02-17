@@ -31,7 +31,7 @@ int instruction_lfork(core_t *core, process_t *process, int *args);
 int instruction_aff(core_t *core, process_t *process, int *args);
 
 //TODO: fill the array of cycle number
-const int cycle[16] = { 0 };
+//const int cycle_x[16] = { 0 };
 
 static int (* const INSTRUCTION_ARRAY[17]) (core_t *, process_t *, int *) = {
 	&instruction_error,

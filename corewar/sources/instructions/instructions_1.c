@@ -37,13 +37,16 @@ int instruction_zjmp(core_t *core, process_t *process, int *args)
 	return(1);
 }
 
+//TODO: NEED TO REFACTOR PROCESS NEED A TAB PER PROGAM to make fork possible
 int instruction_fork(core_t *core, process_t *process, int *args)
 {
+	process->pc += 3;
 	return(1);
 }
 
 int instruction_lfork(core_t *core, process_t *process, int *args)
 {
+	process->pc += 3;
 	return(1);
 }
 
