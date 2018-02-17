@@ -7,9 +7,11 @@
 
 #include "corewar.h"
 #include "instructions.h"
+#include "my_printf.h"
 
 int instruction_live(core_t *core, process_t *process, int *args)
 {
+	printf("\e[1;35mJE VIS ALLOIN REGARDE\e[0m\n");
 	return(1);
 }
 

@@ -12,26 +12,6 @@
 
 #include "corewar.h"
 
-enum instruction {
-	ZERO,
-	LIVE,
-	LD,
-	ST,
-	ADD,
-	SUB,
-	AND,
-	OR,
-	XOR,
-	ZJMP,
-	LDI,
-	STI,
-	FORK,
-	LLD,
-	LLDI,
-	LFORK,
-	AFF
-};
-
 int instruction_error(core_t *core, process_t *process, int *args);
 int instruction_live(core_t *core, process_t *process, int *args);
 int instruction_ld(core_t *core, process_t *process, int *args);
@@ -51,23 +31,23 @@ int instruction_lfork(core_t *core, process_t *process, int *args);
 int instruction_aff(core_t *core, process_t *process, int *args);
 
 static int (* const INSTRUCTION_ARRAY[17]) (core_t *, process_t *, int *) = {
-	instruction_error,
-	instruction_live,
-	instruction_ld,
-	instruction_st,
-	instruction_add,
-	instruction_sub,
-	instruction_and,
-	instruction_or,
-	instruction_xor,
-	instruction_zjmp,
-	instruction_ldi,
-	instruction_sti,
-	instruction_fork,
-	instruction_lld,
-	instruction_lldi,
-	instruction_lfork,
-	instruction_aff
+	&instruction_error,
+	&instruction_live,
+	&instruction_ld,
+	&instruction_st,
+	&instruction_add,
+	&instruction_sub,
+	&instruction_and,
+	&instruction_or,
+	&instruction_xor,
+	&instruction_zjmp,
+	&instruction_ldi,
+	&instruction_sti,
+	&instruction_fork,
+	&instruction_lld,
+	&instruction_lldi,
+	&instruction_lfork,
+	&instruction_aff
 };
 
 #endif  /* INSTRUCTIONS_H_ */
