@@ -54,19 +54,31 @@ int exec_process(process_t *process, core_t *core, int i)
 {
 	int args[3] = {0, 0, 0};
 	int inst = 0;
-	int lol = uchar_to_int(&core->memory[GET_ADRESS(process->pc + 1)]);
+	int actual_pc = uchar_to_int(&core->memory[GET_ADRESS(process->pc + 1)]);
 
+<<<<<<< HEAD
 	my_printf("PC: %d\nLoad Adress: %d\nInstuction: %#04x\n", process->pc, core->cycle_to_die, core->memory[process->pc]);
+=======
+	my_printf("PC: %d\nLoad Adress: %d\nInstuction: %#04x\n", actual_pc, process->load_adress, core->memory[process->pc]);
+>>>>>>> ac9b8db95bfa082de443c645d5289a72fcb99f44
 	get_ins_args(core->memory[GET_ADRESS(process->pc + 1)], args);
 	for (int i = 0; i < 3; i++)
 		my_printf("Args %d: %d\n", i, args[i]);
-	//if (!process.turn_to_exec)
-	//	return (process.turn_to_exec--);
-	//TODO: get instruction get args
-	//args = get_args(core->memory, process);
 	inst = core->memory[GET_ADRESS(process->pc)];
+<<<<<<< HEAD
 	INSTRUCTION_ARRAY[(inst <= 0x0f) ? inst : 0](core, process, args);
 	//set_process_counter(process, core, inst);
+=======
+	if (process.was_wating) {
+		process_was_waiting = 0;
+		INSTRUCTION_ARRAY[(inst <= 0x0f) ? inst : 0](core, process, args);
+		args = get_args(core->memory, process);
+		set_process_counter(process, core, inst);
+	} else if (!process.was_waiting) {
+		process->turn_to_exec = get_wating_cycle(instruction);
+		process->was_waiting = 1;
+	}
+>>>>>>> ac9b8db95bfa082de443c645d5289a72fcb99f44
 	return (0);
 }
 
@@ -80,6 +92,7 @@ void check_death(process_t *process)
 
 int cycle(core_t *core)
 {
+
 	for (int i = 0; i < core->nb_progs; ++i) {
 		if (core->process_tab[i].is_alive)
 			exec_process(&core->process_tab[i], core, i);
