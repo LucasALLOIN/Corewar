@@ -9,6 +9,8 @@
 #include "instructions.h"
 #include "my_printf.h"
 
+//TODO: ld | st | lld
+
 int instruction_error(core_t *core, process_t *process, int *args)
 {
 	my_printf("\e[1;34mGood Job process %s you lost 1 cycle\e[0m\n" \
