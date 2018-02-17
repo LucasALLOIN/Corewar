@@ -50,66 +50,10 @@ void get_ins_args(byte_t byte, int *args)
 	}
 }
 
-void tmp_func(core_t *core, process_t *process, int *args, int instruction)
-{
-	switch (instruction) {
-	case LIVE:
-		instruction_live(core, process, args);
-		break;
-	case LD:
-		instruction_ld(core, process, args);
-		break;
-	case ST:
-		instruction_st(core, process, args);
-		break;
-	case ADD:
-		instruction_add(core, process, args);
-		break;
-	case SUB:
-		instruction_sub(core, process, args);
-		break;
-	case AND:
-		instruction_and(core, process, args);
-		break;
-	case OR:
-		instruction_or(core, process, args);
-		break;
-	case XOR:
-		instruction_xor(core, process, args);
-		break;
-	case ZJMP:
-		instruction_zjmp(core, process, args);
-		break;
-	case LDI:
-		instruction_ldi(core, process, args);
-		break;
-	case STI:
-		instruction_sti(core, process, args);
-		break;
-	case FORK:
-		instruction_fork(core, process, args);
-		break;
-	case LLD:
-		instruction_lld(core, process, args);
-		break;
-	case LLDI:
-		instruction_lldi(core, process, args);
-		break;
-	case LFORK:
-		instruction_lfork(core, process, args);
-		break;
-	case AFF:
-		instruction_aff(core, process, args);
-		break;
-	default:
-		instruction_error(core, process, args);
-	}
-}
-
 int exec_process(process_t *process, core_t *core, int i)
 {
 	int args[3] = {0, 0, 0};
-	int instruction = 0;
+	int inst = 0;
 	int lol = uchar_to_int(process->registers[0]);
 
 	my_printf("PC: %d\nLoad Adress: %d\nInstuction: %#04x\n", lol, process->load_adress, core->memory[process->pc]);
@@ -120,10 +64,9 @@ int exec_process(process_t *process, core_t *core, int i)
 	//	return (process.turn_to_exec--);
 	//TODO: get instruction get args
 	//args = get_args(core->memory, process);
-	instruction = core->memory[GET_ADRESS(process->pc)];
-	tmp_func(core, process, args, instruction);
-	//(*INSTRUCTION_ARRAY[instruction]) (core, process, args);
-	set_process_counter(process, core, instruction);
+	inst = core->memory[GET_ADRESS(process->pc)];
+	INSTRUCTION_ARRAY[(inst <= 0x0f) ? inst : 0](core, process, args);
+	set_process_counter(process, core, inst);
 	return (0);
 }
 
