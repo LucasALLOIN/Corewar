@@ -8,15 +8,25 @@
 #include "corewar.h"
 #include "instructions.h"
 #include "my_printf.h"
+#include "mem_manage.h"
 
 int instruction_live(core_t *core, process_t *process, int *args)
 {
-	printf("\e[1;35mJE VIS ALLOIN REGARDE\e[0m\n");
+	int adress = GET_ADRESS(process->pc + 1);
+
+	for (int i = 0; i < core->nb_progs; i++)
+		if (process->number == uchar_to_int(&core->memory[adress])) {
+			//do things
+			my_printf("The player %d(%s) is alive.\n",
+		        process->number, process->header.prog_name);
+		}
+	process->pc += 5;
 	return(1);
 }
 
 int instruction_zjmp(core_t *core, process_t *process, int *args)
 {
+	
 	return(1);
 }
 

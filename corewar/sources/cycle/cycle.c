@@ -54,7 +54,7 @@ int exec_process(process_t *process, core_t *core, int i)
 {
 	int args[3] = {0, 0, 0};
 	int inst = 0;
-	int lol = uchar_to_int(process->registers[0]);
+	int lol = uchar_to_int(&core->memory[GET_ADRESS(process->pc + 1)]);
 
 	my_printf("PC: %d\nLoad Adress: %d\nInstuction: %#04x\n", lol, process->load_adress, core->memory[process->pc]);
 	get_ins_args(core->memory[GET_ADRESS(process->pc + 1)], args);
