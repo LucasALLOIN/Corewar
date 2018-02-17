@@ -30,7 +30,7 @@ enum instruction {
 	AFF
 };
 
-(int) const (*INSTRUCTION_ARRAY) (int *args) = {
+(int) const (*INSTRUCTION_ARRAY) (core_t *core, process_t process, int *args) = {
 	&instruction_error,
 	&instruction_live,
 	&instruction_ld,
