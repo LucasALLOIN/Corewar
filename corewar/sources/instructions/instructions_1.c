@@ -5,17 +5,32 @@
 ** instructions with 1 parameter
 */
 
-#include "instruction.h"
 #include "corewar.h"
+#include "instructions.h"
 
-int instruction_live(UNUSED core_t *core, process_t process, int *args)
+int instruction_live(core_t *core, process_t *process, int *args)
 {
-	return(args[0]);
+	return(1);
 }
 
-int instruction_ld(UNUSED core_t *core, process_t process, int *args)
+int instruction_zjmp(core_t *core, process_t *process, int *args)
 {
-	
-	return();
+	return(1);
 }
+
+int instruction_fork(core_t *core, process_t *process, int *args)
+{
+	return(1);
+}
+
+int instruction_lfork(core_t *core, process_t *process, int *args)
+{
+	return(1);
+}
+
+int instruction_aff(core_t *core, process_t *process, int *args)
+{
+	return(1);
+}
+
 
