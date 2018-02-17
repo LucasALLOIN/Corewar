@@ -10,6 +10,7 @@
 
 #include "corewar.h"
 
+void my_putchar(char c);
 int my_getnbr(char *str);
 void *my_calloc(int size);
 int my_strcmp(const char *test, const char *res);

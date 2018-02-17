@@ -30,10 +30,11 @@ static int load_memory(process_t process, core_t *core, int free_mem, int i)
 	if (process.load_adress == -1) {
 		core->process_tab[i].load_adress = \
 		get_load_adress(core, free_mem, i);
-		core->process_tab[i].pc = core->process_tab[i].load_adress;
-		core->process_tab[i].number = i;
-		int_to_uchar(i, core->process_tab[i].registers[0]);
 	}
+	core->process_tab[i].pc = core->process_tab[i].load_adress;
+	core->process_tab[i].number = i;
+	int_to_uchar(i, core->process_tab[i].registers[0]);
+	core->process_tab[i].carry = 0;
 #ifdef DEBUG_MODE
 	my_printf("=============== CHAMPION %s LOADING ================\n\n", \
 	process.header.prog_name);
