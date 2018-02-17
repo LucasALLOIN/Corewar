@@ -30,26 +30,7 @@ enum instruction {
 	AFF
 };
 
-int instruction_error(core_t *core, process_t *process, int *args);
-int instruction_live(core_t *core, process_t *process, int *args);
-int instruction_ld(core_t *core, process_t *process, int *args);
-int instruction_st(core_t *core, process_t *process, int *args);
-int instruction_add(core_t *core, process_t *process, int *args);
-int instruction_sub(core_t *core, process_t *process, int *args);
-int instruction_and(core_t *core, process_t *process, int *args);
-int instruction_or(core_t *core, process_t *process, int *args);
-int instruction_xor(core_t *core, process_t *process, int *args);
-int instruction_zjmp(core_t *core, process_t *process, int *args);
-int instruction_ldi(core_t *core, process_t *process, int *args);
-int instruction_sti(core_t *core, process_t *process, int *args);
-int instruction_fork(core_t *core, process_t *process, int *args);
-int instruction_lld(core_t *core, process_t *process, int *args);
-int instruction_lldi(core_t *core, process_t *process, int *args);
-int instruction_lfork(core_t *core, process_t *process, int *args);
-int instruction_aff(core_t *core, process_t *process, int *args);
-
-/*
-int  (*INSTRUCTION_ARRAY[17]) (core_t *core, process_t process, int *args) = {
+(int) const (*INSTRUCTION_ARRAY) (core_t *core, process_t process, int *args) = {
 	&instruction_error,
 	&instruction_live,
 	&instruction_ld,
