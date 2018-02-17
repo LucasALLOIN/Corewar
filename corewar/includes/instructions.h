@@ -30,7 +30,26 @@ enum instruction {
 	AFF
 };
 
-(int) const (*INSTRUCTION_ARRAY) (int *args) = {
+int instruction_error(core_t *core, process_t *process, int *args);
+int instruction_live(core_t *core, process_t *process, int *args);
+int instruction_ld(core_t *core, process_t *process, int *args);
+int instruction_st(core_t *core, process_t *process, int *args);
+int instruction_add(core_t *core, process_t *process, int *args);
+int instruction_sub(core_t *core, process_t *process, int *args);
+int instruction_and(core_t *core, process_t *process, int *args);
+int instruction_or(core_t *core, process_t *process, int *args);
+int instruction_xor(core_t *core, process_t *process, int *args);
+int instruction_zjmp(core_t *core, process_t *process, int *args);
+int instruction_ldi(core_t *core, process_t *process, int *args);
+int instruction_sti(core_t *core, process_t *process, int *args);
+int instruction_fork(core_t *core, process_t *process, int *args);
+int instruction_lld(core_t *core, process_t *process, int *args);
+int instruction_lldi(core_t *core, process_t *process, int *args);
+int instruction_lfork(core_t *core, process_t *process, int *args);
+int instruction_aff(core_t *core, process_t *process, int *args);
+
+/*
+int  (*INSTRUCTION_ARRAY[17]) (core_t *core, process_t process, int *args) = {
 	&instruction_error,
 	&instruction_live,
 	&instruction_ld,
@@ -49,23 +68,5 @@ enum instruction {
 	&instruction_lfork,
 	&instruction_aff
 };
-
-int instruction_error(int *args);
-int instruction_live(int *args);
-int instruction_ld(int *args);
-int instruction_st(int *args);
-int instruction_add(int *args);
-int instruction_sub(int *args);
-int instruction_and(int *args);
-int instruction_or(int *args);
-int instruction_xor(int *args);
-int instruction_zjmp(int *args);
-int instruction_ldi(int *args);
-int instruction_sti(int *args);
-int instruction_fork(int *args);
-int instruction_lld(int *args);
-int instruction_lldi(int *args);
-int instruction_lfork(int *args);
-int instruction_aff(int *args);
-
+*/
 #endif  /* INSTRUCTIONS_H_ */

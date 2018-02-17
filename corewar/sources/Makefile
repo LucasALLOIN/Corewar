@@ -20,14 +20,19 @@ NAME	?=	corewar
 
 REAL	=	$(ROOT)/release
 
-SRC	=	$(SRC_DIR)/core/core.c		\
-		$(SRC_DIR)/main.c		\
-		$(SRC_DIR)/utils/my_calloc.c	\
-		$(SRC_DIR)/utils/str_utils.c	\
-		$(SRC_DIR)/bin_parser/parser.c	\
-		$(SRC_DIR)/utils/my_memcpy.c	\
-		$(SRC_DIR)/memory/corewar_init.c\
-		$(SRC_DIR)/cycle/cycle.c
+SRC	=	$(SRC_DIR)/core/core.c				\
+		$(SRC_DIR)/main.c				\
+		$(SRC_DIR)/utils/my_calloc.c			\
+		$(SRC_DIR)/utils/str_utils.c			\
+		$(SRC_DIR)/bin_parser/parser.c			\
+		$(SRC_DIR)/utils/my_memcpy.c			\
+		$(SRC_DIR)/memory/corewar_init.c		\
+		$(SRC_DIR)/cycle/cycle.c			\
+		$(SRC_DIR)/instructions/instructions_1.c	\
+		$(SRC_DIR)/instructions/instructions_2.c	\
+		$(SRC_DIR)/instructions/instructions_3.c	\
+		$(SRC_DIR)/instructions/instructions_3_2.c	\
+		$(SRC_DIR)/memory/mem_manage.c
 
 WARN	=	-W -Wall -Wextra
 

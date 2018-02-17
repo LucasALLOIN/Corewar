@@ -71,6 +71,7 @@ int main(int argc, char *argv[])
 	if (err == -1)
 		return (84);
 	corewar_init(corewar);
-	cycle(corewar);
+        for (int i = 0; i < 16; i++)
+		cycle(corewar);
 	return (0);
 }
