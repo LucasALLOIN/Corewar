@@ -24,7 +24,7 @@ void print_others(va_list var, arg_option_t *arg_opt)
 		while (arg_opt->conv_type != INT[i])
 			i++;
 		print_good_type(var, arg_opt, i);
-	} else if (is_in(&(arg_opt->conv_type), (char *) STR)){
+	} else if (is_in(&(arg_opt->conv_type), (char *) STR)) {
 		while (arg_opt->conv_type != STR[i])
 			i++;
 		PRINT_STR[i](va_arg(var, char *), arg_opt->precision,
@@ -35,7 +35,7 @@ void print_others(va_list var, arg_option_t *arg_opt)
 void print_arg(va_list var, arg_option_t *arg_opt)
 {
 	if (arg_opt->conv_type == 'p')
-		my_print_pointer((void *) va_arg(var, void*));
+		my_print_pointer((void *) va_arg(var, void *));
 	else
 		print_others(var, arg_opt);
 }

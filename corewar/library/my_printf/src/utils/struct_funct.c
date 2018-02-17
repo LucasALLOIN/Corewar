@@ -29,7 +29,7 @@ arg_option_t *init_arg(void)
 arg_option_t **alloc_all_arg(int size)
 {
 	int i = 0;
-	arg_option_t **args = malloc(sizeof(arg_option_t*) * size);
+	arg_option_t **args = malloc(sizeof(arg_option_t *) * size);
 
 	while (i < size)
 		args[i++] = init_arg();

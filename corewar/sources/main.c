@@ -43,12 +43,12 @@ int parse_args(int argc, char *argv[], core_t *corewar)
 	int err = 0;
 
 	while (argc >= ++i && argv[i] != 0x0) {
-	        if (argv[i][0] == '-' && argc > i)
+		if (argv[i][0] == '-' && argc > i)
 			err = get_args(argv, i, corewar, nb_champ);
 		else if (i && argv[i - 1][0] != '-') {
 			corewar->program_tab[nb_champ].file_name = my_calloc(my_strlen(argv[i]) + 1);
 			my_strcpy(corewar->program_tab[nb_champ].file_name, argv[i]);
-		        nb_champ++;
+			nb_champ++;
 		}
 		if (err != 0)
 			return (-1);
@@ -71,5 +71,7 @@ int main(int argc, char *argv[])
 	if (err == -1)
 		return (84);
 	corewar_init(corewar);
+	for (int i = 0; i < 16; i++)
+		cycle(corewar);
 	return (0);
 }
