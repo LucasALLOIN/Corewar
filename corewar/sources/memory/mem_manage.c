@@ -31,3 +31,20 @@ int uchar_to_int(byte_t *byte)
 	mem_int.byte[3] = byte[0];
 	return (mem_int.nb);
 }
+
+void short_to_uchar(short nb, byte_t *byte)
+{
+	mem_short_t mem_short = {.nb = nb};
+
+	byte[0] = mem_short.byte[1];
+	byte[1] = mem_short.byte[0];
+}
+
+short uchar_to_short(byte_t *byte)
+{
+	mem_short_t mem_short;
+
+	mem_short.byte[0] = byte[1];
+	mem_short.byte[1] = byte[0];
+	return (mem_short.nb);
+}
