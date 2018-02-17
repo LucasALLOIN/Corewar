@@ -9,11 +9,12 @@
 #include "op.h"
 #include "corewar.h"
 
-core_t *create_core(void) {
+core_t *create_core(void)
+{
 	core_t *core = my_calloc(sizeof(core_t));
-	
+
 	for (int i = 0; i < MAX_ARGS_NUMBER; ++i) {
 		core->process_tab[i].load_adress = -1;
 	}
-        return (core);
+	return (core);
 }

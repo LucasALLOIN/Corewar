@@ -13,7 +13,7 @@
 
 void int_to_uchar(int nb, byte_t *byte)
 {
-        mem_int_t mem_int = {.nb = nb};
+	mem_int_t mem_int = {.nb = nb};
 
 	byte[0] = mem_int.byte[3];
 	byte[1] = mem_int.byte[2];
