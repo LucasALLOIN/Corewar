@@ -14,6 +14,7 @@ typedef struct prog_s {
 	header_t header;
 	int turn_to_exec;
 	int pc;
+	int carry;
 	int fd;
 	int number;
 } process_t;
