@@ -32,4 +32,3 @@ int instruction_lld(core_t *core, process_t *process, int *args)
 {
 	return(1);
 }
-
