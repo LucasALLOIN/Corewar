@@ -56,29 +56,19 @@ int exec_process(process_t *process, core_t *core, int i)
 	int inst = 0;
 	int actual_pc = uchar_to_int(&core->memory[GET_ADRESS(process->pc + 1)]);
 
-<<<<<<< HEAD
-	my_printf("PC: %d\nLoad Adress: %d\nInstuction: %#04x\n", process->pc, core->cycle_to_die, core->memory[process->pc]);
-=======
 	my_printf("PC: %d\nLoad Adress: %d\nInstuction: %#04x\n", actual_pc, process->load_adress, core->memory[process->pc]);
->>>>>>> ac9b8db95bfa082de443c645d5289a72fcb99f44
 	get_ins_args(core->memory[GET_ADRESS(process->pc + 1)], args);
 	for (int i = 0; i < 3; i++)
 		my_printf("Args %d: %d\n", i, args[i]);
 	inst = core->memory[GET_ADRESS(process->pc)];
-<<<<<<< HEAD
-	INSTRUCTION_ARRAY[(inst <= 0x0f) ? inst : 0](core, process, args);
-	//set_process_counter(process, core, inst);
-=======
-	if (process.was_wating) {
-		process_was_waiting = 0;
+	if (process->was_waiting) {
+		process->was_waiting = 0;
 		INSTRUCTION_ARRAY[(inst <= 0x0f) ? inst : 0](core, process, args);
-		args = get_args(core->memory, process);
 		set_process_counter(process, core, inst);
-	} else if (!process.was_waiting) {
-		process->turn_to_exec = get_wating_cycle(instruction);
+	} else if (!process->was_waiting) {
+	  //process->turn_to_exec = get_wating_cycle(inst);
 		process->was_waiting = 1;
 	}
->>>>>>> ac9b8db95bfa082de443c645d5289a72fcb99f44
 	return (0);
 }
 
