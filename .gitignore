@@ -3,5 +3,6 @@
 vgcore.*
 *.o
 *.swp
+*.swo
 *.a
 .dir*
