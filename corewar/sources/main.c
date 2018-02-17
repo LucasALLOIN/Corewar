@@ -57,6 +57,26 @@ int parse_args(int argc, char *argv[], core_t *corewar)
 	return (0);
 }
 
+int is_champ_alive(core_t *core)
+{
+	int z = 0;
+
+	for (int i = 0; i < core->nb_progs; i++) {
+		if (core->process_tab[i].is_alive)
+			z++;
+	}
+	if (z > 1)
+		return (1);
+	for (int i = 0; i < core->nb_progs; i++)
+		if (core->process_tab[i].is_alive) {
+			z = 3;
+			my_printf("The player %d(%s) has won.",
+			core->process_tab[i].number,
+			core->process_tab[i].header.prog_name);
+		}
+	return (0);
+}
+
 int main(int argc, char *argv[])
 {
 	core_t *corewar = create_core();
@@ -71,7 +91,7 @@ int main(int argc, char *argv[])
 	if (err == -1)
 		return (84);
 	corewar_init(corewar);
-	for (int i = 0; i < 16; i++)
+	for (; is_champ_alive(corewar);)
 		cycle(corewar);
 	return (0);
 }
