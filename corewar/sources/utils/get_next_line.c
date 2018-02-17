@@ -36,8 +36,8 @@ int verify(int fd, char *buffer, int *f_read, int *size)
 		*f_read = 1;
 	} else if (*f_read == 2 && last_fd != fd) {
 		*size = read(fd, buffer, READ_SIZE);
-                *f_read = 1;
-        }
+		*f_read = 1;
+	}
 	last_fd = fd;
 	if (*size < 0 || (*size == 0 && buffer[0] == 0))
 		return (1);

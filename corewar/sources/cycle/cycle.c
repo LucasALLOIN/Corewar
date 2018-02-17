@@ -52,23 +52,23 @@ void get_ins_args(byte_t byte, int *args)
 
 void tmp_func(core_t *core, process_t *process, int *args, int instruction)
 {
-	switch(instruction) {
-        case LIVE:
+	switch (instruction) {
+	case LIVE:
 		instruction_live(core, process, args);
 		break;
 	case LD:
 		instruction_ld(core, process, args);
 		break;
-        case ST:
+	case ST:
 		instruction_st(core, process, args);
 		break;
-        case ADD:
+	case ADD:
 		instruction_add(core, process, args);
 		break;
-        case SUB:
+	case SUB:
 		instruction_sub(core, process, args);
 		break;
-        case AND:
+	case AND:
 		instruction_and(core, process, args);
 		break;
 	case OR:
@@ -131,7 +131,8 @@ int cycle(core_t *core)
 {
 	for (int i = 0; i < core->nb_progs; ++i) {
 		exec_process(&core->process_tab[i], core, i);
-	}/*
+	}
+	/*
 	if (!(cycle % cycle_to_die)) {
 		check_alive();
 		}*/

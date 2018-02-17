@@ -14,9 +14,9 @@
 void my_memcpy(void *mem_dest, const void *mem_src, int len)
 {
 	while (len) {
-		*((unsigned char*)mem_dest) = *((unsigned char*)mem_src);
-		(unsigned char*)mem_dest++;
-		(unsigned char*)mem_src++;
+		*((unsigned char *)mem_dest) = *((unsigned char *)mem_src);
+		(unsigned char *)mem_dest++;
+		(unsigned char *)mem_src++;
 		len--;
 	}
 }

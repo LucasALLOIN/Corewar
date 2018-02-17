@@ -24,7 +24,7 @@ int my_strcmp(const char *str1, const char *str2)
 char *my_strdup(const char *str)
 {
 	int i = -1;
-	char *new_str = my_calloc(sizeof(char) * (my_strlen((char*)str) + 1));
+	char *new_str = my_calloc(sizeof(char) * (my_strlen((char *)str) + 1));
 
 	while (str[++i])
 		new_str[i] = str[i];

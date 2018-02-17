@@ -25,7 +25,7 @@ int get_load_adress(core_t *core, int free_mem, int i)
 
 static int load_memory(process_t process, core_t *core, int free_mem, int i)
 {
-        int adress = 0;
+	int adress = 0;
 
 	if (process.load_adress == -1) {
 		core->process_tab[i].load_adress = \
@@ -45,16 +45,11 @@ static int load_memory(process_t process, core_t *core, int free_mem, int i)
 	return (0);
 }
 
-//int init_prog(core_t *core, program_t prog)
-//{	
-//	load_memory(prog, core->memory);
-//}
-
 int total_size(core_t *core)
 {
 	int res = 0;
 
-        for (int i = 0; i  < core->nb_progs; ++i)
+	for (int i = 0; i  < core->nb_progs; ++i)
 		res += core->process_tab[i].header.prog_size;
 	return (res);
 }
