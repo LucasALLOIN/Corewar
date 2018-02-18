@@ -10,7 +10,6 @@
 #include "corewar.h"
 #include "bin_parser.h"
 
-//TODO: -a make it create an extra prog
 int get_args(char *argv[], int i, core_t *core, int nb_champ)
 {
 	switch (argv[i][1]) {

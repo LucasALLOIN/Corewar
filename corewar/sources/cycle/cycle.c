@@ -11,22 +11,6 @@
 #include "my_printf.h"
 #include "mem_manage.h"
 
-int set_process_counter(process_t *process, core_t *core, int instruction)
-{
-	int temp_pc = process->pc;
-
-	if (instruction == 0x01 || instruction == 0x09 ||
-	    instruction == 0x0c || instruction == 0x0f ||
-	    instruction == 0x10)
-		process->pc += 4;
-	else if (instruction == 0x02 || instruction == 0x03 ||
-		 instruction == 0x0d)
-		process->pc += 8;
-	else
-		process->pc += 12;
-	return (0);
-}
-
 void get_ins_args(byte_t byte, int *args)
 {
 	char val[8];
@@ -56,7 +40,8 @@ int exec_process(process_t *process, core_t *core, int i)
 	int inst = 0;
 	int actual_pc = uchar_to_int(&core->memory[GET_ADRESS(process->pc + 1)]);
 
-	my_printf("PC: %d\nLoad Adress: %d\nInstuction: %#04x\n", actual_pc, process->load_adress, core->memory[process->pc]);
+	if (--process->turn_to_exec > 0)
+		return (-1);	
 	get_ins_args(core->memory[GET_ADRESS(process->pc + 1)], args);
 	for (int i = 0; i < 3; i++)
 		my_printf("Args %d: %d\n", i, args[i]);
@@ -64,9 +49,9 @@ int exec_process(process_t *process, core_t *core, int i)
 	if (process->was_waiting) {
 		process->was_waiting = 0;
 		INSTRUCTION_ARRAY[(inst <= 0x0f) ? inst : 0](core, process, args);
-		//set_process_counter(process, core, inst);
+		my_printf("PC: %d\nLoad Adress: %d\nInstuction: %#04x\n", actual_pc, process->load_adress, core->memory[process->pc]);
 	} else if (!process->was_waiting) {
-	  	process->was_waiting = cycle_x[inst];
+	  	process->turn_to_exec = cycle_x[inst];
 		process->was_waiting = 1;
 	}
 	return (0);
@@ -76,8 +61,9 @@ void check_death(process_t *process)
 {
 	if (process->last_live_cycle == -1) {
 		process->is_alive = 0;
-	} else
+	} else {
 		process->last_live_cycle = -1;
+	}
 }
 
 int cycle(core_t *core)
@@ -96,9 +82,5 @@ int cycle(core_t *core)
 			check_death(&core->process_tab[i]);
 		core->nbr_cycle = 0;
 	}
-	/*
-	if (!(cycle % cycle_to_die)) {
-		check_alive();
-		}*/
 	core->nbr_cycle++;
 }
