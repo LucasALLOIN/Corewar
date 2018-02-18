@@ -64,9 +64,9 @@ int exec_process(process_t *process, core_t *core, int i)
 	if (process->was_waiting) {
 		process->was_waiting = 0;
 		INSTRUCTION_ARRAY[(inst <= 0x0f) ? inst : 0](core, process, args);
-		set_process_counter(process, core, inst);
+		//set_process_counter(process, core, inst);
 	} else if (!process->was_waiting) {
-	  //process->turn_to_exec = get_wating_cycle(inst);
+	  	process->was_waiting = cycle_x[inst];
 		process->was_waiting = 1;
 	}
 	return (0);
