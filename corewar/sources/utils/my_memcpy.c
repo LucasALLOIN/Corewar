@@ -29,7 +29,8 @@ void dump_virtual_mem(byte_t memory[])
 			my_printf("%#04x ", memory[i - 1]);
 		else
 			my_printf("\e[1;32m%#04x \e[0m", memory[i - 1]);
-		if ((i % (MEM_SIZE / 500)) == 0)
+		if ((i % (MEM_SIZE / 500)) == 0 && i < MEM_SIZE)
 			my_printf("\n%#08x : ", i - 1);
 	}
+	write(1, "\n", 1);
 }
