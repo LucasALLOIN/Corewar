@@ -1,1 +1,4 @@
 .vscode
+test*
+asm
+library/libmyprintf.a

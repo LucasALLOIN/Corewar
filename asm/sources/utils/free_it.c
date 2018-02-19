@@ -5,6 +5,8 @@
 **
 */
 
+#include <stdlib.h>
+
 void free_it(char **pointer)
 {
 	free(*pointer);

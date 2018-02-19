@@ -8,15 +8,10 @@
 #ifndef ASM_H_
 #define ASM_H_
 
-void free_it(char **pointer);
-
-#define GARBAGE __attribute__((cleanup(free_it)))
-
-union endianner {
-	int n;
-	char c[4];
-};
-
+int encode_name(char const *name, int fd);
+int encode_description(char const *description, int fd);
 int assembler(int ac, char **av);
+int detect_comment(int fd, char **desc);
+int detect_name(int fd, char **name);
 
 #endif /* ASM_H_ */
