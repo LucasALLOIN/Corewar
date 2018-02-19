@@ -8,7 +8,24 @@
 #ifndef UTILS_H_
 #define UTILS_H_
 
+#define READ_SIZE (1024)
+
+void free_it(char **pointer);
+
+#define GARBAGE __attribute__((cleanup(free_it)))
+
+union endianner {
+	int n;
+	char c[4];
+};
+
 void *my_calloc(int size);
 int my_strlen(char const *str);
+char *get_next_line(int fd);
+int match(char const *s1, char const *s2);
+char *get_file(int fd);
+char *my_strcat(char *src1, char *src2);
+char *clean_str(char const *str);
+char *append(char *src, char c);
 
 #endif /* UTILS_H_ */

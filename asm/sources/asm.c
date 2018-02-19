@@ -13,40 +13,26 @@
 #include "asm.h"
 #include "utils.h"
 
-int encode_name(char const *name, int fd)
-{
-	union endianner endianner;
-	GARBAGE char *memory_zone = my_calloc(PROG_NAME_LENGTH);
-
-	endianner.n = COREWAR_EXEC_MAGIC;
-	for (int i = 0; i < 4; i++) {
-		memory_zone[i] = endianner.c[4 - (i + 1)];
-	}
-	for (int i = 0; i < my_strlen(name); i++) {
-		memory_zone[i + 4] = name[i];
-	}
-	write(fd, memory_zone, PROG_NAME_LENGTH);
-	return (1);
-}
-
-int encode_description(char const *description, int fd)
-{
-	GARBAGE char *memory_zone = my_calloc(COMMENT_LENGTH + 16);
-
-	for (int i = 0; i < my_strlen(description); i++) {
-		memory_zone[i + 11] = description[i];
-	}
-	write(fd, memory_zone, COMMENT_LENGTH + 16);
-	return (1);
-}
-
 int assembler(int ac, char **av)
 {
-	int fd = open("test.cor", O_CREAT | O_RDWR);
+	int fd = open("test.s", O_RDONLY);
+	int fd2 = open("test.cor", O_CREAT | O_RDWR);
+	char *name = get_file(fd);
+	char *comment;
 
-	encode_name("zork", fd);
-	encode_description("description", fd);
-	write(fd, "Hello !", 7);
+	//detect_name(fd, &name);
+	//detect_comment(fd, &comment);
+
+	//write(1, name, my_strlen(name));
+
+	//write(1, comment, my_strlen(comment));
+
+	//encode_name("zork", fd);
+	//encode_description("description", fd);
+	//write(fd, "Hello !", 7);
+	write(1, name, my_strlen(name));
+	write(fd2, name, my_strlen(name));
 	close(fd);
+	close(fd2);
 	return (0);
 }
