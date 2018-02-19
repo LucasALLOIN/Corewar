@@ -27,5 +27,7 @@ char *get_file(int fd);
 char *my_strcat(char *src1, char *src2);
 char *clean_str(char const *str);
 char *append(char *src, char c);
+int find_next(char const *mem, char c);
+void my_memcpy(void *mem_dest, const void *mem_src, int len);
 
 #endif /* UTILS_H_ */

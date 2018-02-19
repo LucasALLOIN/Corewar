@@ -8,31 +8,63 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+#include <stdlib.h>
 #include <unistd.h>
 #include "op.h"
 #include "asm.h"
 #include "utils.h"
 
+static char *compose_filename(char const *file)
+{
+	char *new_file = 0x0;
+	int of = 0;
+
+	while (find_next(file + of, '/') != -1) {
+		of = of + find_next(file + of, '/') + 1;
+	}
+	if (find_next(file + of, '.') != -1) {
+		new_file = my_calloc(find_next(file + of, '.'));
+		my_memcpy(new_file, file + of, find_next(file + of, '.'));
+	} else {
+		new_file = my_calloc(my_strlen(file) + 1);
+		my_memcpy(new_file, file + of, my_strlen(file));
+	}
+	new_file = my_strcat(new_file, ".cor");
+	return (new_file);
+}
+
+static int assemble(char const *file, char const *filename)
+{
+	GARBAGE char *new_filename = compose_filename(filename);
+	program_t *program = 0x0;
+	int fd = open(new_filename, O_CREAT | O_RDWR, S_IRWXU);
+
+	program = split(file);
+	encode_name(program->name, fd);
+	encode_description(program->description, fd);
+	encode_code(program->code, fd);
+	free_program(program);
+	free(program);
+	close(fd);
+	return (0);
+}
+
 int assembler(int ac, char **av)
 {
-	int fd = open("test.s", O_RDONLY);
-	int fd2 = open("test.cor", O_CREAT | O_RDWR);
-	char *name = get_file(fd);
-	char *comment;
+	GARBAGE char *file = 0x0;
+	int fd = 0;
 
-	//detect_name(fd, &name);
-	//detect_comment(fd, &comment);
-
-	//write(1, name, my_strlen(name));
-
-	//write(1, comment, my_strlen(comment));
-
-	//encode_name("zork", fd);
-	//encode_description("description", fd);
-	//write(fd, "Hello !", 7);
-	write(1, name, my_strlen(name));
-	write(fd2, name, my_strlen(name));
+	if (ac != 2) {
+		write(2, "There should be an argument.\n", 29);
+		return (84);
+	}
+	fd = open(av[1], O_RDONLY);
+	if (fd == -1) {
+		write(2, "File couldn't be opened.\n", 25);
+		return (84);
+	}
+	file = get_file(fd);
+	assemble(file, av[1]);
 	close(fd);
-	close(fd2);
 	return (0);
 }

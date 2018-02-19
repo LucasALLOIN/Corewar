@@ -9,40 +9,6 @@
 #include "op.h"
 #include "utils.h"
 
-int detect_name(int fd, char **name)
-{
-	char *temp = get_next_line(fd);
-
-	while (temp) {
-		if (temp[0] == '#') {
-			temp = get_next_line(fd);
-		} else if (match(".name *", temp)) {
-			*name = temp;
-			return (0);
-		} else {
-			return (1);
-		}
-	}
-	return (1);
-}
-
-int detect_comment(int fd, char **desc)
-{
-	char *temp = get_next_line(fd);
-
-	while (temp) {
-		if (temp[0] == '#') {
-			temp = get_next_line(fd);
-		} else if (match(".comment *", temp)) {
-			*desc = temp;
-			return (0);
-		} else {
-			return (1);
-		}
-	}
-	return (1);
-}
-
 int encode_name(char const *name, int fd)
 {
 	union endianner endianner;
