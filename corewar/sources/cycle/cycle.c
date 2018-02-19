@@ -38,7 +38,7 @@ int exec_process(process_t *process, core_t *core, int i)
 {
 	int args[3] = {0, 0, 0};
 	int inst = 0;
-	int actual_pc = uchar_to_int(&core->memory[GET_ADRESS(process->pc + 1)]);
+	//int actual_pc = uchar_to_int(core, process->pc + 1);
 
 	if (--process->turn_to_exec > 0)
 		return (-1);	
@@ -49,7 +49,7 @@ int exec_process(process_t *process, core_t *core, int i)
 	if (process->was_waiting) {
 		process->was_waiting = 0;
 		INSTRUCTION_ARRAY[(inst <= 0x0f) ? inst : 0](core, process, args);
-		my_printf("PC: %d\nLoad Adress: %d\nInstuction: %#04x\n", actual_pc, process->load_adress, core->memory[process->pc]);
+		my_printf("PC: %d\nLoad Adress: %d\nInstuction: %#04x\n", process->pc, process->load_adress, core->memory[process->pc]);
 	} else if (!process->was_waiting) {
 	  	process->turn_to_exec = cycle_x[inst];
 		process->was_waiting = 1;

@@ -17,7 +17,7 @@ int instruction_live(core_t *core, process_t *process, int *args)
 	int adress = GET_ADRESS(process->pc + 1);
 
 	for (int i = 0; i < core->nb_progs; i++)
-		if (process->number == uchar_to_int(&core->memory[adress])) {
+	  if (process->number == uchar_to_int(core, adress)) {
 			process->last_live_cycle = core->nbr_cycle;
 			my_printf("The player %d(%s) is alive.\n",
 		        process->number, process->header.prog_name);
@@ -33,7 +33,7 @@ int instruction_zjmp(core_t *core, process_t *process, int *args)
 
 	if (!process->carry)
 		return (0);
-	process->pc += (uchar_to_short(&core->memory[adress]) % IDX_MOD);
+	process->pc += (uchar_to_short(core, adress) % IDX_MOD);
 	return(1);
 }
 

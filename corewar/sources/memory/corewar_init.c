@@ -25,15 +25,13 @@ int get_load_adress(core_t *core, int free_mem, int i)
 
 static int load_memory(process_t process, core_t *core, int free_mem, int i)
 {
-	int adress = 0;
-
 	if (process.load_adress == -1) {
 		core->process_tab[i].load_adress = \
 		get_load_adress(core, free_mem, i);
 	}
 	core->process_tab[i].pc = core->process_tab[i].load_adress;
 	core->process_tab[i].number = i;
-	int_to_uchar(i, core->process_tab[i].registers[0]);
+	int_to_reg(i, core->process_tab[i].registers[0]);
 	core->process_tab[i].carry = 0;
 	core->process_tab[i].is_alive = 1;
 	core->process_tab[i].last_live_cycle = -1;

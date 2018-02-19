@@ -11,40 +11,40 @@
 #include "my_printf.h"
 #include "mem_manage.h"
 
-void int_to_uchar(int nb, byte_t *byte)
+void int_to_uchar(core_t *core, int nb, int start)
 {
 	mem_int_t mem_int = {.nb = nb};
 
-	byte[0] = mem_int.byte[3];
-	byte[1] = mem_int.byte[2];
-	byte[2] = mem_int.byte[1];
-	byte[3] = mem_int.byte[0];
+	core->memory[GET_ADRESS(start)] = mem_int.byte[3];
+        core->memory[GET_ADRESS(start + 1)] = mem_int.byte[2];
+	core->memory[GET_ADRESS(start + 2)] = mem_int.byte[1];
+        core->memory[GET_ADRESS(start + 3)] = mem_int.byte[0];
 }
 
-int uchar_to_int(byte_t *byte)
+int uchar_to_int(core_t *core, int start)
 {
 	mem_int_t mem_int;
 
-	mem_int.byte[0] = byte[3];
-	mem_int.byte[1] = byte[2];
-	mem_int.byte[2] = byte[1];
-	mem_int.byte[3] = byte[0];
+	mem_int.byte[0] = core->memory[GET_ADRESS(start + 3)];
+	mem_int.byte[1] = core->memory[GET_ADRESS(start + 2)];
+	mem_int.byte[2] = core->memory[GET_ADRESS(start + 1)];
+	mem_int.byte[3] = core->memory[GET_ADRESS(start)];
 	return (mem_int.nb);
 }
 
-void short_to_uchar(short nb, byte_t *byte)
+void short_to_uchar(core_t *core, short nb, int start)
 {
 	mem_short_t mem_short = {.nb = nb};
 
-	byte[0] = mem_short.byte[1];
-	byte[1] = mem_short.byte[0];
+        core->memory[GET_ADRESS(start)] = mem_short.byte[1];
+	core->memory[GET_ADRESS(start + 1)] = mem_short.byte[0];
 }
 
-short uchar_to_short(byte_t *byte)
+short uchar_to_short(core_t *core, int start)
 {
 	mem_short_t mem_short;
 
-	mem_short.byte[0] = byte[1];
-	mem_short.byte[1] = byte[0];
+	mem_short.byte[0] = core->memory[GET_ADRESS(start + 1)];
+	mem_short.byte[1] = core->memory[GET_ADRESS(start)];
 	return (mem_short.nb);
 }

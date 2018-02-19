@@ -18,9 +18,13 @@ typedef union mem_short_s {
 	byte_t byte[2];
 } mem_short_t;
 
-void int_to_uchar(int nb, byte_t *byte);
-int uchar_to_int(byte_t *byte);
-void short_to_uchar(short nb, byte_t *byte);
-short uchar_to_short(byte_t *byte);
+void int_to_uchar(core_t *core, int nb, int start);
+int uchar_to_int(core_t *core, int start);
+void short_to_uchar(core_t *core, short nb, int start);
+short uchar_to_short(core_t *core, int start);
 
+void int_to_reg(int nb, byte_t *byte);
+int reg_to_int(byte_t *byte);
+void short_to_reg(short nb, byte_t *byte);
+short reg_to_short(byte_t *byte);
 #endif /* MEM_MANAGE_H_ */
