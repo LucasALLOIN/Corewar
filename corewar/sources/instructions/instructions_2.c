@@ -56,9 +56,9 @@ int instruction_st(core_t *core, process_t *process, int *args)
 		process->registers[core->memory[GET_ADRESS(pc + 3)]]);
 	    	process->pc += 4;
 	} else if (args[1] == T_DIR) {
-		int_to_uchar(core, reg_to_int(process->registers(core->memory \
-		[GET_ADRESS(pc + 2)])), pc + \ 
-		uchar_to_int(core->memory[GET_ADRESS(pc + 3)]));
+		int_to_uchar(core, reg_to_int(process->registers[core->memory \
+		[GET_ADRESS(pc + 2)]]), pc + \ 
+		uchar_to_int(core, core->memory[GET_ADRESS(pc + 3)]));
 	}
 	return (process->carry = 1);
 }
