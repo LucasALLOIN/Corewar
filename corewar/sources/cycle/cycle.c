@@ -41,7 +41,7 @@ int exec_process(process_t *process, core_t *core, int i)
 	//int actual_pc = uchar_to_int(core, process->pc + 1);
 
 	if (--process->turn_to_exec > 0)
-		return (-1);	
+		return (-1);
 	get_ins_args(core->memory[ADRESS(process->pc + 1)], args);
 	for (int i = 0; i < 3; i++)
 		my_printf("Args %d: %d\n", i, args[i]);
@@ -57,12 +57,12 @@ int exec_process(process_t *process, core_t *core, int i)
 	return (0);
 }
 
-void check_death(process_t *process)
+void check_death(program_t *program)
 {
-	if (process->last_live_cycle == -1) {
-		process->is_alive = 0;
+	if (program->last_live_cycle == -1) {
+		program->is_alive = 0;
 	} else {
-		process->last_live_cycle = -1;
+		program->last_live_cycle = -1;
 	}
 }
 
@@ -70,16 +70,16 @@ int cycle(core_t *core)
 {
 
 	for (int i = 0; i < core->nb_progs; ++i) {
-		if (core->process_tab[i].is_alive)
-			exec_process(&core->process_tab[i], core, i);
+		if (core->program_tab[i].is_alive)
+			exec_process(core->program_tab[i].process_l, core, i);
 	}
 	if (core->nb_live >= NBR_LIVE) {
-		core->nb_live == 0;
+		core->nb_live = 0;
 		core->cycle_to_die -= CYCLE_DELTA;
 	}
 	if (core->nbr_cycle == core->cycle_to_die) {
 		for (int i = 0; i < core->nb_progs; i++)
-			check_death(&core->process_tab[i]);
+			check_death(&core->program_tab[i]);
 		core->nbr_cycle = 0;
 	}
 	core->nbr_cycle++;
