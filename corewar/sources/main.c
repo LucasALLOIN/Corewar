@@ -19,7 +19,7 @@ int get_args(char *argv[], int i, core_t *core, int nb_champ)
 		break;
 	case 'a':
 		core->program_tab[nb_champ].adress = my_getnbr(argv[i + 1]);
-		core->process_tab[nb_champ].load_adress = my_getnbr(argv[i + 1]);
+		core->program_tab[nb_champ].process_l->load_adress = my_getnbr(argv[i + 1]);
 		my_printf("a = %s\n", argv[i + 1]);
 		break;
 	default:
@@ -61,17 +61,17 @@ int is_champ_alive(core_t *core)
 	int z = 0;
 
 	for (int i = 0; i < core->nb_progs; i++) {
-		if (core->process_tab[i].is_alive)
+		if (core->program_tab[i].is_alive)
 			z++;
 	}
 	if (z > 1)
 		return (1);
 	for (int i = 0; i < core->nb_progs; i++)
-		if (core->process_tab[i].is_alive) {
+		if (core->program_tab[i].is_alive) {
 			z = 3;
 			my_printf("The player %d(%s) has won.",
-			core->process_tab[i].number,
-			core->process_tab[i].header.prog_name);
+			core->program_tab[i].number,
+			core->program_tab[i].header.prog_name);
 		}
 	return (0);
 }
