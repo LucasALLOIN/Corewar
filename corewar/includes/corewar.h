@@ -8,12 +8,12 @@
 #ifndef COREWAR_H_
 #define COREWAR_H_
 
-#include "args.h"
 #include "op.h"
 
 typedef unsigned char byte_t;
 
 #include "process.h"
+#include "args.h"
 
 #define GET_ADRESS(x) (x % MEM_SIZE)
 
@@ -26,7 +26,6 @@ typedef unsigned char byte_t;
 typedef struct core_s {
 	byte_t memory[MEM_SIZE];
         program_t program_tab[MAX_ARGS_NUMBER];
-	process_t process_tab[MAX_ARGS_NUMBER];
 	int cycle_to_die;
 	int nbr_cycle;
 	int nb_live;

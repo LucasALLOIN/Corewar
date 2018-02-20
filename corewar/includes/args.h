@@ -19,6 +19,7 @@ typedef struct program_s {
 	int live_code;
 	int adress;
 	char *file_name;
+	process_t *process_l;
 } program_t;
 
 #endif /* ARGS_H_ */
