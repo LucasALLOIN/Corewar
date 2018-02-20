@@ -16,6 +16,7 @@ typedef unsigned char byte_t;
 #include "process.h"
 
 #define GET_ADRESS(x) (x % MEM_SIZE)
+#define CHAMPIONS 4
 
 /*
  * Core_t: Main corewar structure.
