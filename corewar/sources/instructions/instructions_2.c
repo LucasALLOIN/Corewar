@@ -46,7 +46,21 @@ int instruction_ld(core_t *core, process_t *process, int *args)
 
 int instruction_st(core_t *core, process_t *process, int *args)
 {
-	return(1);
+	unsigned int pc = process->pc;
+
+	if (!check_valid(args, T_REG, T_REG | T_DIR, 0))
+		return (process->carry = 0);
+	if (args[1] == T_REG) {
+ 		int_to_reg(reg_to_int(process->registers  \
+		[core->memory[GET_ADRESS(pc + 2)]]),      \ 
+		process->registers[core->memory[GET_ADRESS(pc + 3)]]);
+	    	process->pc += 4;
+	} else if (args[1] == T_DIR) {
+		int_to_uchar(core, reg_to_int(process->registers(core->memory \
+		[GET_ADRESS(pc + 2)])), pc + \ 
+		uchar_to_int(core->memory[GET_ADRESS(pc + 3)]));
+	}
+	return (process->carry = 1);
 }
 
 int instruction_lld(core_t *core, process_t *process, int *args)
