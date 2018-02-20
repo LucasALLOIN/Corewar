@@ -20,6 +20,11 @@ typedef struct program_s {
 	int adress;
 	char *file_name;
 	process_t *process_l;
+	int is_alive;
+	int number;
+	int fd;
+	int last_live_cycle;
+	header_t header;
 } program_t;
 
 #endif /* ARGS_H_ */
