@@ -15,20 +15,20 @@ void int_to_uchar(core_t *core, int nb, int start)
 {
 	mem_int_t mem_int = {.nb = nb};
 
-	core->memory[GET_ADRESS(start)] = mem_int.byte[3];
-        core->memory[GET_ADRESS(start + 1)] = mem_int.byte[2];
-	core->memory[GET_ADRESS(start + 2)] = mem_int.byte[1];
-        core->memory[GET_ADRESS(start + 3)] = mem_int.byte[0];
+	core->memory[ADRESS(start)] = mem_int.byte[3];
+        core->memory[ADRESS(start + 1)] = mem_int.byte[2];
+	core->memory[ADRESS(start + 2)] = mem_int.byte[1];
+        core->memory[ADRESS(start + 3)] = mem_int.byte[0];
 }
 
 int uchar_to_int(core_t *core, int start)
 {
 	mem_int_t mem_int;
 
-	mem_int.byte[0] = core->memory[GET_ADRESS(start + 3)];
-	mem_int.byte[1] = core->memory[GET_ADRESS(start + 2)];
-	mem_int.byte[2] = core->memory[GET_ADRESS(start + 1)];
-	mem_int.byte[3] = core->memory[GET_ADRESS(start)];
+	mem_int.byte[0] = core->memory[ADRESS(start + 3)];
+	mem_int.byte[1] = core->memory[ADRESS(start + 2)];
+	mem_int.byte[2] = core->memory[ADRESS(start + 1)];
+	mem_int.byte[3] = core->memory[ADRESS(start)];
 	return (mem_int.nb);
 }
 
@@ -36,14 +36,14 @@ void short_to_uchar(core_t *core, short nb, int start)
 {
 	mem_short_t mem_short = {.nb = nb};
 
-        core->memory[GET_ADRESS(start)] = mem_short.byte[1];
-	core->memory[GET_ADRESS(start + 1)] = mem_short.byte[0];
+        core->memory[ADRESS(start)] = mem_short.byte[1];
+	core->memory[ADRESS(start + 1)] = mem_short.byte[0];
 }
 
 short uchar_to_short(core_t *core, int start)
 {
 	mem_short_t mem_short;
-	mem_short.byte[0] = core->memory[GET_ADRESS(start + 1)];
-	mem_short.byte[1] = core->memory[GET_ADRESS(start)];
+	mem_short.byte[0] = core->memory[ADRESS(start + 1)];
+	mem_short.byte[1] = core->memory[ADRESS(start)];
 	return (mem_short.nb);
 }

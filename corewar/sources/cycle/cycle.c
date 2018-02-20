@@ -41,11 +41,11 @@ int exec_process(process_t *process, core_t *core, int i)
 	//int actual_pc = uchar_to_int(core, process->pc + 1);
 
 	if (--process->turn_to_exec > 0)
-		return (-1);
-	get_ins_args(core->memory[GET_ADRESS(process->pc + 1)], args);
+		return (-1);	
+	get_ins_args(core->memory[ADRESS(process->pc + 1)], args);
 	for (int i = 0; i < 3; i++)
 		my_printf("Args %d: %d\n", i, args[i]);
-	inst = core->memory[GET_ADRESS(process->pc)];
+	inst = core->memory[ADRESS(process->pc)];
 	if (process->was_waiting) {
 		process->was_waiting = 0;
 		INSTRUCTION_ARRAY[(inst <= 0x0f) ? inst : 0](core, process, args);

@@ -21,24 +21,32 @@ int instruction_error(core_t *core, process_t *process, int *args)
 	return(1);
 }
 
+/*
+** instruction_ld:
+** load the arg 0 into arg 1
+**
+** //// instructions ////
+**
+*/
 int instruction_ld(core_t *core, process_t *process, int *args)
 {
 	unsigned int pc = process->pc;
+	byte_t *memory = core->memory;
+	byte_t **reg = process->registers;
 
 	if (!check_valid(args, T_REG | T_DIR | T_IND | T_LAB, T_REG, 0))
 		return (process->carry = 0);
 	if (args[0] == T_REG) {
- 		int_to_reg(reg_to_int(process->registers \
-		[core->memory[GET_ADRESS(pc + 2)]]), \ 
-		process->registers[core->memory[GET_ADRESS(pc + 3)]]);
+ 		int_to_reg(reg_to_int(reg[memory[ADRESS(pc + 2)]]), \
+		reg[memory[ADRESS(pc + 3)]]);
 	    	process->pc += 4;
 	} else if (args[0] == T_DIR) {
-	    	int_to_reg(uchar_to_int(core, pc + 2), \ 
-		process->registers[core->memory[pc + 6]]);
+	    	int_to_reg(uchar_to_int(core, pc + 2), \
+		process->registers[memory[pc + 6]]);
 	    	process->pc += 7;
 	} else if (args[0] == T_IND || args[0] == T_LAB) {
-	    	short_to_reg(uchar_to_short(core, pc + uchar_to_short(core ,pc \
-		+ 2) % IDX_MOD), process->registers[core->memory[pc + 4]]);
+	    	short_to_reg(uchar_to_short(core, pc + \ 
+		uchar_to_short(core ,pc + 2) % IDX_MOD), reg[memory[pc + 4]]);
 	    	process->pc += 5;
 	}
 	return (process->carry = 1);
@@ -47,23 +55,43 @@ int instruction_ld(core_t *core, process_t *process, int *args)
 int instruction_st(core_t *core, process_t *process, int *args)
 {
 	unsigned int pc = process->pc;
+	byte_t *memory = core->memory;
+	byte_t **reg = process->registers;
 
 	if (!check_valid(args, T_REG, T_REG | T_DIR, 0))
 		return (process->carry = 0);
 	if (args[1] == T_REG) {
- 		int_to_reg(reg_to_int(process->registers  \
-		[core->memory[GET_ADRESS(pc + 2)]]),      \ 
-		process->registers[core->memory[GET_ADRESS(pc + 3)]]);
+ 		int_to_reg(reg_to_int(reg[memory[ADRESS(pc + 2)]]),	\ 
+		reg[memory[ADRESS(pc + 3)]]);
 	    	process->pc += 4;
 	} else if (args[1] == T_DIR) {
-		int_to_uchar(core, reg_to_int(process->registers[core->memory \
-		[GET_ADRESS(pc + 2)]]), pc + \ 
-		uchar_to_int(core, core->memory[GET_ADRESS(pc + 3)]));
+		int_to_uchar(core, reg_to_int(reg[memory[ADRESS(pc + 2)]]), \ 
+		pc + uchar_to_int(core, memory[ADRESS(pc + 3)]));
 	}
 	return (process->carry = 1);
 }
 
 int instruction_lld(core_t *core, process_t *process, int *args)
-{
+{	
+	unsigned int pc = process->pc;
+	byte_t *memory = core->memory;
+	byte_t **reg = process->registers;
+
+	if (!check_valid(args, T_REG | T_DIR | T_IND | T_LAB, T_REG, 0))
+		return (process->carry = 0);
+	if (args[0] == T_REG) {
+ 		int_to_reg(reg_to_int(reg[memory[ADRESS(pc + 2)]]), \
+		reg[memory[ADRESS(pc + 3)]]);
+	    	process->pc += 4;
+	} else if (args[0] == T_DIR) {
+	    	int_to_reg(uchar_to_int(core, pc + 2), \
+		process->registers[memory[pc + 6]]);
+	    	process->pc += 7;
+	} else if (args[0] == T_IND || args[0] == T_LAB) {
+	    	short_to_reg(uchar_to_short(core, pc + \ 
+		uchar_to_short(core ,pc + 2)), reg[memory[pc + 4]]);
+	    	process->pc += 5;
+	}
+	return (process->carry = 1);
 	return(1);
 }

@@ -14,7 +14,7 @@
 //TODO: fork | lfork | aff
 int instruction_live(core_t *core, process_t *process, int *args)
 {
-	int adress = GET_ADRESS(process->pc + 1);
+	int adress = ADRESS(process->pc + 1);
 
 	for (int i = 0; i < core->nb_progs; i++)
 	  if (process->parent->number == uchar_to_int(core, adress)) {
@@ -29,7 +29,7 @@ int instruction_live(core_t *core, process_t *process, int *args)
 
 int instruction_zjmp(core_t *core, process_t *process, int *args)
 {
-	int adress = GET_ADRESS(process->pc + 1);
+	int adress = ADRESS(process->pc + 1);
 
 	if (!process->carry)
 		return (0);
@@ -52,7 +52,7 @@ int instruction_lfork(core_t *core, process_t *process, int *args)
 
 int instruction_aff(core_t *core, process_t *process, int *args)
 {
-	int adress = GET_ADRESS(process->pc + 2);
+	int adress = ADRESS(process->pc + 2);
 
 	//my_putchar(uchar_to_int(&core->memory[adress]) % 256);
 	return(1);
