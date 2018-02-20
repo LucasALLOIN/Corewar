@@ -33,7 +33,8 @@ SRC	=	$(SRC_DIR)/core/core.c				\
 		$(SRC_DIR)/instructions/instructions_3.c	\
 		$(SRC_DIR)/instructions/instructions_3_2.c	\
 		$(SRC_DIR)/memory/mem_manage.c			\
-		$(SRC_DIR)/memory/reg_manage.c
+		$(SRC_DIR)/memory/reg_manage.c			\
+		$(SRC_DIR)/instructions/instruction.c
 
 WARN	=	-W -Wall -Wextra
 

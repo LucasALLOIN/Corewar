@@ -53,5 +53,6 @@ static int (* const INSTRUCTION_ARRAY[17]) (core_t *, process_t *, int *) = {
 };
 
 int get_wating_cycle(int instruction);
+int check_valid(int *args, int one, int two, int th);
 
 #endif  /* INSTRUCTIONS_H_ */
