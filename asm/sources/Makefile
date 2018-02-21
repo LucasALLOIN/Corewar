@@ -20,13 +20,31 @@ NAME	?=	asm
 
 REAL	=	$(ROOT)/release
 
-SRC	=	
+SRC	=	$(SRC_DIR)/main.c 			\
+		$(SRC_DIR)/asm.c 			\
+		$(SRC_DIR)/op.c 			\
+		$(SRC_DIR)/file_splitter.c		\
+		$(SRC_DIR)/encoders/header.c		\
+		$(SRC_DIR)/encoders/code.c		\
+		$(SRC_DIR)/encoders/asm_utils.c		\
+		$(SRC_DIR)/encoders/op_encoder.c	\
+		$(SRC_DIR)/utils/my_calloc.c 		\
+		$(SRC_DIR)/utils/my_atoi.c 		\
+		$(SRC_DIR)/utils/my_strlen.c 		\
+		$(SRC_DIR)/utils/free_it.c		\
+		$(SRC_DIR)/utils/get_next_line.c	\
+		$(SRC_DIR)/utils/match.c		\
+		$(SRC_DIR)/utils/clean_str.c		\
+		$(SRC_DIR)/utils/get_file.c		\
+		$(SRC_DIR)/utils/my_strcat.c		\
+		$(SRC_DIR)/utils/find_next.c		\
+		$(SRC_DIR)/utils/split_lines.c
 
 WARN	=	-W -Wall -Wextra
 
 CFLAGS	=	-I $(ROOT)/includes $(WARN) -g
 
-LDFLAGS	=	-L $(ROOT)/library
+LDFLAGS	=	-L $(ROOT)/library -l myprintf
 
 LIB	?=	1
 
