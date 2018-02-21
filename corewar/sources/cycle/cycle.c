@@ -41,7 +41,7 @@ int exec_process(process_t *process, core_t *core, int i)
 	//int actual_pc = uchar_to_int(core, process->pc + 1);
 
 	if (--process->turn_to_exec > 0)
-		return (-1);	
+		return (-1);
 	get_ins_args(core->memory[ADRESS(process->pc + 1)], args);
 	for (int i = 0; i < 3; i++)
 		my_printf("Args %d: %d\n", i, args[i]);
