@@ -78,9 +78,9 @@ struct header_s
 {
    int  magic;
 #define COREWAR_EXEC_MAGIC      0xea83f3        /* why not */
-   char prog_name[PROG_NAME_LENGTH + 1];
+   char *prog_name;
    int  prog_size;
-   char comment[COMMENT_LENGTH + 1];
+   char *comment;
 };
 
 typedef struct header_s header_t;

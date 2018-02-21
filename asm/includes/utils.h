@@ -29,5 +29,9 @@ char *clean_str(char const *str);
 char *append(char *src, char c);
 int find_next(char const *mem, char c);
 void my_memcpy(void *mem_dest, const void *mem_src, int len);
+int find_prec(char const *mem, int index, char c);
+char **split_lines(char const *str);
+char **split_spaces(char const *str);
+int my_atoi(char const *str);
 
 #endif /* UTILS_H_ */

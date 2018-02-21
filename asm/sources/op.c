@@ -10,7 +10,7 @@
 
 #include "op.h"
 
-op_t    op_tab[] =
+op_t op_tab[] =
   {
     {"live", 1, {T_DIR}, 1, 10, "alive"},
     {"ld", 2, {T_DIR | T_IND, T_REG}, 2, 5, "load"},
@@ -34,5 +34,5 @@ op_t    op_tab[] =
      "long load index"},
     {"lfork", 1, {T_DIR}, 15, 1000, "long fork"},
     {"aff", 1, {T_REG}, 16, 2, "aff"},
-    {0, 0, {0}, 0, 0, 0}
+    {0x0, 0, {0}, 0, 0, 0x0}
   };
