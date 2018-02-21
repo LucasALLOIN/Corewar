@@ -66,12 +66,20 @@ void check_death(program_t *program)
 	}
 }
 
+void exec_all_process(process_t *process, core_t *core, int i)
+{
+	while (process != NULL) {
+		exec_process(process, core, i);
+		process = process->next;
+	}
+}
+
 int cycle(core_t *core)
 {
 
 	for (int i = 0; i < core->nb_progs; ++i) {
 		if (core->program_tab[i].is_alive)
-			exec_process(core->program_tab[i].process_l, core, i);
+			exec_all_process(core->program_tab[i].process_l, core, i);
 	}
 	if (core->nb_live >= NBR_LIVE) {
 		core->nb_live = 0;
