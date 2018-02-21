@@ -36,15 +36,13 @@ static char *compose_filename(char const *file)
 static int assemble(char const *file, char const *filename)
 {
 	GARBAGE char *new_filename = compose_filename(filename);
-	program_t *program = 0x0;
+	GARBAGE char *program_code = 0x0;
+	header_t *header = my_calloc(sizeof(header_t));
 	int fd = open(new_filename, O_CREAT | O_RDWR, S_IRWXU);
 
-	program = split(file);
-	encode_name(program->name, fd);
-	encode_description(program->description, fd);
-	encode_code(program->code, fd);
-	free_program(program);
-	free(program);
+	program_code = split(file, header);
+	encode_code(program_code, fd, header);
+	free(header);
 	close(fd);
 	return (0);
 }

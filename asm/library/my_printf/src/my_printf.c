@@ -68,7 +68,7 @@ static void my_putformat(const char *format)
 	}
 }
 
-int my_printf(const char *format, ...)
+int __attribute__((visibility ("default"))) my_printf(const char *format, ...)
 {
 	va_list variables;
 	int nb_arg = get_nbarg(format);

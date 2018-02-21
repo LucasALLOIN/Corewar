@@ -15,8 +15,8 @@ char *get_file(int fd)
 
 	while (temp) {
 		temp = clean_str(temp);
-		if (my_strlen(temp) && temp[0] != '#') {
-			file = my_strlen(file) ? append(file, '\n') : file;
+		temp = my_strcat(temp, "\n");
+		if (my_strlen(temp) > 1 && temp[0] != '#') {
 			file = my_strcat(file, temp);
 		}
 		free(temp);

@@ -9,6 +9,7 @@
 #include <stdlib.h>
 #include "asm.h"
 #include "utils.h"
+#include "op.h"
 
 static char *extract_name(char const *file)
 {
@@ -34,9 +35,7 @@ static char *extract_description(char const *file)
 	int start = 0;
 	int end = 0;
 
-	if (!match(file, ".comment*")) {
-		offset = find_next(file, '\n') + 1;
-	}
+	offset = find_next(file, '\n') + 1;
 	if (!match(file + offset, ".comment*")) {
 		write(2, "Comment should be on the second line.\n", 38);
 	} else {
@@ -61,19 +60,9 @@ static char *extract_code(char const *file)
 	return (result);
 }
 
-program_t *split(char const *file)
+char *split(char const *file, header_t *header)
 {
-	program_t *program = my_calloc(sizeof(program_t));
-
-	program->name = extract_name(file);
-	program->description = extract_description(file);
-	program->code = extract_code(file);
-	return (program);
-}
-
-void free_program(program_t *program)
-{
-	free(program->name);
-	free(program->description);
-	free(program->code);
+	header->prog_name = extract_name(file);
+	header->comment = extract_description(file);
+	return (extract_code(file));
 }
