@@ -50,10 +50,8 @@ int compute_line_size(char const *line)
 	int size = has_not_coding_byte(line) ? 1 : 2;
 	char **params = split_spaces(line);
 
-	printf("%s ", params[0]);
 	for (int i = 1; params[i]; i++) {
 		params[i] = clean_separator(params[i]);
-		printf("%s ", params[i]);
 		switch (params[i][0]) {
 		case REG_CHAR:
 			size += 1;
@@ -66,7 +64,6 @@ int compute_line_size(char const *line)
 		}
 		free(params[i]);
 	}
-	printf("\n");
 	free(params[0]);
 	free(params);
 	return (size);

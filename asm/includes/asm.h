@@ -45,6 +45,9 @@ int compute_label_size(label_t *label);
 int compute_line_size(char const *line);
 void encode_instruction(ins_t *op, int fd);
 int has_not_coding_byte(char const *line);
+<<<<<<< HEAD
 char *clean_separator(char *str);
+=======
+>>>>>>> d63c65d0da314d0d4d945c2fd879b52bbb8bc89b
 
 #endif /* ASM_H_ */
