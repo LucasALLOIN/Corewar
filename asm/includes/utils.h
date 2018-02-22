@@ -8,11 +8,17 @@
 #ifndef UTILS_H_
 #define UTILS_H_
 
+#include "asm.h"
+
 #define READ_SIZE (1024)
 
 void free_it(char **pointer);
+void free_array(char ***array);
+void free_labels(label_t ***labels);
 
 #define GARBAGE __attribute__((cleanup(free_it)))
+#define GARBAGE_ARR __attribute__((cleanup(free_array)))
+#define GARBAGE_LAB __attribute__((cleanup(free_labels)))
 
 union endianner {
 	char c;
@@ -35,5 +41,6 @@ int find_prec(char const *mem, int index, char c);
 char **split_lines(char const *str);
 char **split_spaces(char const *str);
 int my_atoi(char const *str);
+int my_memcmp(void const *memblock1, void const *memblock2);
 
 #endif /* UTILS_H_ */

@@ -12,7 +12,7 @@ static label_t **first_pass(char const *code)
 {
 	label_t **labels = 0x0;
 	int nb_labels = 0;
-	char **lines = split_lines(code);
+	GARBAGE_ARR char **lines = split_lines(code);
 
 	for (int i = 0; lines[i]; i++) {
 		if (match(lines[i], "*:") && !match(lines[i], "*%:")) {
@@ -74,7 +74,7 @@ static void fourth_pass(label_t **labels, int fd)
 
 int encode_code(char const *code, int fd, header_t *header)
 {
-	label_t **labels = first_pass(code);
+	GARBAGE_LAB label_t **labels = first_pass(code);
 
 	second_pass(labels);
 	header->prog_size = third_pass(labels);
