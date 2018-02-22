@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2017
 ** sources/utils/find_next.c
 ** File description:
-**
+** Functions that find the next/prec occurence of a char
 */
 
 #include "utils.h"

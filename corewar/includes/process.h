@@ -15,6 +15,7 @@ typedef struct process_s {
 	int was_waiting;
 	unsigned int pc;
 	int carry;
+	int id;
 	struct program_s *parent;
         struct process_s *next;
 } process_t;
