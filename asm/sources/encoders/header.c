@@ -34,7 +34,8 @@ static void encode_description(char const *description, int fd)
 	write(fd, memory_zone, COMMENT_LENGTH + 4);
 }
 
-void encode_header(header_t *header, int fd) {
+void encode_header(header_t *header, int fd)
+{
 	char code = 0;
 	union endianner endianner;
 

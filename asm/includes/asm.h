@@ -10,7 +10,7 @@
 
 #include "op.h"
 
-struct op {
+struct instruction {
 	char code;
 	int control_byte;
 	int param1;
@@ -19,14 +19,14 @@ struct op {
 	int index;
 };
 
-typedef struct op instruction_t;
+typedef struct instruction ins_t;
 
 struct label {
 	char *name;
 	int id;
 	int sz;
 	char **lines;
-	instruction_t **instructions;
+	ins_t **ins;
 };
 
 typedef struct label label_t;
@@ -39,10 +39,11 @@ int detect_comment(int fd, char **desc);
 int detect_name(int fd, char **name);
 int check_coding_byte(char **params, int op_code);
 int compute_line_size(char const *line);
-instruction_t *line_encoding(char const *line, label_t **labels, int index);
+ins_t *line_encoding(char const *line, label_t **labels, int index);
 int create_label(label_t *label, char **lines);
 int compute_label_size(label_t *label);
 int compute_line_size(char const *line);
-void encode_instruction(instruction_t *op, int fd);
+void encode_instruction(ins_t *op, int fd);
+int has_not_coding_byte(char const *line);
 
 #endif /* ASM_H_ */
