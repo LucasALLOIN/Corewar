@@ -26,6 +26,7 @@ typedef unsigned char byte_t;
 */
 typedef struct core_s {
 	byte_t memory[MEM_SIZE];
+	byte_t owner_table[MEM_SIZE];
         program_t program_tab[MAX_ARGS_NUMBER];
 	int cycle_to_die;
 	int nbr_cycle;

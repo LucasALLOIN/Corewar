@@ -23,6 +23,7 @@ int get_load_adress(core_t *core, int free_mem, int i)
 	return (prog_space + separator);
 }
 
+
 static int load_memory(process_t *process, core_t *core, int free_mem, int i)
 {
 	if (process->load_adress == -1) {
@@ -55,6 +56,14 @@ int total_size(core_t *core)
 	return (res);
 }
 
+void set_owner_table(core_t *core, process_t *process)
+{
+	my_printf("%d %d\n", process->parent->header.prog_size, process->load_adress);
+        for (int i = 0; i < process->parent->header.prog_size; i++) {
+		core->owner_table[i + process->load_adress] = process->id;
+	}
+}
+
 int corewar_init(core_t *core)
 {
 	int b_size = total_size(core);
@@ -62,10 +71,11 @@ int corewar_init(core_t *core)
 	for (int i = 0; i < core->nb_progs; ++i) {
 		load_memory(core->program_tab[i].process_l, core, MEM_SIZE - b_size, i);
 		core->program_tab[i].process_l->parent = &core->program_tab[i];
+		set_owner_table(core, core->program_tab[i].process_l);
 	}
 #ifdef DEBUG_MODE
 	my_printf("===== MEMORY DUMP AFTER CHAMPION INJECTION =====\n\n");
-	dump_virtual_mem(core->memory);
+	dump_virtual_mem(core->owner_table);
 #endif
 	return (0);
 }

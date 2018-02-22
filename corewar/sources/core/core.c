@@ -20,6 +20,7 @@ core_t *create_core(void)
 	for (int i = 0; i < MAX_ARGS_NUMBER; ++i) {
 		core->program_tab[i].process_l = malloc(sizeof(process_t));
 		core->program_tab[i].process_l->load_adress = -1;
+		core->program_tab[i].process_l->id = i + 1;
 	}
 	return (core);
 }

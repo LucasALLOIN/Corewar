@@ -61,18 +61,19 @@ int instruction_st(core_t *core, process_t *process, int *args)
 	if (!check_valid(args, T_REG, T_REG | T_DIR, 0))
 		return (process->carry = 0);
 	if (args[1] == T_REG) {
- 		int_to_reg(reg_to_int(reg[memory[ADRESS(pc + 2)]]),	\ 
+ 		int_to_reg(reg_to_int(reg[memory[ADRESS(pc + 2)]]),	\
 		reg[memory[ADRESS(pc + 3)]]);
 	    	process->pc += 4;
 	} else if (args[1] == T_DIR) {
-		int_to_uchar(core, reg_to_int(reg[memory[ADRESS(pc + 2)]]), \ 
+		int_to_uchar(core, process, \
+		reg_to_int(reg[memory[ADRESS(pc + 2)]]), \
 		pc + uchar_to_int(core, memory[ADRESS(pc + 3)]));
 	}
 	return (process->carry = 1);
 }
 
 int instruction_lld(core_t *core, process_t *process, int *args)
-{	
+{
 	unsigned int pc = process->pc;
 	byte_t *memory = core->memory;
 	byte_t **reg = process->registers;
