@@ -111,7 +111,7 @@ clean:
 			$(V)rm -rf $(OBJS)
 			$(V)printf "$(ORANGE)removing object files.$(WHITE)\n"
 
-fclean:	clean
+fclean:			clean
 			$(V)rm -f $(REAL)/$(NAME)
 			$(V)rm -f $(ROOT)/$(NAME)
 			$(V)printf "$(ORANGE)removing binary file.$(WHITE)\n"
