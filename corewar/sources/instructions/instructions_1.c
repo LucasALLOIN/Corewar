@@ -39,22 +39,44 @@ int instruction_zjmp(core_t *core, process_t *process, int *args)
 
 int instruction_fork(core_t *core, process_t *process, int *args)
 {
+	if (!check_valid(args, T_IND, 0, 0)) {
+		process->pc += 1;
+		return (0);
+	}
+	short index = uchar_to_short(core, ADRESS(process->pc + 2));
+	int value = uchar_to_int(core, ADRESS(process->pc + 2 + index));
+	dump_process_fork(process->id, core, value, process);
 	process->pc += 3;
 	return(1);
 }
 
 int instruction_lfork(core_t *core, process_t *process, int *args)
 {
+	if (!check_valid(args, T_IND, 0, 0)) {
+		process->pc += 1;
+		return (0);
+	}
+	short index = uchar_to_short(core, ADRESS(process->pc + 2));
+	int value = uchar_to_int(core, process->pc + 2 + index);
+	dump_process_lfork(process->id, core, value, process);
 	process->pc += 3;
 	return(1);
 }
 
 int instruction_aff(core_t *core, process_t *process, int *args)
 {
-	int adress = ADRESS(process->pc + 2);
-
-	//my_putchar(uchar_to_int(&core->memory[adress]) % 256);
-	return(1);
+	int reg = 0;
+	if (!check_valid(args, T_REG, 0, 0)) {
+		process->pc += 1;
+		return (0);
+	}
+	reg = uchar_to_int(core, ADRESS(process->pc + 2));
+	int c = reg_to_int(process->registers[reg]) % 256;
+	char character = (char) c;
+	if (c > 31 && c < 127)
+		my_putchar(character);
+	process->pc = process->pc + 6;
+        return(1);
 }
 
 

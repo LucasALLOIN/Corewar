@@ -18,7 +18,7 @@ int my_strlen(char *str);
 char *my_strcpy(char *to, char *from);
 void my_memcpy(void *mem_set, const void *mem_src, int len);
 void dump_virtual_mem(byte_t memory[]);
-void dump_virtual_mem_color(byte_t memory[], byte_t owner_table[]);
+void dump_virtual_mem_color(byte_t memory[], byte_t owner_table[], core_t *core);
 void my_putnbr_hexa(long long nbr);
 
 

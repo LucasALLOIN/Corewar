@@ -31,7 +31,7 @@ static int load_memory(process_t *process, core_t *core, int free_mem, int i)
 		get_load_adress(core, free_mem, i);
 	}
         process->pc = process->load_adress;
-	core->program_tab[i].number = i;
+	core->program_tab[i].number = i + 1;
 	int_to_reg(i, process->registers[0]);
 	process->carry = 0;
 	core->program_tab[i].is_alive = 1;
@@ -75,7 +75,7 @@ int corewar_init(core_t *core)
 	}
 #ifdef DEBUG_MODE
 	my_printf("===== MEMORY DUMP AFTER CHAMPION INJECTION =====\n\n");
-	dump_virtual_mem_color(core->memory, core->owner_table);
+	dump_virtual_mem_color(core->memory, core->owner_table, core);
 #endif
 	return (0);
 }
