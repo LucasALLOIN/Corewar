@@ -10,7 +10,7 @@ static int match_nc(char const *str1, char const *str2, int ctr1, int ctr2)
 	if (str2[ctr2] == '*' && str1[ctr1])
 		return (match_nc(str1, str2, ctr1, ctr2 + 1));
 	else if (str1[ctr1] != str2[ctr2] && str1[ctr1])
-		return (match_nc(str1, str2, ctr1 + 1, ctr2)); 
+		return (match_nc(str1, str2, ctr1 + 1, ctr2));
 	else if (str1[ctr1] == str2[ctr2] && str1[ctr1])
 		return (match_nc(str1, str2, ctr1 + 1, ctr2 + 1));
 	else if (str1[ctr1] == str2[ctr2] && !(str1[ctr1]))

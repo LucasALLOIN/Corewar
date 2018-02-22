@@ -45,15 +45,19 @@ static void second_pass(label_t **labels)
 
 static int third_pass(label_t **labels)
 {
+	label_t *temp = 0x0;
+	char **lines = 0x0;
 	int to_alloc = 0;
 	int index = 0;
 
 	for (int i = 0; labels[i]; i++) {
-		for (int j = 0; labels[i]->lines[j]; j++, to_alloc++);
-		labels[i]->instructions = my_calloc(sizeof(instruction_t) * (to_alloc + 1));
-		for (int j = 0; labels[i]->lines[j]; j++) {
-			labels[i]->instructions[j] = line_encoding(labels[i]->lines[j], labels, index);
-			index += compute_line_size(labels[i]->lines[j]);
+		temp = labels[i];
+		lines = labels[i]->lines;
+		for (int j = 0; lines[j]; j++, to_alloc++);
+		temp->ins = my_calloc(sizeof(ins_t) * (to_alloc + 1));
+		for (int j = 0; lines[j]; j++) {
+			temp->ins[j] = line_encoding(lines[j], labels, index);
+			index += compute_line_size(lines[j]);
 		}
 	}
 	return (index);
@@ -62,8 +66,8 @@ static int third_pass(label_t **labels)
 static void fourth_pass(label_t **labels, int fd)
 {
 	for (int i = 0; labels[i]; i++) {
-		for (int j = 0; labels[i]->instructions[j]; j++) {
-			encode_instruction(labels[i]->instructions[j], fd);
+		for (int j = 0; labels[i]->ins[j]; j++) {
+			encode_instruction(labels[i]->ins[j], fd);
 		}
 	}
 }
