@@ -32,12 +32,12 @@ struct label {
 typedef struct label label_t;
 
 char *split(char const *file, header_t *header);
-int encode_header(header_t *header, int fd);
+void encode_header(header_t *header, int fd);
 int encode_code(char const *code, int fd, header_t *header);
 int assembler(int ac, char **av);
 int detect_comment(int fd, char **desc);
 int detect_name(int fd, char **name);
-int check_coding_byte(char **params, int op_code);
+int check_coding_byte(char **params);
 int compute_line_size(char const *line);
 ins_t *line_encoding(char const *line, label_t **labels, int index);
 int create_label(label_t *label, char **lines);
@@ -45,5 +45,9 @@ int compute_label_size(label_t *label);
 int compute_line_size(char const *line);
 void encode_instruction(ins_t *op, int fd);
 int has_not_coding_byte(char const *line);
+<<<<<<< HEAD
+char *clean_separator(char *str);
+=======
+>>>>>>> d63c65d0da314d0d4d945c2fd879b52bbb8bc89b
 
 #endif /* ASM_H_ */
