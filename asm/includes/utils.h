@@ -15,8 +15,10 @@ void free_it(char **pointer);
 #define GARBAGE __attribute__((cleanup(free_it)))
 
 union endianner {
+	char c;
+	short int si;
 	int n;
-	char c[4];
+	char s[4];
 };
 
 void *my_calloc(int size);
