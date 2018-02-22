@@ -72,12 +72,20 @@ int compute_label_size(label_t *label)
 int write_endian(char *mem, int param, int n_bytes)
 {
 	int written = n_bytes;
+	union endianner endian;
 
+	switch (n_bytes) {
+	case 1:
+		endian.c = param;
+		break;
+	case 2:
+		endian.si = param;
+		break;
+	case 4:
+		endian.n = param;
+	}
 	for (char *temp = mem; n_bytes; n_bytes--, temp++) {
-		if (n_bytes > 1)
-			*temp = 0;
-		else
-			*temp = param;
+		*temp = endian.s[n_bytes - 1];
 	}
 	return (written);
 }

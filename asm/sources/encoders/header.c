@@ -16,7 +16,7 @@ static void encode_name(char const *name, int fd)
 
 	endianner.n = COREWAR_EXEC_MAGIC;
 	for (int i = 0; i < 4; i++) {
-		memory_zone[i] = endianner.c[4 - (i + 1)];
+		memory_zone[i] = endianner.s[4 - (i + 1)];
 	}
 	for (int i = 0; i < my_strlen(name); i++) {
 		memory_zone[i + 4] = name[i];
@@ -44,7 +44,7 @@ void encode_header(header_t *header, int fd) {
 		write(fd, &code, 1);
 	}
 	for (int i = 0; i < 4; i++) {
-		write(fd, &(endianner.c[4 - (i + 1)]), 1);
+		write(fd, &(endianner.s[4 - (i + 1)]), 1);
 	}
 	encode_description(header->comment, fd);
 }
