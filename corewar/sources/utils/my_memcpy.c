@@ -39,6 +39,7 @@ int get_number_from_id(core_t *core, int id)
 {
 	process_t *tmp;
 
+	//TODO: NORME !
 	for (int i = 0; i < core->nb_progs; i++) {
 		tmp = core->program_tab[i].process_l;
 		for (; tmp != NULL; tmp = tmp->next) {
@@ -56,7 +57,7 @@ void dump_virtual_mem_color(byte_t memory[], byte_t owner_table[], core_t *core)
 
 	write(1, "0x000000 : ", 11);
 	for (int i = 1; i <= MEM_SIZE; ++i) {
-		my_printf("%s%#04x \e[0m", color[get_number_from_id(core, owner_table[i - 1])], memory[i - 1]);
+		my_printf("%s%#04x \e[0m", color[core, owner_table[i - 1]], memory[i - 1]);
 		if ((i % (MEM_SIZE / 500)) == 0 && i < MEM_SIZE)
 			my_printf("\n%#08x : ", i - 1);
 	}

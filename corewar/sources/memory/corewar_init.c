@@ -24,26 +24,28 @@ int get_load_adress(core_t *core, int free_mem, int i)
 }
 
 
-static int load_memory(process_t *process, core_t *core, int free_mem, int i)
+static int load_memory(process_t *process, core_t *core, int f_mem, int i)
 {
-	if (process->load_adress == -1) {
-		core->program_tab[i].process_l->load_adress = \
-		get_load_adress(core, free_mem, i);
-	}
+	program_t prog = core->program_tab[i];
+
+	if (process->load_adress == -1)
+		prog.process_l->load_adress = get_load_adress(core, f_mem, i);
         process->pc = process->load_adress;
-	core->program_tab[i].number = i + 1;
+	prog.number = i + 1;
 	int_to_reg(i, process->registers[0]);
 	process->carry = 0;
-	core->program_tab[i].is_alive = 1;
-	core->program_tab[i].last_live_cycle = -1;
-#ifdef DEBUG_MODE
-	my_printf("=============== CHAMPION %s LOADING ================\n\n", \
-	core->program_tab[i].header.prog_name);
-	my_printf("Adress: %d\nProg_size: %d\nPC %d\n\n", \
-	process->load_adress, core->program_tab[i].header.prog_size, process->pc);
-#endif
-	if (read(core->program_tab[i].fd, &core->memory[process->load_adress], core->program_tab[i].header.prog_size) == -1)
-		return (84);
+	prog.is_alive = 1;
+	prog.last_live_cycle = -1;
+	if (process->load_adress + prog.header.prog_size > MEM_SIZE) { 
+		if (read(prog.fd, &core->memory[process->load_adress], 	    \
+		    	 MEM_SIZE - process->load_adress + 1)  == -1 ||
+		    read(prog.fd, &core->memory[0], prog.header.prog_size - \
+			 (MEM_SIZE - process->load_adress + 1) == -1))
+			return (84);
+	} else
+		if (read(prog.fd, &core->memory[process->load_adress],      \
+			 prog.header.prog_size) == -1)
+			return (84);
 	return (0);
 }
 
@@ -58,10 +60,16 @@ int total_size(core_t *core)
 
 void set_owner_table(core_t *core, process_t *process)
 {
+	int offset = 0;
+
 	my_printf("%d %d\n", process->parent->header.prog_size, process->load_adress);
+	my_printf("Process id: %d\n", process->id);
         for (int i = 0; i < process->parent->header.prog_size; i++) {
-		core->owner_table[i + process->load_adress] = process->id;
+		if (!offset && process->load_adress + i >= MEM_SIZE)
+			offset = process->load_adress + i;
+		core->owner_table[i + process->load_adress - offset] = process->id;
 	}
+	printf("CORE CORE %d\n", core->owner_table[0]);
 }
 
 int corewar_init(core_t *core)
