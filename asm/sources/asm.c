@@ -42,6 +42,8 @@ static int assemble(char const *file, char const *filename)
 
 	program_code = split(file, header);
 	encode_code(program_code, fd, header);
+	free(header->prog_name);
+	free(header->comment);
 	free(header);
 	close(fd);
 	return (0);

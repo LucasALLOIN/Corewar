@@ -82,10 +82,10 @@ char *get_next_line(int fd)
 			res = my_cat(res, t, &z, buffer);
 			a[1] = read(fd, buffer, READ_SIZE);
 		}
-		if (is_e(z, t[0], &a[0], a[1]) == 1 || a[1] < 0 || res == NULL)
-			return (NULL);
-		else if (is_e(z, t[0], &a[0], a[1]) == 2)
-			return (res);
+		if (is_e(z, t[0], &a[0], a[1]) >= 1 || a[1] < 0 || res == NULL) {
+			free(is_e(z, t[0], &a[0], a[1]) == 2 ? NULL : res);
+			return (is_e(z, t[0], &a[0], a[1]) == 2 ? res : NULL);
+		}
 	}
 	return (format_buffer(t, buffer, res));
 }
