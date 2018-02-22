@@ -5,6 +5,7 @@
 **
 */
 
+#include <stdlib.h>
 #include "asm.h"
 #include "op.h"
 #include "utils.h"
@@ -35,7 +36,12 @@ static const op_t op_tab[] = {
 	{0x0, 0, {0}, 0, 0, 0x0}
 };
 
+<<<<<<< HEAD
+//TODO: Error Handling with op_codes
+int check_coding_byte(char **params)
+=======
 int check_coding_byte(char **params, int op_code)
+>>>>>>> d63c65d0da314d0d4d945c2fd879b52bbb8bc89b
 {
 	int params_n = 0;
 	int control = 0;
@@ -101,14 +107,16 @@ ins_t *line_encoding(char const *line, label_t **labels, int index)
 	char **params = split_spaces(line);
 	ins_t *op = my_calloc(sizeof(ins_t));
 
+	for (int i = 0; params[i]; i++)
+		params[i] = clean_separator(params[i]);
 	op->code = 0;
 	for (int i = 0; i < 16 && !op->code; i++) {
-		if (match(params[0], op_tab[i].mnemonique)) {
+		if (my_memcmp(params[0], op_tab[i].mnemonique)) {
 			op->code = op_tab[i].code;
 		}
 	}
 	op->index = index;
-	op->control_byte = check_coding_byte(params + 1, op->code) & 255;
+	op->control_byte = check_coding_byte(params + 1) & 255;
 	parse_param(op, params + 1, 1, labels);
 	parse_param(op, params + 1, 2, labels);
 	parse_param(op, params + 1, 3, labels);

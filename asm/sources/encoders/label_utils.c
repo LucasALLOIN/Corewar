@@ -5,9 +5,25 @@
 ** utility for label creation
 */
 
+#include <stdlib.h>
 #include "asm.h"
 #include "op.h"
 #include "utils.h"
+
+char *clean_separator(char *str)
+{
+	char *result = 0x0;
+
+	if (str[my_strlen(str) - 1] == SEPARATOR_CHAR) {
+		result = my_calloc(my_strlen(str));
+		my_memcpy(result, str, my_strlen(str) - 1);
+	} else {
+		result = my_calloc(my_strlen(str) + 1);
+		my_memcpy(result, str, my_strlen(str));
+	}
+	free(str);
+	return (result);
+}
 
 int create_label(label_t *label, char **lines)
 {
@@ -35,6 +51,7 @@ int compute_line_size(char const *line)
 	char **params = split_spaces(line);
 
 	for (int i = 1; params[i]; i++) {
+		params[i] = clean_separator(params[i]);
 		switch (params[i][0]) {
 		case REG_CHAR:
 			size += 1;
@@ -45,7 +62,10 @@ int compute_line_size(char const *line)
 		default:
 			size += IND_SIZE;
 		}
+		free(params[i]);
 	}
+	free(params[0]);
+	free(params);
 	return (size);
 }
 
@@ -57,4 +77,12 @@ int compute_label_size(label_t *label)
 		size += compute_line_size(label->lines[i]);	
 	}
 	return (size);
+}
+
+void free_instructions(ins_t **ins)
+{
+	for (int i = 0; ins[i]; i++) {
+		free(ins[i]);
+	}
+	free(ins);
 }

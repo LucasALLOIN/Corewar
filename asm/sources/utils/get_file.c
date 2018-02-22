@@ -10,12 +10,14 @@
 
 char *get_file(int fd)
 {
-	char *file = "";
+	char *file = 0x0;
 	char *temp = get_next_line(fd);
+	char *cleaned_temp = 0x0;
 
 	while (temp) {
-		temp = clean_str(temp);
-		temp = my_strcat(temp, "\n");
+		cleaned_temp = clean_str(temp);
+		free(temp);
+		temp = my_strcat(cleaned_temp, "\n");
 		if (my_strlen(temp) > 1 && temp[0] != '#') {
 			file = my_strcat(file, temp);
 		}
