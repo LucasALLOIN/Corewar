@@ -34,3 +34,18 @@ void dump_virtual_mem(byte_t memory[])
 	}
 	write(1, "\n", 1);
 }
+
+void dump_virtual_mem_color(byte_t memory[], byte_t owner_table[])
+{
+	char color[5][10] = {"\e[0m", "\e[1;32m", "\e[1;33m", \
+	"\e[1;34m", "\e[1;35m"};
+
+	write(1, "0x000000 : ", 11);
+	for (int i = 1; i <= MEM_SIZE; ++i) {
+		my_printf("%s%#04x \e[0m", color[owner_table[i - 1]], memory[i - 1]);
+		if ((i % (MEM_SIZE / 500)) == 0 && i < MEM_SIZE)
+			my_printf("\n%#08x : ", i - 1);
+	}
+	write(1, "\n", 1);
+}
+

@@ -75,7 +75,7 @@ int corewar_init(core_t *core)
 	}
 #ifdef DEBUG_MODE
 	my_printf("===== MEMORY DUMP AFTER CHAMPION INJECTION =====\n\n");
-	dump_virtual_mem(core->owner_table);
+	dump_virtual_mem_color(core->memory, core->owner_table);
 #endif
 	return (0);
 }
