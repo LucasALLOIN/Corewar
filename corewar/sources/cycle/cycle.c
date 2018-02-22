@@ -10,6 +10,7 @@
 #include "instructions.h"
 #include "my_printf.h"
 #include "mem_manage.h"
+#include "utils.h"
 
 void get_ins_args(byte_t byte, int *args)
 {
@@ -81,7 +82,6 @@ void exec_all_process(process_t *process, core_t *core, int i)
 
 int cycle(core_t *core)
 {
-
 	for (int i = 0; i < core->nb_progs; ++i) {
 		if (core->program_tab[i].is_alive)
 			exec_all_process(core->program_tab[i].process_l, core, i);
@@ -95,5 +95,6 @@ int cycle(core_t *core)
 			check_death(&core->program_tab[i]);
 		core->nbr_cycle = 0;
 	}
-	core->nbr_cycle++;
+	dump_virtual_mem_color(core->memory, core->owner_table, core);
+        core->nbr_cycle++;
 }
