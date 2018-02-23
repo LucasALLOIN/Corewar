@@ -37,7 +37,7 @@ void err_write(char const *error, int line_n)
 {
 	write(2, "\033[1m", 4);
 	write(2, "asm, ", 5);
-	write(2, "test", 4);
+	write(2, get_file_name(0x0), my_strlen(get_file_name(0x0)));
 	write(2, ", line ", line_n ? 7 : 0);
 	putnbr_err(line_n ? line_n : -1);
 	write(2, ": \033[1;36m", 9);

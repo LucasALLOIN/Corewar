@@ -67,6 +67,7 @@ int assembler(int ac, char **av)
 		write(2, "File couldn't be opened.\n", 25);
 		return (84);
 	}
+	compose_filename(av[1]);
 	file = get_file(fd);
 	if (file_error_handler(file))
 		return (84);
