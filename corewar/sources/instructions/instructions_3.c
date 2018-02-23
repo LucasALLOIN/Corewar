@@ -14,9 +14,9 @@
 
 int instruction_add(core_t *core, process_t *process, int *args)
 {
-	int r1 = core->memory[ADRESS(process->pc + 2)];
-	int r2 = core->memory[ADRESS(process->pc + 3)];
-	int r3 = core->memory[ADRESS(process->pc + 4)];
+	int r1 = core->memory[ADRESS(process->pc + 2)] - 1;
+	int r2 = core->memory[ADRESS(process->pc + 3)] - 1;
+	int r3 = core->memory[ADRESS(process->pc + 4)] - 1;
 	int sum;
 
 	(void) args;
@@ -30,9 +30,9 @@ int instruction_add(core_t *core, process_t *process, int *args)
 
 int instruction_sub(core_t *core, process_t *process, int *args)
 {
-	int r1 = core->memory[ADRESS(process->pc + 2)];
-	int r2 = core->memory[ADRESS(process->pc + 3)];
-	int r3 = core->memory[ADRESS(process->pc + 4)];
+	int r1 = core->memory[ADRESS(process->pc + 2)] - 1;
+	int r2 = core->memory[ADRESS(process->pc + 3)] - 1;
+	int r3 = core->memory[ADRESS(process->pc + 4)] - 1;
 	int sub;
 
 	(void) args;
