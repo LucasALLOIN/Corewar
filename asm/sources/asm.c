@@ -70,7 +70,7 @@ int assembler(int ac, char **av)
 	file = get_file(fd);
 	if (file_error_handler(file))
 		return (84);
-	assemble(file, av[1]);
+	//assemble(file, av[1]);
 	close(fd);
 	return (0);
 }

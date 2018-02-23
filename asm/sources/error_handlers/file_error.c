@@ -9,6 +9,17 @@
 #include "utils.h"
 #include "op.h"
 
+static int is_empty(char **lines)
+{
+	for (int i = 0; lines[i]; i++) {
+		if (!ignore_line(lines[i])) {
+			return (0);
+		}
+	}
+	err_write("The file is empty.\n", 0);
+	return (1);
+}
+
 static int check_name(char **lines)
 {
 	if (match(lines[0], ".comment \"*\"")) {
@@ -71,12 +82,13 @@ static int check_instructions(char **lines)
 int file_error_handler(char const *file)
 {
 	GARBAGE_ARR char **lines = split_lines(file);
+	int n_line = 0;
 
-	if (check_name(lines))
+	if (is_empty(lines))
 		return (84);
-	else if (check_comment(lines))
-		return (84);
-	else if (check_instructions(lines))
+	if (check_name(lines) |
+		check_comment(lines) |
+		check_instructions(lines))
 		return (84);
 	return (0);
 }
