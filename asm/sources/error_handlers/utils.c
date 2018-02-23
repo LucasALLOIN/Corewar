@@ -7,9 +7,24 @@
 
 #include "op.h"
 
-static void putnbr_err(int n)
+void putnbr_err(int n)
 {
+	char temp = 0;
+	int d;
 
+	if (n < 0)
+		return;
+	if (n >= 10) {
+		d = (n % 10);
+		n = (n - d) / 10;
+		putnbr_err(n);
+		temp = d + 48;
+		write(2, &temp, 1);
+	} else {
+		temp = (n % 10) + 48;
+		write(2, &temp, 1);
+	}
+	return (0);
 }
 
 int ignore_line(char const *line)
