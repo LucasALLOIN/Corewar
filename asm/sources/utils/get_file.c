@@ -18,9 +18,7 @@ char *get_file(int fd)
 		cleaned_temp = clean_str(temp);
 		free(temp);
 		temp = my_strcat(cleaned_temp, "\n");
-		if (my_strlen(temp) > 1 && temp[0] != '#') {
-			file = my_strcat(file, temp);
-		}
+		file = my_strcat(file, temp);
 		free(temp);
 		temp = get_next_line(fd);
 	}
