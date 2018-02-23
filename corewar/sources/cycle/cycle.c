@@ -95,6 +95,6 @@ int cycle(core_t *core)
 			check_death(&core->program_tab[i]);
 		core->nbr_cycle = 0;
 	}
-	dump_virtual_mem_color(core->memory, core->owner_table, core);
+	//dump_virtual_mem_color(core->memory, core->owner_table, core);
         core->nbr_cycle++;
 }

@@ -26,25 +26,25 @@ int get_load_adress(core_t *core, int free_mem, int i)
 
 static int load_memory(process_t *process, core_t *core, int f_mem, int i)
 {
-	program_t prog = core->program_tab[i];
+	program_t *prog = &core->program_tab[i];
 
 	if (process->load_adress == -1)
-		prog.process_l->load_adress = get_load_adress(core, f_mem, i);
+		prog->process_l->load_adress = get_load_adress(core, f_mem, i);
         process->pc = process->load_adress;
-	prog.number = i + 1;
+	prog->number = i + 1;
 	int_to_reg(i, process->registers[0]);
 	process->carry = 0;
-	prog.is_alive = 1;
-	prog.last_live_cycle = -1;
-	if (process->load_adress + prog.header.prog_size > MEM_SIZE) { 
-		if (read(prog.fd, &core->memory[process->load_adress], 	    \
+	prog->is_alive = 1;
+	prog->last_live_cycle = -1;
+	if (process->load_adress + prog->header.prog_size > MEM_SIZE) { 
+		if (read(prog->fd, &core->memory[process->load_adress], 	    \
 		    	 MEM_SIZE - process->load_adress + 1)  == -1 ||
-		    read(prog.fd, &core->memory[0], prog.header.prog_size - \
+		    read(prog->fd, &core->memory[0], prog->header.prog_size - \
 			 (MEM_SIZE - process->load_adress + 1) == -1))
 			return (84);
 	} else
-		if (read(prog.fd, &core->memory[process->load_adress],      \
-			 prog.header.prog_size) == -1)
+		if (read(prog->fd, &core->memory[process->load_adress],      \
+			 prog->header.prog_size) == -1)
 			return (84);
 	return (0);
 }

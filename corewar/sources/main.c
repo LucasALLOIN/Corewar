@@ -60,7 +60,7 @@ int is_champ_alive(core_t *core)
 {
 	int z = 0;
 
-	for (int i = 0; i < core->nb_progs; i++) {
+        for (int i = 0; i < core->nb_progs; i++) {
 		if (core->program_tab[i].is_alive)
 			z++;
 	}
