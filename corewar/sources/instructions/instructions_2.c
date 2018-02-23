@@ -74,19 +74,18 @@ int instruction_lld(core_t *core, process_t *process, int *args)
 
 	if (!check_valid(args, T_DIR | T_IND, T_REG, 0))
 		return (process->carry = 0);
-	if (args[0] == T_REG) {
- 		int_to_reg(reg_to_int(reg[memory[ADRESS(pc + 2)]]), \
-		reg[memory[ADRESS(pc + 3)]]);
-	    	process->pc += 4;
-	} else if (args[0] == T_DIR) {
+	if (args[0] == T_DIR) {
+		if (memory[pc + 6] <= 0 || memory[pc + 6] > 16)
+			return (process->carry);
 	    	int_to_reg(uchar_to_int(core, pc + 2), \
 		process->registers[memory[pc + 6]]);
 	    	process->pc += 7;
 	} else if (args[0] == T_IND) {
+		if (memory[pc + 4] <= 0 || memory[pc + 4] > 16)
+			return (process->carry);
 	    	short_to_reg(uchar_to_short(core, pc + \
 		uchar_to_short(core ,pc + 2)), reg[memory[pc + 4]]);
 	    	process->pc += 5;
 	}
 	return (process->carry = 1);
-	return(1);
 }
