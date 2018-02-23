@@ -42,5 +42,7 @@ char **split_lines(char const *str);
 char **split_spaces(char const *str);
 int my_atoi(char const *str);
 int my_memcmp(void const *memblock1, void const *memblock2);
+void err_write(char const *error, int line_n);
+char *get_file_name(char *str);
 
 #endif /* UTILS_H_ */
