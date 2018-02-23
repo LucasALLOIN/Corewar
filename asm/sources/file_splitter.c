@@ -17,14 +17,10 @@ static char *extract_name(char const *file)
 	int start = 0;
 	int end = 0;
 
-	if (!match(file, ".name*")) {
-		write(2, "Name should be on the first line.\n", 34);
-	} else {
-		start = find_next(file, '"');
-		end = find_next(file + start + 1, '"');
-		result = my_calloc(end + 1);
-		my_memcpy(result, file + start + 1, end);
-	}
+	start = find_next(file, '"');
+	end = find_next(file + start + 1, '"');
+	result = my_calloc(end + 1);
+	my_memcpy(result, file + start + 1, end);
 	return (result);
 }
 
@@ -36,14 +32,10 @@ static char *extract_description(char const *file)
 	int end = 0;
 
 	offset = find_next(file, '\n') + 1;
-	if (!match(file + offset, ".comment*")) {
-		write(2, "Comment should be on the second line.\n", 38);
-	} else {
-		start = find_next(file + offset, '"');
-		end = find_next(file + offset + start + 1, '"');
-		result = my_calloc(end + 1);
-		my_memcpy(result, file + offset + start + 1, end);
-	}
+	start = find_next(file + offset, '"');
+	end = find_next(file + offset + start + 1, '"');
+	result = my_calloc(end + 1);
+	my_memcpy(result, file + offset + start + 1, end);
 	return (result);
 }
 

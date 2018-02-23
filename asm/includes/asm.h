@@ -46,5 +46,6 @@ int compute_line_size(char const *line);
 void encode_instruction(ins_t *op, int fd);
 int has_not_coding_byte(char const *line);
 char *clean_separator(char *str);
+int file_error_handler(char const *file);
 
 #endif /* ASM_H_ */
