@@ -29,6 +29,7 @@ SRC	=	$(SRC_DIR)/main.c 			\
 		$(SRC_DIR)/encoders/asm_utils.c		\
 		$(SRC_DIR)/encoders/op_encoder.c	\
 		$(SRC_DIR)/error_handlers/file_error.c	\
+		$(SRC_DIR)/error_handlers/utils.c	\
 		$(SRC_DIR)/utils/my_calloc.c 		\
 		$(SRC_DIR)/utils/my_atoi.c 		\
 		$(SRC_DIR)/utils/my_strlen.c 		\

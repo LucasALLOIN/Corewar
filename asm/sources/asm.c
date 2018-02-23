@@ -17,11 +17,15 @@
 static char *compose_filename(char const *file)
 {
 	char *new_file = 0x0;
+	char *file_temp = 0x0;
 	int of = 0;
 
 	while (find_next(file + of, '/') != -1) {
 		of = of + find_next(file + of, '/') + 1;
 	}
+	file_temp = my_calloc(my_strlen(file + of));
+	my_memcpy(file_temp, file + of, my_strlen(file + of));
+	get_file_name(file_temp);
 	if (find_next(file + of, '.') != -1) {
 		new_file = my_calloc(find_next(file + of, '.'));
 		my_memcpy(new_file, file + of, find_next(file + of, '.'));

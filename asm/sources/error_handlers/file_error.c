@@ -12,26 +12,26 @@
 static int check_name(char **lines)
 {
 	if (match(lines[0], ".comment \"*\"")) {
-		write(2, "The comment must be just after the name.\n", 42);
+		err_write("The comment must be just after the name.\n", 0);
 		return (84);
 		
 	} else if (!match(lines[0], ".name \"*\"")) {
 		for (int i = 1; lines[i]; i++) {
 			if (match(lines[i], ".name \"*\"")) {
-				write(2, "The name of your program must be the first line.\n", 49);
+				err_write("The name of your program must be the first line.\n", i + 1);
 				return (84);
 			}
 		}
-		write(2, "No name specified.\n", 19);
+		err_write("No name specified.\n", 20);
 		return (84);
 	}
 	if (my_strlen(lines[0]) >= PROG_NAME_LENGTH + 8) {
-		write(2, "The program name is too long.\n", 30);
+		err_write("The program name is too long.\n", 0);
 		return (84);
 	}
 	for (int i = 1; lines[i]; i++) {
 		if (match(lines[i], ".name \"*\"")) {
-			write(2, "The name can only be defined once.\n", 35);
+			err_write("The name can only be defined once.\n", 3);
 			return (84);
 		}
 	}
@@ -43,20 +43,20 @@ static int check_comment(char **lines)
 	if (!match(lines[1], ".comment \"*\"")) {
 		for (int i = 2; lines[i]; i++) {
 			if (match(lines[i], ".comment \"*\"")) {
-				write(2, "The comment must be just after the name.\n", 42);
+				err_write("The comment must be just after the name.\n", 2);
 				return (84);
 			}
 		}
-		write(2, "No comment specified.\n", 22);
+		err_write("No comment specified.\n", 2);
 		return (84);
 	}
 	if (my_strlen(lines[0]) >= COMMENT_LENGTH + 11) {
-		write(2, "The comment is too long.\n", 25);
+		err_write("The comment is too long.\n", 25);
 		return (84);
 	}
 	for (int i = 2; lines[i]; i++) {
 		if (match(lines[i], ".comment \"*\"")) {
-			write(2, "The comment can only be defined once.\n", 38);
+			err_write("The comment can only be defined once.\n", 38);
 			return (84);
 		}
 	}
