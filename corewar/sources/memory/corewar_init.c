@@ -69,7 +69,6 @@ void set_owner_table(core_t *core, process_t *process)
 			offset = process->load_adress + i;
 		core->owner_table[i + process->load_adress - offset] = process->id;
 	}
-	printf("CORE CORE %d\n", core->owner_table[0]);
 }
 
 int corewar_init(core_t *core)

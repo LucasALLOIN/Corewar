@@ -36,12 +36,8 @@ static const op_t op_tab[] = {
 	{0x0, 0, {0}, 0, 0, 0x0}
 };
 
-<<<<<<< HEAD
 //TODO: Error Handling with op_codes
 int check_coding_byte(char **params)
-=======
-int check_coding_byte(char **params, int op_code)
->>>>>>> d63c65d0da314d0d4d945c2fd879b52bbb8bc89b
 {
 	int params_n = 0;
 	int control = 0;

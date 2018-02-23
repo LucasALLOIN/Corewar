@@ -18,3 +18,4 @@ int check_valid(int *args, int one, int two, int th)
 {
 	return ((args[0] & one && args[1] & two && args[2] & th) ? 1 : 0);
 }
+

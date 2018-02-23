@@ -38,12 +38,8 @@ SRC	=	$(SRC_DIR)/main.c 			\
 		$(SRC_DIR)/utils/get_file.c		\
 		$(SRC_DIR)/utils/concatenation.c	\
 		$(SRC_DIR)/utils/find_char.c		\
-<<<<<<< HEAD
 		$(SRC_DIR)/utils/split_text.c		\
 		$(SRC_DIR)/utils/my_memcmp.c
-=======
-		$(SRC_DIR)/utils/split_text.c
->>>>>>> d63c65d0da314d0d4d945c2fd879b52bbb8bc89b
 
 WARN	=	-W -Wall -Wextra
 

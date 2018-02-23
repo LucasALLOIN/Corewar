@@ -17,6 +17,7 @@ typedef unsigned char byte_t;
 
 #define ADRESS(x) (x % MEM_SIZE)
 #define CHAMPIONS 4
+#define UNUSED __attribute__((unused))
 
 /*
  * Core_t: Main corewar structure.
