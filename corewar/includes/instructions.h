@@ -54,5 +54,7 @@ static int (* const INSTRUCTION_ARRAY[17]) (core_t *, process_t *, int *) = {
 
 int get_wating_cycle(int instruction);
 int check_valid(int *args, int one, int two, int th);
+int get_next_process_id(core_t *core);
+void dup_process(process_t *process, int newpc, int id);
 
 #endif  /* INSTRUCTIONS_H_ */

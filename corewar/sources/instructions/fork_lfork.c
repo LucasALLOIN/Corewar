@@ -6,91 +6,56 @@
 */
 
 #include <stdlib.h>
+#include "op.h"
 #include "corewar.h"
 #include "instructions.h"
 #include "my_printf.h"
 #include "mem_manage.h"
 #include "utils.h"
 
-void copy_data(byte_t *data, byte_t *data2, size_t size)
+static void gnpi_util(process_t *process, int *val)
 {
-	size_t i = 0;
-
-	while (i < size) {
-		data[i] = data2[i];
-		i = i + 1;
+	while (process != NULL) {
+		if (process->id > *val)
+			*val = process->id;
+		process = process->next;
 	}
-	return;
 }
 
-int get_max_id_of_process(process_t *process)
+int get_next_process_id(core_t *core)
 {
-	int ret = 0;
+	int val = 0;
 
-	if (process->next != NULL) {
-		ret = get_max_id_of_process(process->next);
-		if (process->id < ret)
-			return (ret);
+	for (int i = 0; i < core->nb_progs; i++) {
+		gnpi_util(core->program_tab[i].process_l, &val);
 	}
-	return (process->id);
+	return (val + 1);
 }
 
-int get_max_id(program_t **programme)
+static void dup_registers(process_t *old, process_t *new)
 {
-	program_t *program = *programme;
-	int i = 0;
-	int my_ret = 0;
-	int ret = 0;
-
-	while (i < MAX_ARGS_NUMBER) {
-		ret = get_max_id_of_process(program[i].process_l);
-		if (my_ret < ret)
-			my_ret = ret;
-		i = i + 1;
-	}
-	return (my_ret);
-}
-
-void dump_process_lfork(int id, core_t *core, int value, process_t *process)
-{
-	byte_t *owner_table = (core->owner_table);
-	byte_t *memory = (core->memory);
-	int i = 0;
-	process_t *new = malloc(sizeof(process_t));
-	
-	copy_data((byte_t *) new, (byte_t *) process, sizeof(process_t));
-	process->next = new;
-	new->pc += value;
-	new->id = get_max_id((program_t **) &(core->program_tab)) + 1;
-
-	while (i < MEM_SIZE) {
-		if (owner_table[i] == id) {
-			memory[ADRESS(i + value)] = memory[i];
-			owner_table[ADRESS(i + value)] = new->id;
+	for (int i = 0; i < REG_NUMBER; i++) {
+		for (int y = 0; y < REG_SIZE; y++) {
+			old->registers[i][y] = new->registers[i][y];
 		}
-		i += 1;
 	}
-	return;
 }
 
-void dump_process_fork(int id, core_t *core, int value, process_t *process)
+void dup_process(process_t *process, int newpc, int id)
 {
-	byte_t *owner_table = (core->owner_table);
-	byte_t *memory = (core->memory);
-	int i = 0;
-	process_t *new = malloc(sizeof(process_t));
-	
-	copy_data((byte_t *) new, (byte_t *) process, sizeof(process_t));
-	process->next = new;
-	new->pc += value % IDX_MOD;
-	new->id = get_max_id((program_t **) &(core->program_tab)) + 1;
-	while (i < MEM_SIZE) {
-		if (owner_table[i] == id) {
-			memory[ADRESS(i + (value % IDX_MOD))] = memory[i];
-			owner_table[ADRESS(i + (value % IDX_MOD))] = new->id;
-		}
-		i += 1;
-	}
-	return;
-}
+	process_t *new_node = my_calloc(sizeof(process_t));
+	process_t *tmp = process;
 
+        dup_registers(process, new_node);
+	new_node->load_adress = process->load_adress;
+	new_node->turn_to_exec = process->turn_to_exec;
+	new_node->was_waiting = process->was_waiting;
+	new_node->pc = newpc;
+	new_node->id = id;
+	new_node->carry = process->carry;
+	new_node->parent = process->parent;
+	new_node->next = NULL;
+	while (tmp->next != NULL)
+		tmp = tmp->next;
+	tmp->next = new_node;
+}
