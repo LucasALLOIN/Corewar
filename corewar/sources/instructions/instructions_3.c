@@ -10,8 +10,6 @@
 #include "my_printf.h"
 #include "mem_manage.h"
 
-//TODO: and | or | xor
-
 int instruction_add(core_t *core, process_t *process, UNUSED int *args)
 {
 	int r1 = core->memory[ADRESS(process->pc + 2)] - 1;
@@ -42,7 +40,7 @@ int instruction_sub(core_t *core, process_t *process, UNUSED int *args)
 
 int instruction_and(core_t *core, process_t *process, int *args)
 {
-	byte_t **reg = process->reg;
+	byte_t **reg = process->registers;
 	int last = process->pc + 2;
 	int value_1 = get_mem(process, core, args[0], &last);
 	int value_2 = get_mem(process, core, args[1], &last);
@@ -61,7 +59,7 @@ int instruction_and(core_t *core, process_t *process, int *args)
 
 int instruction_or(core_t *core, process_t *process, int *args)
 {
-	byte_t **reg = process->reg;
+	byte_t **reg = process->registers;
 	int last = process->pc + 2;
 	int value_1 = get_mem(process, core, args[0], &last);
 	int value_2 = get_mem(process, core, args[1], &last);
@@ -80,7 +78,7 @@ int instruction_or(core_t *core, process_t *process, int *args)
 
 int instruction_xor(core_t *core, process_t *process, int *args)
 {
-	byte_t **reg = process->reg;
+	byte_t **reg = process->registers;
 	int last = process->pc + 2;
 	int value_1 = get_mem(process, core, args[0], &last);
 	int value_2 = get_mem(process, core, args[1], &last);
