@@ -33,7 +33,7 @@ static int load_memory(process_t *process, core_t *core, int f_mem, int i)
         process->pc = process->load_adress;
 	prog->number = i + 1;
 	int_to_reg(i, process->registers[0]);
-	process->carry = 0;
+	process->carry = 1;
 	prog->is_alive = 1;
 	prog->last_live_cycle = -1;
 	if (process->load_adress + prog->header.prog_size > MEM_SIZE) { 

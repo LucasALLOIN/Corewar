@@ -74,15 +74,10 @@ void check_death(program_t *program)
 
 void exec_all_process(process_t *process, core_t *core, int i)
 {
-	int y = 0;
-	process_t *tmp = process;
-
 	while (process != NULL) {
 		exec_process(process, core, i);
 		process = process->next;
-		y++;
 	}
-	my_printf("Champion %s has %d process\n", tmp->parent->header.prog_name, y);
 }
 
 int cycle(core_t *core)
