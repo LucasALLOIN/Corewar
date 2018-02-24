@@ -34,10 +34,10 @@ SRC	=	$(SRC_DIR)/core/core.c				\
 		$(SRC_DIR)/instructions/instructions_3_2.c	\
 		$(SRC_DIR)/memory/mem_manage.c			\
 		$(SRC_DIR)/memory/reg_manage.c			\
-		$(SRC_DIR)/instructions/instruction.c		\
+		$(SRC_DIR)/instructions/instructions_utils.c	\
 		$(SRC_DIR)/instructions/fork_lfork.c
 
-WARN	=	-W -Wall -Wextra
+WARN	=	#-W -Wall -Wextra
 
 CFLAGS	=	-I $(ROOT)/includes $(WARN) -g
 

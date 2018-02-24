@@ -23,6 +23,9 @@ int uchar_to_int(core_t *core, int start);
 void short_to_uchar(core_t *core, process_t *process, short nb, int start);
 short uchar_to_short(core_t *core, int start);
 
+int lget_mem(process_t *process, core_t *core, int type, int *last);
+int get_mem(process_t *process, core_t *core, int type, int *last);
+
 void int_to_reg(int nb, byte_t *byte);
 int reg_to_int(byte_t *byte);
 void short_to_reg(short nb, byte_t *byte);

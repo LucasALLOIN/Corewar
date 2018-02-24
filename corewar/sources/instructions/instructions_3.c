@@ -10,7 +10,7 @@
 #include "my_printf.h"
 #include "mem_manage.h"
 
-//TODO: add | sub | and | or | xor
+//TODO: and | or | xor
 
 int instruction_add(core_t *core, process_t *process, int *args)
 {
@@ -22,7 +22,6 @@ int instruction_add(core_t *core, process_t *process, int *args)
 	(void) args;
 	sum = reg_to_int(process->registers[r1]) + \
 	reg_to_int(process->registers[r2]);
-	//my_printf("%s: %d\n", process->parent->header.prog_name, core->memory[ADRESS(process->pc + 2)]);
 	int_to_reg(sum, process->registers[r3]);
 	process->pc += 5;
 	return(1);
@@ -45,13 +44,20 @@ int instruction_sub(core_t *core, process_t *process, int *args)
 
 int instruction_and(core_t *core, process_t *process, int *args)
 {
-	process->pc += args[0] + args[1] + args[2] + 1;
+	int last = process->pc + 2;
+	int value_1 = get_mem(process, core, args[0], &last);
+	int value_2 = get_mem(process, core, args[2], &last);
+	int value_3 = get_mem(process, core, args[3], &last);
+
+	if (check_valid(args, T_REG | T_DIR | T_IND,
+			T_REG | T_IND | T_DIR, T_REG));
+	
 	return(1);
 }
 
 int instruction_or(core_t *core, process_t *process, int *args)
 {
-	process->pc += args[0] + args[1] + args[2] + 1;
+		process->pc += args[0] + args[1] + args[2] + 1;
 	return(1);
 }
 
