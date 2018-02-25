@@ -11,7 +11,7 @@
 #include "mem_manage.h"
 #include "utils.h"
 
-int instruction_live(core_t *core, process_t *process, int *args)
+int instruction_live(core_t *core, process_t *process, UNUSED int *args)
 {
 	int adress = ADRESS(process->pc + 1);
 
@@ -19,14 +19,15 @@ int instruction_live(core_t *core, process_t *process, int *args)
 		if (core->program_tab[i].number == uchar_to_int(core, adress)) {
 			core->program_tab[i].last_live_cycle = core->nbr_cycle;
 			my_printf("The player %d(%s) is alive.\n",
-		        core->program_tab[i].number, core->program_tab[i].header.prog_name);
+		        core->program_tab[i].number, \
+			core->program_tab[i].header.prog_name);
 		}
 	core->nb_live += 1;
 	process->pc += 5;
 	return(1);
 }
 
-int instruction_zjmp(core_t *core, process_t *process, int *args)
+int instruction_zjmp(core_t *core, process_t *process, UNUSED int *args)
 {
 	int adress = ADRESS(process->pc + 1);
 
@@ -36,7 +37,7 @@ int instruction_zjmp(core_t *core, process_t *process, int *args)
 	return(1);
 }
 
-int instruction_fork(core_t *core, process_t *process, int *args)
+int instruction_fork(core_t *core, process_t *process, UNUSED int *args)
 {
 	int newpc;
 	int newid = get_next_process_id(core);
@@ -48,7 +49,7 @@ int instruction_fork(core_t *core, process_t *process, int *args)
 	return(1);
 }
 
-int instruction_lfork(core_t *core, process_t *process, int *args)
+int instruction_lfork(core_t *core, process_t *process, UNUSED int *args)
 {
 	int newpc;
 	int newid = get_next_process_id(core);
@@ -60,7 +61,7 @@ int instruction_lfork(core_t *core, process_t *process, int *args)
 	return(1);
 }
 
-int instruction_aff(core_t *core, process_t *process, int *args)
+int instruction_aff(core_t *core, process_t *process, UNUSED int *args)
 {
 	int reg = 0;
 	int c;

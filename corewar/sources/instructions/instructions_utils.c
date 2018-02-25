@@ -30,7 +30,6 @@ int check_valid(int *args, int one, int two, int th)
 */
 int get_mem(process_t *process, core_t *core, int type, int *last)
 {
-	unsigned int *pc = &process->pc;
 	int val = -1;
 
 	if (type == T_REG && core->memory[ADRESS(*last)] > 0 &&
@@ -58,7 +57,6 @@ int get_mem(process_t *process, core_t *core, int type, int *last)
 */
 int lget_mem(process_t *process, core_t *core, int type, int *last)
 {
-	unsigned int *pc = &process->pc;
 	int value = -1;
 
 	if (type == T_REG && core->memory[*last] > 0 && \

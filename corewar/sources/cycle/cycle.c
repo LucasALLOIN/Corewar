@@ -35,7 +35,7 @@ void get_ins_args(byte_t byte, int *args)
 	}
 }
 
-int exec_process(process_t *process, core_t *core, int i)
+int exec_process(process_t *process, core_t *core)
 {
 	int args[3] = {0, 0, 0};
 	int inst = 0;
@@ -72,10 +72,10 @@ void check_death(program_t *program)
 	}
 }
 
-void exec_all_process(process_t *process, core_t *core, int i)
+void exec_all_process(process_t *process, core_t *core)
 {
 	while (process != NULL) {
-		exec_process(process, core, i);
+		exec_process(process, core);
 		process = process->next;
 	}
 }
@@ -84,7 +84,7 @@ int cycle(core_t *core)
 {
 	for (int i = 0; i < core->nb_progs; ++i) {
 		if (core->program_tab[i].is_alive)
-			exec_all_process(core->program_tab[i].process_l, core, i);
+			exec_all_process(core->program_tab[i].process_l, core);
 	}
 	if (core->nb_live >= NBR_LIVE) {
 		core->nb_live = 0;
@@ -97,4 +97,6 @@ int cycle(core_t *core)
 	}
 	//dump_virtual_mem_color(core->memory, core->owner_table, core);
         core->nbr_cycle++;
+	return  (1);
 }
+

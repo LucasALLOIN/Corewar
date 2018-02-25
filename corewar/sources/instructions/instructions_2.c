@@ -11,19 +11,17 @@
 #include "op.h"
 #include "mem_manage.h"
 
-int instruction_error(UNUSED core_t *core, process_t *process, int *args)
+int instruction_error(UNUSED core_t *core, process_t *process, UNUSED int *args)
 {
 	my_printf("\e[1;34mGood Job process %s you lost 1 cycle at PC %d\e[0m\n"
 		  , process->parent->header.prog_name, process->pc);
-	process->pc += 1;
+	process->pc += 2;
 	return(1);
 }
 
 int instruction_ld(core_t *core, process_t *process, int *args)
 {
 	unsigned int *pc = &process->pc;
-	byte_t *memory = core->memory;
-	byte_t **reg = process->registers;
 	int last = *pc + 2;
 	int index_reg = get_mem(process, core, args[1], &last);
 	int value =  get_mem(process, core, args[0], &last);
@@ -34,9 +32,9 @@ int instruction_ld(core_t *core, process_t *process, int *args)
 		return (process->carry = 0);
 	}
 	if (args[1] == T_REG) 
-		int_to_reg(reg_to_int(reg[value]), reg[index_reg]);
+		int_to_reg(reg_to_int(REG[value]), REG[index_reg]);
 	else
-		int_to_reg(value, reg[index_reg]);
+		int_to_reg(value, REG[index_reg]);
 	*pc += last;
 	return (process->carry = 1);
 }
@@ -44,8 +42,6 @@ int instruction_ld(core_t *core, process_t *process, int *args)
 int instruction_st(core_t *core, process_t *process, int *args)
 {
 	unsigned int *pc = &process->pc;
-	byte_t *memory = core->memory;
-	byte_t **reg = process->registers;
 	int last = *pc + 2;
 	int index_reg = get_mem(process, core, args[0], &last);
 	int value = get_mem(process, core, args[1], &last);
@@ -56,17 +52,15 @@ int instruction_st(core_t *core, process_t *process, int *args)
 		return (process->carry = 0);
 	}
 	if (args[1] == T_REG)
-		int_to_reg(reg_to_int(reg[index_reg]), reg[value]);
+		int_to_reg(reg_to_int(REG[index_reg]), REG[value]);
 	else
-		int_to_uchar(core, process, reg_to_int(reg[index_reg]), value);
+		int_to_uchar(core, process, reg_to_int(REG[index_reg]), value);
 	return (*pc += last);
 }
 
 int instruction_lld(core_t *core, process_t *process, int *args)
 {
 	unsigned int *pc = &process->pc;
-	byte_t *memory = core->memory;
-	byte_t **reg = process->registers;
 	int last = *pc + 2;
 	int index_reg = lget_mem(process, core, args[1], &last);
 	int value =  lget_mem(process, core, args[0], &last);
@@ -77,9 +71,9 @@ int instruction_lld(core_t *core, process_t *process, int *args)
 		return (process->carry = 0);
 	}
 	if (args[1] == T_REG) 
-		int_to_reg(reg_to_int(reg[value]), reg[index_reg]);
+		int_to_reg(reg_to_int(REG[value]), REG[index_reg]);
 	else
-		int_to_reg(value, reg[index_reg]);
+		int_to_reg(value, REG[index_reg]);
 	*pc += last;
 	return (process->carry = 1);
 }

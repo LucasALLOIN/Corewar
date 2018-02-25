@@ -37,7 +37,7 @@ SRC	=	$(SRC_DIR)/core/core.c				\
 		$(SRC_DIR)/instructions/instructions_utils.c	\
 		$(SRC_DIR)/instructions/fork_lfork.c
 
-WARN	=	#-W -Wall -Wextra
+WARN	=	-W -Wall -Wextra
 
 CFLAGS	=	-I $(ROOT)/includes $(WARN) -g
 

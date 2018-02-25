@@ -40,7 +40,6 @@ int instruction_sub(core_t *core, process_t *process, UNUSED int *args)
 
 int instruction_and(core_t *core, process_t *process, int *args)
 {
-	byte_t **reg = process->registers;
 	int last = process->pc + 2;
 	int value_1 = get_mem(process, core, args[0], &last);
 	int value_2 = get_mem(process, core, args[1], &last);
@@ -51,15 +50,14 @@ int instruction_and(core_t *core, process_t *process, int *args)
 	    args, T_REG | T_DIR | T_IND, T_REG | T_IND | T_DIR, T_REG), 
 	    value_1 == -1 || value_2 == -1 || value_3 == -1)
 		return (process->pc += 2);
-	and = reg_to_int(reg[value_1]) & reg_to_int(reg[value_2]);
-	int_to_reg(and, reg[value_3]);
+	and = reg_to_int(REG[value_1]) & reg_to_int(REG[value_2]);
+	int_to_reg(and, REG[value_3]);
 	process->pc += last;
 	return(1);
 }
 
 int instruction_or(core_t *core, process_t *process, int *args)
 {
-	byte_t **reg = process->registers;
 	int last = process->pc + 2;
 	int value_1 = get_mem(process, core, args[0], &last);
 	int value_2 = get_mem(process, core, args[1], &last);
@@ -70,15 +68,14 @@ int instruction_or(core_t *core, process_t *process, int *args)
 	    args, T_REG | T_DIR | T_IND, T_REG | T_IND | T_DIR, T_REG), 
 	    value_1 == -1 || value_2 == -1 || value_3 == -1)
 		return (process->pc += 2);
-	or = reg_to_int(reg[value_1]) | reg_to_int(reg[value_2]);
-	int_to_reg(or, reg[value_3]);
+	or = reg_to_int(REG[value_1]) | reg_to_int(REG[value_2]);
+	int_to_reg(or, REG[value_3]);
 	process->pc += last;
 	return(1);
 }
 
 int instruction_xor(core_t *core, process_t *process, int *args)
 {
-	byte_t **reg = process->registers;
 	int last = process->pc + 2;
 	int value_1 = get_mem(process, core, args[0], &last);
 	int value_2 = get_mem(process, core, args[1], &last);
@@ -89,8 +86,8 @@ int instruction_xor(core_t *core, process_t *process, int *args)
 	    args, T_REG | T_DIR | T_IND, T_REG | T_IND | T_DIR, T_REG), 
 	    value_1 == -1 || value_2 == -1 || value_3 == -1)
 		return (process->pc += 2);
-	xor = reg_to_int(reg[value_1]) ^ reg_to_int(reg[value_2]);
-	int_to_reg(xor, reg[value_3]);
+	xor = reg_to_int(REG[value_1]) ^ reg_to_int(REG[value_2]);
+	int_to_reg(xor, REG[value_3]);
 	process->pc += last;
 	return(1);
 }
