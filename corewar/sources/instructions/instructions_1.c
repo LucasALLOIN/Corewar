@@ -16,10 +16,10 @@ int instruction_live(core_t *core, process_t *process, int *args)
 	int adress = ADRESS(process->pc + 1);
 
 	for (int i = 0; i < core->nb_progs; i++)
-	  if (process->parent->number == uchar_to_int(core, adress)) {
-			process->parent->last_live_cycle = core->nbr_cycle;
+		if (core->program_tab[i].number == uchar_to_int(core, adress)) {
+			core->program_tab[i].last_live_cycle = core->nbr_cycle;
 			my_printf("The player %d(%s) is alive.\n",
-		        process->parent->number, process->parent->header.prog_name);
+		        core->program_tab[i].number, core->program_tab[i].header.prog_name);
 		}
 	core->nb_live += 1;
 	process->pc += 5;
@@ -78,5 +78,3 @@ int instruction_aff(core_t *core, process_t *process, int *args)
 	process->pc = process->pc + 6;
         return(1);
 }
-
-
