@@ -9,6 +9,7 @@
 #define INSTRUCTIONS_H_
 
 #define NB_INSTRUCTIONS 0x10
+#define REG process->registers
 
 #include "corewar.h"
 
