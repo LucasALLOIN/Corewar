@@ -36,7 +36,7 @@ static int load_memory(process_t *process, core_t *core, int f_mem, int i)
 	process->carry = 0;
 	prog->is_alive = 1;
 	prog->last_live_cycle = -1;
-	if (process->load_adress + prog->header.prog_size > MEM_SIZE) { 
+	if (process->load_adress + prog->header.prog_size > MEM_SIZE) {
 		if (read(prog->fd, &core->memory[process->load_adress], 	    \
 		    	 MEM_SIZE - process->load_adress + 1)  == -1 ||
 		    read(prog->fd, &core->memory[0], prog->header.prog_size - \

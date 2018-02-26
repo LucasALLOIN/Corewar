@@ -20,7 +20,7 @@ void my_memcpy(void *mem_dest, const void *mem_src, int len)
 		len--;
 	}
 }
-
+/*
 void dump_virtual_mem(byte_t memory[])
 {
 	write(1, "0x000000 : ", 11);
@@ -34,7 +34,7 @@ void dump_virtual_mem(byte_t memory[])
 	}
 	write(1, "\n", 1);
 }
-
+*/
 int is_equal_id(process_t *process, int id)
 {
 	process_t *tmp = process;
@@ -72,4 +72,3 @@ void dump_virtual_mem_color(byte_t memory[], byte_t owner_table[], core_t *core)
 	}
 	write(1, "\n", 1);
 }
-

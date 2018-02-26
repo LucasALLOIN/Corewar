@@ -24,10 +24,17 @@ int instruction_add(core_t *core, process_t *process, UNUSED int *args)
 	int r3 = core->memory[ADRESS(process->pc + 4)] - 1;
 	int sum;
 
+	if (!((r1 >= 0 && r1 <= 15) && (r2 >= 0 && r2 <= 15) && \
+	(r3 >= 0 && r3 <= 15))) {
+		process->carry = 0;
+		process->pc += 5;
+		return (0);
+	}
 	sum = reg_to_int(process->registers[r1]) + \
 	reg_to_int(process->registers[r2]);
 	int_to_reg(sum, process->registers[r3]);
 	process->pc += 5;
+	process->carry = 1;
 	return(1);
 }
 
@@ -45,10 +52,17 @@ int instruction_sub(core_t *core, process_t *process, UNUSED int *args)
 	int r3 = core->memory[ADRESS(process->pc + 4)] - 1;
 	int sub;
 
+	if (!((r1 >= 0 && r1 <= 15) && (r2 >= 0 && r2 <= 15) && \
+	      (r3 >= 0 && r3 <= 15))) {
+		process->carry = 0;
+		process->pc += 5;
+		return (0);
+	}
 	sub = reg_to_int(process->registers[r1]) - \
 	reg_to_int(process->registers[r2]);
 	int_to_reg(sub, process->registers[r3]);
 	process->pc += 5;
+	process->carry = 1;
 	return(1);
 }
 
