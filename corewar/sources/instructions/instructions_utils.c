@@ -34,8 +34,8 @@ int get_mem(process_t *process, core_t *core, int type, int *last)
 {
 	int val = -1;
 
-	if (type == T_REG && core->memory[ADRESS(process->pc + *last)] > 0 && \
-	    core->memory[ADRESS(process->pc + *last)] <= 16) {
+	if (type == T_REG && core->memory[ADRESS(*last)] > 0 && \
+	    core->memory[ADRESS(*last)] <= 16) {
 		val = core->memory[ADRESS(*last)] - 1;
 		*last += 1;	 
 	} else if (type == T_DIR) {
@@ -43,7 +43,7 @@ int get_mem(process_t *process, core_t *core, int type, int *last)
 		*last += 4;
 	} else if (type == T_IND) {
 		val = uchar_to_int(core, process->pc + \
-		      uchar_to_short(core, process->pc + *last) % IDX_MOD);
+		      uchar_to_short(core, *last) % IDX_MOD);
 		*last += 2;
 	}
 	return (val);

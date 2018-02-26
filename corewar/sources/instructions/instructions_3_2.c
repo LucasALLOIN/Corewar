@@ -13,12 +13,11 @@
 /*
 **
 ** [1]  [2]  [3]
-** RID  R D  R
+** RID  R-D  R--
 **       
 ** [3] = memory[pc + [1] % IDX_MOD] + [2]
 **       ^^^^^^
 **           size = [ ][ ]
-**
 */
 int instruction_ldi(core_t *core, process_t *process, int *args)
 {
@@ -65,7 +64,6 @@ int instruction_sti(core_t *core, process_t *process, int *args)
 		value_1 = reg_to_int(REG[value_1 - 1]);
 	if (args[2] == T_REG)
 		value_2 = reg_to_int(REG[value_2 - 1]);
-	printf("index_reg = %d\n", index_reg);
 	int_to_uchar(core, process, reg_to_int(REG[index_reg - 1]), \
 		     ADRESS(*pc + value_1 + value_2) % IDX_MOD);
 	*pc += last;
