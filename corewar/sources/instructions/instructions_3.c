@@ -10,6 +10,13 @@
 #include "my_printf.h"
 #include "mem_manage.h"
 
+/*
+**
+** [1] [2] [3]
+**  R   R   R
+**
+** [3] = [1] + [2]
+*/
 int instruction_add(core_t *core, process_t *process, UNUSED int *args)
 {
 	int r1 = core->memory[ADRESS(process->pc + 2)] - 1;
@@ -24,6 +31,13 @@ int instruction_add(core_t *core, process_t *process, UNUSED int *args)
 	return(1);
 }
 
+/*
+**
+** [1] [2] [3]
+**  R   R   R
+**
+** [3] = [1] - [2]
+*/
 int instruction_sub(core_t *core, process_t *process, UNUSED int *args)
 {
 	int r1 = core->memory[ADRESS(process->pc + 2)] - 1;
@@ -38,6 +52,13 @@ int instruction_sub(core_t *core, process_t *process, UNUSED int *args)
 	return(1);
 }
 
+/*
+**
+** [1] [2] [3]
+** DIR DIR  R
+**
+** [3] = [1] & [2]
+*/
 int instruction_and(core_t *core, process_t *process, int *args)
 {
 	int last = process->pc + 2;
@@ -56,6 +77,13 @@ int instruction_and(core_t *core, process_t *process, int *args)
 	return(1);
 }
 
+/*
+**
+** [1] [2] [3]
+** DIR DIR  R
+**
+** [3] = [1] | [2]
+*/
 int instruction_or(core_t *core, process_t *process, int *args)
 {
 	int last = process->pc + 2;
@@ -74,6 +102,13 @@ int instruction_or(core_t *core, process_t *process, int *args)
 	return(1);
 }
 
+/*
+**
+** [1] [2] [3]
+** DIR DIR  R
+**
+** [3] = [1] ^ [2]
+*/
 int instruction_xor(core_t *core, process_t *process, int *args)
 {
 	int last = process->pc + 2;

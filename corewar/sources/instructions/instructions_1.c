@@ -34,6 +34,13 @@ int instruction_live(core_t *core, process_t *process, UNUSED int *args)
 	return(1);
 }
 
+/*
+**
+** [1]  [2]  [3]
+** I    ---  ---
+**
+** PC += [ [ 1 ] % IDX_MOD ]
+*/
 int instruction_zjmp(core_t *core, process_t *process, UNUSED int *args)
 {
 	int adress = ADRESS(process->pc + 1);
@@ -44,6 +51,13 @@ int instruction_zjmp(core_t *core, process_t *process, UNUSED int *args)
 	return(1);
 }
 
+/*
+**
+** [1]  [2]  [3]
+**  D   ---  ---
+**
+** Create new process and set pc at [PC + [ 1 ]] % IDX_MOD
+*/
 int instruction_fork(core_t *core, process_t *process, UNUSED int *args)
 {
 	int newpc;
@@ -56,6 +70,13 @@ int instruction_fork(core_t *core, process_t *process, UNUSED int *args)
 	return(1);
 }
 
+/*
+**
+** [1]  [2]  [3]
+**  D   ---  ---
+**
+** Create new process and set pc at [PC + [ 1 ]]
+*/
 int instruction_lfork(core_t *core, process_t *process, UNUSED int *args)
 {
 	int newpc;
@@ -68,6 +89,13 @@ int instruction_lfork(core_t *core, process_t *process, UNUSED int *args)
 	return(1);
 }
 
+/*
+**
+** [1]  [2]  [3]
+**  R   ---  ---
+**
+** Dispay [registers[1] % 256]
+*/
 int instruction_aff(core_t *core, process_t *process, UNUSED int *args)
 {
 	int reg = 0;
@@ -84,5 +112,5 @@ int instruction_aff(core_t *core, process_t *process, UNUSED int *args)
 	if (c > 31 && c < 127)
 		my_putchar(character);
 	process->pc = process->pc + 6;
-        return(1);
+	return(1);
 }

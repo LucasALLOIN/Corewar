@@ -70,6 +70,15 @@ int instruction_sti(core_t *core, process_t *process, int *args)
 	return(1);
 }
 
+/*
+** [1]  [2]  [3]
+** R    RID  RID  
+**
+** memory[pc + [2] + [3]] = [1];
+** ^^^^^^
+**     size [ ][ ][ ][ ]
+**
+*/
 int instruction_lldi(core_t *core, process_t *process, int *args)
 {
 	unsigned int *pc = &process->pc;
@@ -89,4 +98,3 @@ int instruction_lldi(core_t *core, process_t *process, int *args)
 	*pc += last;
 	return(process->carry = 1);
 }
-
