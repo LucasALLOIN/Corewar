@@ -6,5 +6,5 @@
 .comment "A basic ldi program"
 
 main:
-	ldi 3, %4, r2
+	ldi 3, %4, r1
 	zjmp %:main

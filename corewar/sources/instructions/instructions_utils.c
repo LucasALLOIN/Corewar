@@ -61,9 +61,9 @@ int lget_mem(process_t *process, core_t *core, int type, int *last)
 {
 	int value = -1;
 
-	if (type == T_REG && core->memory[*last] > 0 && \
-	    core->memory[*last] <= 16) {
-		value = core->memory[*last] - 1;
+	if (type == T_REG && core->memory[ADRESS(*last)] > 0 && \
+	    core->memory[ADRESS(*last)] <= 16) {
+		value = core->memory[ADRESS(*last)] - 1;
 		*last += 1;	 
 	} else if (type == T_DIR) {
 		value = uchar_to_int(core, *last);

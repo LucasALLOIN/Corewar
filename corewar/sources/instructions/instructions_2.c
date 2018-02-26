@@ -101,10 +101,7 @@ int instruction_lld(core_t *core, process_t *process, int *args)
 		*pc += 2;
 		return (process->carry = 0);
 	}
-	if (args[1] == T_REG) 
-		int_to_reg(reg_to_int(REG[value]), REG[index_reg]);
-	else
-		int_to_reg(value, REG[index_reg]);
+	int_to_reg(value, REG[index_reg]);
 	*pc += last;
 	return (process->carry = 1);
 }
