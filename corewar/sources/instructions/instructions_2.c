@@ -23,8 +23,8 @@ int instruction_ld(core_t *core, process_t *process, int *args)
 {
 	unsigned int *pc = &process->pc;
 	int last = *pc + 2;
-	int index_reg = get_mem(process, core, args[1], &last);
 	int value =  get_mem(process, core, args[0], &last);
+	int index_reg = get_mem(process, core, args[1], &last);
 
 	if (!check_valid(args, T_DIR | T_IND, T_REG, 0) || 
 	    index_reg == -1 || value == -1) {
@@ -32,10 +32,11 @@ int instruction_ld(core_t *core, process_t *process, int *args)
 		return (process->carry = 0);
 	}
 	if (args[1] == T_REG) 
-		int_to_reg(reg_to_int(REG[value]), REG[index_reg]);
+		int_to_reg(value, REG[index_reg]);
 	else
 		int_to_reg(value, REG[index_reg]);
 	*pc += last;
+	printf("REGISTRE 3 %d\n", reg_to_int(REG[2]));
 	return (process->carry = 1);
 }
 
