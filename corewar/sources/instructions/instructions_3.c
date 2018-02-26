@@ -99,7 +99,7 @@ int instruction_or(core_t *core, process_t *process, int *args)
 	    args, T_REG | T_DIR | T_IND, T_REG | T_IND | T_DIR, T_REG), 
 	    value_1 == -1 || value_2 == -1 || value_3 == -1) {
 		process->carry = 0;
-		return (process->pc += 2);
+		return (process->pc += last);
 	}
 	or = reg_to_int(REG[value_1]) | reg_to_int(REG[value_2]);
 	int_to_reg(or, REG[value_3]);
@@ -127,7 +127,7 @@ int instruction_xor(core_t *core, process_t *process, int *args)
 	    args, T_REG | T_DIR | T_IND, T_REG | T_IND | T_DIR, T_REG), 
 	    value_1 == -1 || value_2 == -1 || value_3 == -1) {
 		process->carry = 0;
-		return (process->pc += 2);
+		return (process->pc += last);
 	}
 	xor = reg_to_int(REG[value_1]) ^ reg_to_int(REG[value_2]);
 	int_to_reg(xor, REG[value_3]);

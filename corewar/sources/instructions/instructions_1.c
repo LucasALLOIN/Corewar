@@ -10,6 +10,7 @@
 #include "my_printf.h"
 #include "mem_manage.h"
 #include "utils.h"
+#include "unistd.h"
 
 /*
 **
@@ -103,14 +104,13 @@ int instruction_aff(core_t *core, process_t *process, UNUSED int *args)
 	int character;
 
 	if (!check_valid(args, T_REG, 0, 0)) {
-		process->pc += 1;
+		process->pc += 3;
 		return (0);
 	}
 	reg = uchar_to_int(core, ADRESS(process->pc + 2));
 	c = reg_to_int(process->registers[reg]) % 256;
 	character = (char) c;
-	if (c > 31 && c < 127)
-		my_putchar(character);
-	process->pc = process->pc + 6;
+	write(1, &character, 1);
+	process->pc += 3;
 	return(1);
 }
