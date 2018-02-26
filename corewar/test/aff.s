@@ -2,7 +2,7 @@
 # fork.s
 #
 
-.name "ldi"
+.name "aff"
 .comment "A basic ldi program"
 
 main:

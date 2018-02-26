@@ -24,8 +24,9 @@ int instruction_error(UNUSED core_t *core, process_t *process, UNUSED int *args)
 ** [1]  [2]  [3]
 ** -ID  R--  --- 
 **
-** [2] = [1]
-**
+** [2] = memory[ [1] % IDX_MOD ]
+**       ^^^^^^
+**       size[ ][ ][ ][ ]
 */
 int instruction_ld(core_t *core, process_t *process, int *args)
 {
@@ -71,6 +72,14 @@ int instruction_st(core_t *core, process_t *process, int *args)
 	return (*pc += last);
 }
 
+/*
+**
+** [1]  [2]  [3]
+** -ID  R--  --- 
+**
+** [2] = [1]
+**
+*/
 int instruction_lld(core_t *core, process_t *process, int *args)
 {
 	unsigned int *pc = &process->pc;

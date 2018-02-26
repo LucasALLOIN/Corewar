@@ -11,6 +11,13 @@
 #include "mem_manage.h"
 #include "utils.h"
 
+/*
+**
+** [1]  [2]  [3]
+** ---  ---  ---
+**
+** Say who's is alive
+*/
 int instruction_live(core_t *core, process_t *process, UNUSED int *args)
 {
 	int adress = ADRESS(process->pc + 1);

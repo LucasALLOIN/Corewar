@@ -90,6 +90,7 @@ int main(int argc, char *argv[])
 	if (err == -1)
 		return (84);
 	corewar_init(corewar);
+	dump_virtual_mem_color(corewar->memory, corewar->owner_table, corewar);
 	for (; is_champ_alive(corewar);)
 		cycle(corewar);
 	dump_virtual_mem_color(corewar->memory, corewar->owner_table, corewar);

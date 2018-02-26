@@ -1,10 +1,9 @@
 #
 # fork.s
 #
-
-.name "ldi"
+.name "lld"
 .comment "A basic ldi program"
 
 main:
-	lddi 3, %4, r2
+	lld 34, r3
 	zjmp %:main
