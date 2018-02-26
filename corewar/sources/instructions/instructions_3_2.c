@@ -23,8 +23,8 @@ int instruction_ldi(core_t *core, process_t *process, int *args)
 {
 	unsigned int *pc = &process->pc;
 	int last = *pc + 2;
-	int value_1 = get_mem(process, core, args[0], &last);
-	int value_2 = get_mem(process, core, args[1], &last);
+	int value_1 = get_mem(process, core, T_IND, &last);
+	int value_2 = get_mem(process, core, T_IND, &last);
 	int index_reg = get_mem(process, core, args[2], &last);
 
 	if (!check_valid(args, T_REG | T_DIR | T_IND, T_DIR | T_REG, T_REG) ||
