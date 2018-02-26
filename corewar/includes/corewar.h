@@ -15,7 +15,7 @@ typedef unsigned char byte_t;
 #include "process.h"
 #include "args.h"
 
-#define ADRESS(x) (x % MEM_SIZE)
+#define ADRESS(x) ((x) % MEM_SIZE)
 #define CHAMPIONS 4
 #define UNUSED __attribute__((unused))
 

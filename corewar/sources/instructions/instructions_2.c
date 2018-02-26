@@ -46,7 +46,7 @@ int instruction_ld(core_t *core, process_t *process, int *args)
 
 	if (!check_valid(args, T_DIR | T_IND, T_REG, 0) || 
 	    index_reg == -1 || value == -1) {
-		*pc += 2;
+		*pc += last;
 		return (process->carry = 0);
 	}
 	int_to_reg(value, REG[index_reg]);
@@ -71,7 +71,7 @@ int instruction_st(core_t *core, process_t *process, int *args)
 
 	if (!check_valid(args, T_REG, T_IND | T_REG, 0) ||
 	    index_reg == -1 || value == -1) {
-		*pc += 2;
+		*pc += last;
 		return (process->carry = 0);
 	}
 	if (args[1] == T_REG)
@@ -98,13 +98,10 @@ int instruction_lld(core_t *core, process_t *process, int *args)
 
 	if (!check_valid(args, T_DIR | T_IND, T_REG, 0) || 
 	    index_reg == -1 || value == -1) {
-		*pc += 2;
+		*pc += last;
 		return (process->carry = 0);
 	}
-	if (args[1] == T_REG) 
-		int_to_reg(reg_to_int(REG[value]), REG[index_reg]);
-	else
-		int_to_reg(value, REG[index_reg]);
+	int_to_reg(value, REG[index_reg]);
 	*pc += last;
 	return (process->carry = 1);
 }
