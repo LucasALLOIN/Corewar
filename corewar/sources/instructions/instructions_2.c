@@ -11,6 +11,15 @@
 #include "op.h"
 #include "mem_manage.h"
 
+
+/*
+**
+** [1]  [2]  [3]
+** ---  ---  --- 
+** 
+** default instruction
+** 
+*/
 int instruction_error(UNUSED core_t *core, process_t *process, UNUSED int *args)
 {
 	my_printf("\e[1;34mGood Job process %s you lost 1 cycle at PC %d\e[0m\n"
