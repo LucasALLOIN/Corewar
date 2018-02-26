@@ -44,6 +44,8 @@ int exec_process(process_t *process, core_t *core)
 	my_printf("\e[33;1m%s\nCycle Before exec : %d\e[0m\n\n", \
 	process->parent->file_name, process->turn_to_exec);
 #endif
+	if (process->pc >= MEM_SIZE + 1)
+		process->pc = ADRESS(process->pc);
 	if (--process->turn_to_exec > 0)
 		return (-1);
 	get_ins_args(core->memory[ADRESS(process->pc + 1)], args);
@@ -57,7 +59,7 @@ int exec_process(process_t *process, core_t *core)
 		process->pc, process->load_adress, core->memory[process->pc]);
 	#endif
 	} else if (!process->was_waiting) {
-	  	process->turn_to_exec = cycle_x[inst];
+		process->turn_to_exec = cycle_x[(inst <= 0x0f) ? inst : 0];
 		process->was_waiting = 1;
 	}
 	return (0);

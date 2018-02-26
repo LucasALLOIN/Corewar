@@ -92,5 +92,6 @@ int main(int argc, char *argv[])
 	corewar_init(corewar);
 	for (; is_champ_alive(corewar);)
 		cycle(corewar);
+	dump_virtual_mem_color(corewar->memory, corewar->owner_table, corewar);
 	return (0);
 }
