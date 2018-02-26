@@ -12,24 +12,24 @@ NAME	=	corewar
 all:	$(NAME)
 
 $(NAME):
-	@make --no-print-directory -C library/my_printf/src all
+	@make --no-print-directory -C library/my_printf/src all NAME=libmyprintf.a
 	@make --no-print-directory -C sources/ all
 
 re:
-	@make --no-print-directory -C library/my_printf/src re
+	@make --no-print-directory -C library/my_printf/src re NAME=libmyprintf.a
 	@make --no-print-directory -C sources/ re
 
 debug:
-	@make --no-print-directory -C library/my_printf/src re DEB=1
+	@make --no-print-directory -C library/my_printf/src re DEB=1 NAME=libmyprintf.a
 	@make --no-print-directory -C sources/ re DEB=1 TEST=1
 
 clean:
 	@make --no-print-directory -C sources/ clean
-	@make --no-print-directory -C library/my_printf/src clean
+	@make --no-print-directory -C library/my_printf/src clean NAME=libmyprintf.a
 
 fclean:
 	@make --no-print-directory -C sources/ fclean
-	@make --no-print-directory -C library/my_printf/src fclean
+	@make --no-print-directory -C library/my_printf/src fclean NAME=libmyprintf.a
 
 test_run:
 	@make --no-print-directory -C bonus/unittest re

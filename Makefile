@@ -22,7 +22,7 @@ ASM		=	asm
 
 all:	$(COREWAR) $(ASM)
 
-$(COREWAR):
+$(COREWAR):	
 		@printf "\e[32;1m[COMPILING COREWAR]\e[0m\n"
 		@make --no-print-directory -C $(COREWAR_DIR) NAME=$(COREWAR) 
 

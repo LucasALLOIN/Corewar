@@ -40,10 +40,6 @@ int exec_process(process_t *process, core_t *core)
 	int args[3] = {0, 0, 0};
 	int inst = 0;
 
-#ifdef DEBUG_MODE
-	my_printf("\e[33;1m%s\nCycle Before exec : %d\e[0m\n\n", \
-	process->parent->file_name, process->turn_to_exec);
-#endif
 	if (process->pc >= MEM_SIZE + 1)
 		process->pc = ADRESS(process->pc);
 	if (--process->turn_to_exec > 0)
@@ -53,11 +49,6 @@ int exec_process(process_t *process, core_t *core)
 	if (process->was_waiting) {
 		process->was_waiting = 0;
 		INSTRUCTION_ARRAY[(inst <= 0x0f) ? inst : 0](core, process, args);
-#ifdef DEBUG_MODE
-		my_printf("\e[31;1mPC = %d\n\e[0m",process->pc - process->load_adress);
-		my_printf("Instuction: %#04x\n", \
-		process->pc, process->load_adress, core->memory[process->pc]);
-	#endif
 	} else if (!process->was_waiting) {
 		process->turn_to_exec = cycle_x[(inst <= 0x0f) ? inst : 0];
 		process->was_waiting = 1;
