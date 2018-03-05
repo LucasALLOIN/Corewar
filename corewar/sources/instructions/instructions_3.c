@@ -81,8 +81,8 @@ int instruction_and(core_t *core, process_t *process, int *args)
 	int value_3 = get_mem(process, core, args[2], &last);
 	int and = 0;
 
-	if (check_valid(
-	    args, T_REG | T_DIR | T_IND, T_REG | T_IND | T_DIR, T_REG), 
+	if (!check_valid(
+	    args, T_REG | T_DIR | T_IND, T_REG | T_IND | T_DIR, T_REG) || 
 	    value_1 == -1 || value_2 == -1 || value_3 == -1) {
 		process->carry = 0;
 		return (process->pc += 2);
@@ -109,8 +109,8 @@ int instruction_or(core_t *core, process_t *process, int *args)
 	int value_3 = get_mem(process, core, args[2], &last);
 	int or = 0;
 
-	if (check_valid(
-	    args, T_REG | T_DIR | T_IND, T_REG | T_IND | T_DIR, T_REG), 
+	if (!check_valid(
+	    args, T_REG | T_DIR | T_IND, T_REG | T_IND | T_DIR, T_REG) ||
 	    value_1 == -1 || value_2 == -1 || value_3 == -1) {
 		process->carry = 0;
 		return (process->pc = last);
@@ -137,8 +137,8 @@ int instruction_xor(core_t *core, process_t *process, int *args)
 	int value_3 = get_mem(process, core, args[2], &last);
 	int xor = 0;
 
-	if (check_valid(
-	    args, T_REG | T_DIR | T_IND, T_REG | T_IND | T_DIR, T_REG), 
+	if (!check_valid(
+	    args, T_REG | T_DIR | T_IND, T_REG | T_IND | T_DIR, T_REG) ||
 	    value_1 == -1 || value_2 == -1 || value_3 == -1) {
 		process->carry = 0;
 		return (process->pc = last);

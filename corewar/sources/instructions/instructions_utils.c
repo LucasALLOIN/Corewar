@@ -96,7 +96,7 @@ int iget_mem(process_t *process, core_t *core, int type, int *last)
 		value = uchar_to_int(core,
 		 	process->pc + uchar_to_short(core, *last) % IDX_MOD);
 		*last += 2;
-	} else if (type == T_IND) {
+	} else if (type == T_IND || type == T_LAB) {
 		value = uchar_to_short(core, 
 			process->pc + uchar_to_short(core, *last) % IDX_MOD);
 		*last += 2;
