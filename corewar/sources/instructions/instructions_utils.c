@@ -51,6 +51,61 @@ int get_mem(process_t *process, core_t *core, int type, int *last)
 
 /*
 **
+** iget_mem:
+** get_the right mem value without IDX_MOD
+** 	
+**
+**
+*/
+int liget_mem(process_t *process, core_t *core, int type, int *last)
+{
+	int value = -1;
+
+	if (type == T_REG) {
+		value = core->memory[process->pc + uchar_to_short(core, *last)];
+		*last += 1;
+	} else if (type == T_DIR) {
+		value = uchar_to_int(core,
+		 	process->pc + uchar_to_short(core, *last));
+		*last += 2;
+	} else if (type == T_IND) {
+		value = uchar_to_short(core, 
+			process->pc + uchar_to_short(core, *last));
+		*last += 2;
+	}
+	return (value);
+}
+
+/*
+**
+** iget_mem:
+** get_the right mem value without IDX_MOD
+** 	
+**
+**
+*/
+int iget_mem(process_t *process, core_t *core, int type, int *last)
+{
+	int value = -1;
+
+	if (type == T_REG) {
+		value = core->memory[process->pc + uchar_to_short(core, *last)\
+			% IDX_MOD];
+		*last += 2;
+	} else if (type == T_DIR) {
+		value = uchar_to_int(core,
+		 	process->pc + uchar_to_short(core, *last) % IDX_MOD);
+		*last += 2;
+	} else if (type == T_IND) {
+		value = uchar_to_short(core, 
+			process->pc + uchar_to_short(core, *last) % IDX_MOD);
+		*last += 2;
+	}
+	return (value);
+}
+
+/*
+**
 ** lget_mem:
 ** get_the right mem value without IDX_MOD
 ** 	

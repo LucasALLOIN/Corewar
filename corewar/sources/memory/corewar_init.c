@@ -65,7 +65,8 @@ void set_owner_table(core_t *core, process_t *process)
         for (int i = 0; i < process->parent->header.prog_size; i++) {
 		if (!offset && process->load_adress + i >= MEM_SIZE)
 			offset = process->load_adress + i;
-		core->owner_table[i + process->load_adress - offset] = process->id;
+		core->owner_table[ADRESS(i + process->load_adress - offset)] 
+		= process->id;
 	}
 }
 
