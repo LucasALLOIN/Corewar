@@ -30,7 +30,6 @@ struct label {
 };
 
 typedef struct label label_t;
-
 char *split(char const *file, header_t *header, int *skipped_lines);
 void encode_header(header_t *header, int fd);
 int encode_code(char const *code, int fd, header_t *header);
