@@ -66,8 +66,8 @@ int instruction_st(core_t *core, process_t *process, int *args)
 {
 	unsigned int *pc = &process->pc;
 	int last = *pc + 2;
-	int value = get_mem(process, core, args[0], &last);
-	int index_reg = get_mem(process, core, args[1], &last);
+	int index_reg = get_mem(process, core, args[0], &last);
+	int value = get_mem(process, core, args[1], &last);
 
 	if (!check_valid(args, T_REG, T_IND | T_REG, 0) ||
 	    index_reg == -1 || value == -1) {
