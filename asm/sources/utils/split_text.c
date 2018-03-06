@@ -13,6 +13,8 @@ char **split_lines(char const *str)
 	int of = 0;
 	char **lines;
 
+	if (!str)
+		return (0x0);
 	while (find_next(str + of, '\n') != -1) {
 		of = of + find_next(str + of, '\n') + 1;
 		ncount++;

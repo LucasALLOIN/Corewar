@@ -30,8 +30,7 @@ struct label {
 };
 
 typedef struct label label_t;
-
-char *split(char const *file, header_t *header);
+char *split(char const *file, header_t *header, int *skipped_lines);
 void encode_header(header_t *header, int fd);
 int encode_code(char const *code, int fd, header_t *header);
 int assembler(int ac, char **av);
@@ -46,5 +45,7 @@ int compute_line_size(char const *line);
 void encode_instruction(ins_t *op, int fd);
 int has_not_coding_byte(char const *line);
 char *clean_separator(char *str);
+int file_error_handler(char const *file);
+void free_instructions(ins_t **ins);
 
 #endif /* ASM_H_ */
