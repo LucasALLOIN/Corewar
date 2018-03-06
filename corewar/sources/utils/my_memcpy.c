@@ -20,7 +20,7 @@ void my_memcpy(void *mem_dest, const void *mem_src, int len)
 		len--;
 	}
 }
-
+/*
 void dump_virtual_mem(byte_t memory[])
 {
 	write(1, "0x000000 : ", 11);
@@ -29,6 +29,44 @@ void dump_virtual_mem(byte_t memory[])
 			my_printf("%#04x ", memory[i - 1]);
 		else
 			my_printf("\e[1;32m%#04x \e[0m", memory[i - 1]);
+		if ((i % (MEM_SIZE / 500)) == 0 && i < MEM_SIZE)
+			my_printf("\n%#08x : ", i - 1);
+	}
+	write(1, "\n", 1);
+}
+*/
+int is_equal_id(process_t *process, int id)
+{
+	process_t *tmp = process;
+
+	for (; tmp != NULL; tmp = tmp->next)
+		if (tmp->id == id)
+			return (tmp->parent->number);
+	return (-1);
+}
+
+int get_number_from_id(core_t *core, int id)
+{
+	process_t *tmp;
+	int val;
+
+	for (int i = 0; i < core->nb_progs; i++) {
+		tmp = core->program_tab[i].process_l;
+		if ((val = is_equal_id(tmp, id)) != -1)
+			return (val);
+	}
+	return (0);
+}
+
+void dump_virtual_mem_color(byte_t memory[], byte_t owner_table[], core_t *core)
+{
+	char color[5][10] = {"\e[0m", "\e[1;32m", "\e[1;33m", \
+	"\e[1;34m", "\e[1;35m"};
+
+	write(1, "0x000000 : ", 11);
+	for (int i = 1; i <= MEM_SIZE; ++i) {
+		my_printf("%s%#04x \e[0m", color[get_number_from_id(core, \
+		owner_table[i - 1])], memory[i - 1]);
 		if ((i % (MEM_SIZE / 500)) == 0 && i < MEM_SIZE)
 			my_printf("\n%#08x : ", i - 1);
 	}

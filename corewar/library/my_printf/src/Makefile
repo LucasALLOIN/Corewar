@@ -9,6 +9,10 @@ SRC_DIR	=	.
 
 ROOT	=	../../..
 
+NAME	=	libmyprintf.a
+
+LIB	=	$(ROOT)/library/$(NAME)
+
 SRC	=	$(SRC_DIR)/arg_print/arg_print.c	\
 		$(SRC_DIR)/arg_print/flags_functions.c	\
 		$(SRC_DIR)/my_printf.c			\
@@ -21,8 +25,6 @@ SRC	=	$(SRC_DIR)/arg_print/arg_print.c	\
 		$(SRC_DIR)/print/print_unsigned.c	\
 		$(SRC_DIR)/utils/struct_funct.c		\
 		$(SRC_DIR)/utils/utils.c		
-
-NAME	=	$(ROOT)/library/libmyprintf.a
 
 OBJS	=	$(SRC:.c=.o)
 
@@ -50,9 +52,9 @@ BLUE    =	\e[1;34m
 
 
 .PHONY: 	all
-all:		$(NAME)
+all:		$(LIB)
 
-$(NAME):	$(OBJS)
+$(LIB):		$(OBJS)
 		$(V)printf "$(GREEN)Creating my_printf library.\n$(WHITE)"
 		$(V)ar rc $@ $(OBJS)
 
@@ -63,7 +65,7 @@ clean:
 
 fclean: 	clean
 		$(V)printf "$(RED)Removing my_printf library.\n$(WHITE)"
-		$(V)rm -f $(NAME)
+		$(V)rm -f $(LIB)
 
 re:		fclean
 		$(V)make --no-print-directory all 
