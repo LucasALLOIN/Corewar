@@ -62,12 +62,28 @@ int instruction_ld(core_t *core, process_t *process, int *args)
 ** [2] = [1]
 **
 */
+int get_st_mem(process_t *process, core_t *core, int type, int *last)
+{
+	int value = -1;
+
+	if (type == T_REG) {
+		value = core->memory[*last];
+		*last += 1;
+		return ((value >= 0 && value <= 16) ? value : 0);
+	} else {
+		value = uchar_to_short(core, *last);
+		*last += 2;
+		return (value);
+	}
+	return (value);
+}
+
 int instruction_st(core_t *core, process_t *process, int *args)
 {
 	unsigned int *pc = &process->pc;
 	int last = *pc + 2;
 	int index_reg = get_mem(process, core, args[0], &last);
-	int value = get_mem(process, core, args[1], &last);
+	int value = get_st_mem(process, core, args[1], &last);
 
 	if (!check_valid(args, T_REG, T_IND | T_REG, 0) ||
 	    index_reg == -1 || value == -1) {
