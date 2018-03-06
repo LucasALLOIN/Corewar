@@ -1,4 +1,4 @@
-##
+#
 ## EPITECH PROJECT, 2017
 ## Makefile
 ## File description:
@@ -20,25 +20,32 @@ NAME	?=	asm
 
 REAL	=	$(ROOT)/release
 
-SRC	=	$(SRC_DIR)/main.c 			\
-		$(SRC_DIR)/asm.c 			\
-		$(SRC_DIR)/op.c 			\
-		$(SRC_DIR)/file_splitter.c		\
-		$(SRC_DIR)/encoders/header.c		\
-		$(SRC_DIR)/encoders/code.c		\
-		$(SRC_DIR)/encoders/asm_utils.c		\
-		$(SRC_DIR)/encoders/op_encoder.c	\
-		$(SRC_DIR)/utils/my_calloc.c 		\
-		$(SRC_DIR)/utils/my_atoi.c 		\
-		$(SRC_DIR)/utils/my_strlen.c 		\
-		$(SRC_DIR)/utils/free_it.c		\
-		$(SRC_DIR)/utils/get_next_line.c	\
-		$(SRC_DIR)/utils/match.c		\
-		$(SRC_DIR)/utils/clean_str.c		\
-		$(SRC_DIR)/utils/get_file.c		\
-		$(SRC_DIR)/utils/my_strcat.c		\
-		$(SRC_DIR)/utils/find_next.c		\
-		$(SRC_DIR)/utils/split_lines.c
+SRC	=	$(SRC_DIR)/main.c 				\
+		$(SRC_DIR)/asm.c 				\
+		$(SRC_DIR)/file_splitter.c			\
+		$(SRC_DIR)/encoders/header.c			\
+		$(SRC_DIR)/encoders/label_utils.c		\
+		$(SRC_DIR)/encoders/code.c			\
+		$(SRC_DIR)/encoders/asm_utils.c			\
+		$(SRC_DIR)/encoders/op_encoder.c		\
+		$(SRC_DIR)/error_handlers/handler.c		\
+		$(SRC_DIR)/error_handlers/name_checks.c		\
+		$(SRC_DIR)/error_handlers/comment_checks.c	\
+		$(SRC_DIR)/error_handlers/instructions_checks.c	\
+		$(SRC_DIR)/error_handlers/label_checks.c	\
+		$(SRC_DIR)/error_handlers/utils.c		\
+		$(SRC_DIR)/utils/my_calloc.c 			\
+		$(SRC_DIR)/utils/my_atoi.c 			\
+		$(SRC_DIR)/utils/my_strlen.c 			\
+		$(SRC_DIR)/utils/free_it.c			\
+		$(SRC_DIR)/utils/get_next_line.c		\
+		$(SRC_DIR)/utils/match.c			\
+		$(SRC_DIR)/utils/clean_str.c			\
+		$(SRC_DIR)/utils/get_file.c			\
+		$(SRC_DIR)/utils/concatenation.c		\
+		$(SRC_DIR)/utils/find_char.c			\
+		$(SRC_DIR)/utils/split_text.c			\
+		$(SRC_DIR)/utils/my_memcmp.c
 
 WARN	=	-W -Wall -Wextra
 
@@ -103,6 +110,9 @@ $(REAL)/$(NAME):	buildrepo $(OBJS)
 			$(V)printf "$(GREEN)Compile sources.$(WHITE)\n"
 			$(V)$(CC) -o $(REAL)/$(NAME) $(OBJS) $(LDFLAGS)
 			$(V)printf "$(GREEN)Linking obj and Libraries.$(WHITE)\n"
+			$(V)$(shell grep -rni "$(ROOT)" -e "//TODO" | grep "TODO" | grep -v "Makefile" > $(ROOT)/todos)
+			$(V)printf "${RED}Don't forget !\n${BLUE}`cat $(ROOT)/todos`${WHITE}\n" && rm $(ROOT)/todos
+
 
 $(REAL)/%.o:		$(SRC_DIR)/%.c
 			$(V)printf "$(BLUE)Compiling [${ORANGE}$(notdir $<)$(BLUE) -> $(RED)$(notdir $@)$(BLUE)]$(WHITE)\n"

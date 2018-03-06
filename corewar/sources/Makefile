@@ -34,7 +34,8 @@ SRC	=	$(SRC_DIR)/core/core.c				\
 		$(SRC_DIR)/instructions/instructions_3_2.c	\
 		$(SRC_DIR)/memory/mem_manage.c			\
 		$(SRC_DIR)/memory/reg_manage.c			\
-		$(SRC_DIR)/instructions/instruction.c
+		$(SRC_DIR)/instructions/instructions_utils.c	\
+		$(SRC_DIR)/instructions/fork_lfork.c
 
 WARN	=	-W -Wall -Wextra
 
@@ -111,7 +112,7 @@ clean:
 			$(V)rm -rf $(OBJS)
 			$(V)printf "$(ORANGE)removing object files.$(WHITE)\n"
 
-fclean:	clean
+fclean:			clean
 			$(V)rm -f $(REAL)/$(NAME)
 			$(V)rm -f $(ROOT)/$(NAME)
 			$(V)printf "$(ORANGE)removing binary file.$(WHITE)\n"

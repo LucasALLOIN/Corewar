@@ -11,87 +11,113 @@
 #include "op.h"
 #include "mem_manage.h"
 
-//TODO: st | lld
 
-int instruction_error(core_t *core, process_t *process, int *args)
+/*
+**
+** [1]  [2]  [3]
+** ---  ---  --- 
+** 
+** default instruction
+** 
+*/
+int instruction_error(UNUSED core_t *core, process_t *process, UNUSED int *args)
 {
-	my_printf("\e[1;34mGood Job process %s you lost 1 cycle\e[0m\n" \
-			, process->parent->header.prog_name);
-	process->pc += 1;
+	//my_printf("\e[1;34mGood Job process %s you lost 1 cycle at PC %d\e[0m\n"
+		//  , process->parent->header.prog_name, process->pc);
+	process->pc += 2;
 	return(1);
 }
 
 /*
-** instruction_ld:
-** load the arg 0 into arg 1
 **
-** //// instructions ////
+** [1]  [2]  [3]
+** -ID  R--  --- 
 **
+** [2] = memory[ [1] % IDX_MOD ]
+**       ^^^^^^
+**       size[ ][ ][ ][ ]
 */
 int instruction_ld(core_t *core, process_t *process, int *args)
 {
-	unsigned int pc = process->pc;
-	byte_t *memory = core->memory;
-	byte_t **reg = process->registers;
+	unsigned int *pc = &process->pc;
+	int last = *pc + 2;
+	int value =  get_mem(process, core, args[0], &last);
+	int index_reg = get_mem(process, core, args[1], &last);
 
-	if (!check_valid(args, T_REG | T_DIR | T_IND | T_LAB, T_REG, 0))
+	if (!check_valid(args, T_DIR | T_IND, T_REG, 0) || 
+	    index_reg == -1 || value == -1) {
+		*pc = last;
 		return (process->carry = 0);
-	if (args[0] == T_REG) {
- 		int_to_reg(reg_to_int(reg[memory[ADRESS(pc + 2)]]), \
-		reg[memory[ADRESS(pc + 3)]]);
-	    	process->pc += 4;
-	} else if (args[0] == T_DIR) {
-	    	int_to_reg(uchar_to_int(core, pc + 2), \
-		process->registers[memory[pc + 6]]);
-	    	process->pc += 7;
-	} else if (args[0] == T_IND || args[0] == T_LAB) {
-	    	short_to_reg(uchar_to_short(core, pc + \ 
-		uchar_to_short(core ,pc + 2) % IDX_MOD), reg[memory[pc + 4]]);
-	    	process->pc += 5;
 	}
+	int_to_reg(value, REG[index_reg]);
+	*pc = last;
 	return (process->carry = 1);
+}
+
+/*
+**
+** [1]  [2]  [3]
+** RI-  R--  ---  
+**
+** [2] = [1]
+**
+*/
+int get_st_mem(process_t *process, core_t *core, int type, int *last)
+{
+	int value = -1;
+
+	if (type == T_REG) {
+		value = core->memory[*last];
+		*last += 1;
+		return ((value >= 0 && value <= 16) ? value : 0);
+	} else {
+		value = uchar_to_short(core, *last);
+		*last += 2;
+		return (value);
+	}
+	return (value);
 }
 
 int instruction_st(core_t *core, process_t *process, int *args)
 {
-	unsigned int pc = process->pc;
-	byte_t *memory = core->memory;
-	byte_t **reg = process->registers;
+	unsigned int *pc = &process->pc;
+	int last = *pc + 2;
+	int index_reg = get_mem(process, core, args[0], &last);
+	int value = get_st_mem(process, core, args[1], &last);
 
-	if (!check_valid(args, T_REG, T_REG | T_DIR, 0))
+	if (!check_valid(args, T_REG, T_IND | T_REG, 0) ||
+	    index_reg == -1 || value == -1) {
+		*pc = last;
 		return (process->carry = 0);
-	if (args[1] == T_REG) {
- 		int_to_reg(reg_to_int(reg[memory[ADRESS(pc + 2)]]),	\ 
-		reg[memory[ADRESS(pc + 3)]]);
-	    	process->pc += 4;
-	} else if (args[1] == T_DIR) {
-		int_to_uchar(core, reg_to_int(reg[memory[ADRESS(pc + 2)]]), \ 
-		pc + uchar_to_int(core, memory[ADRESS(pc + 3)]));
 	}
-	return (process->carry = 1);
+	if (args[1] == T_REG)
+		int_to_reg(reg_to_int(REG[value]), REG[index_reg]);
+	else
+		int_to_uchar(core, process, reg_to_int(REG[index_reg]), value);
+	return (*pc = last);
 }
 
+/*
+**
+** [1]  [2]  [3]
+** -ID  R--  --- 
+**
+** [2] = [1]
+**
+*/
 int instruction_lld(core_t *core, process_t *process, int *args)
-{	
-	unsigned int pc = process->pc;
-	byte_t *memory = core->memory;
-	byte_t **reg = process->registers;
+{
+	unsigned int *pc = &process->pc;
+	int last = *pc + 2;
+	int index_reg = lget_mem(process, core, args[1], &last);
+	int value =  lget_mem(process, core, args[0], &last);
 
-	if (!check_valid(args, T_REG | T_DIR | T_IND | T_LAB, T_REG, 0))
+	if (!check_valid(args, T_DIR | T_IND, T_REG, 0) || 
+	    index_reg == -1 || value == -1) {
+		*pc = last;
 		return (process->carry = 0);
-	if (args[0] == T_REG) {
- 		int_to_reg(reg_to_int(reg[memory[ADRESS(pc + 2)]]), \
-		reg[memory[ADRESS(pc + 3)]]);
-	    	process->pc += 4;
-	} else if (args[0] == T_DIR) {
-	    	int_to_reg(uchar_to_int(core, pc + 2), \
-		process->registers[memory[pc + 6]]);
-	    	process->pc += 7;
-	} else if (args[0] == T_IND || args[0] == T_LAB) {
-	    	short_to_reg(uchar_to_short(core, pc + \ 
-		uchar_to_short(core ,pc + 2)), reg[memory[pc + 4]]);
-	    	process->pc += 5;
 	}
+	int_to_reg(value, REG[index_reg]);
+	*pc = last;
 	return (process->carry = 1);
-	return(1);
 }

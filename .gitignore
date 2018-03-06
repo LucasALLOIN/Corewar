@@ -6,3 +6,4 @@ vgcore.*
 *.swo
 *.a
 .dir*
+*.cor

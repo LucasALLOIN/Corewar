@@ -9,6 +9,7 @@
 #define INSTRUCTIONS_H_
 
 #define NB_INSTRUCTIONS 0x10
+#define REG process->registers
 
 #include "corewar.h"
 
@@ -30,7 +31,7 @@ int instruction_lldi(core_t *core, process_t *process, int *args);
 int instruction_lfork(core_t *core, process_t *process, int *args);
 int instruction_aff(core_t *core, process_t *process, int *args);
 
-static const int cycle_x[16] = {1, 10, 5, 5, 10, 6, 6, 6, 20, 25, 25, 800, 10, 50, 1000, 2};
+static const int cycle_x[17] = {1, 10, 5, 5, 10, 10, 6, 6, 6, 20, 25, 25, 800, 10, 50, 1000, 2};
 
 static int (* const INSTRUCTION_ARRAY[17]) (core_t *, process_t *, int *) = {
 	&instruction_error,
@@ -54,5 +55,7 @@ static int (* const INSTRUCTION_ARRAY[17]) (core_t *, process_t *, int *) = {
 
 int get_wating_cycle(int instruction);
 int check_valid(int *args, int one, int two, int th);
+int get_next_process_id(core_t *core);
+void dup_process(process_t *process, int newpc, int id);
 
 #endif  /* INSTRUCTIONS_H_ */

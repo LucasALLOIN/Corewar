@@ -60,7 +60,7 @@ int is_champ_alive(core_t *core)
 {
 	int z = 0;
 
-	for (int i = 0; i < core->nb_progs; i++) {
+        for (int i = 0; i < core->nb_progs; i++) {
 		if (core->program_tab[i].is_alive)
 			z++;
 	}
@@ -90,7 +90,13 @@ int main(int argc, char *argv[])
 	if (err == -1)
 		return (84);
 	corewar_init(corewar);
+#ifdef DEBUG_MODE
+	dump_virtual_mem_color(corewar->memory, corewar->owner_table, corewar);
+#endif
 	for (; is_champ_alive(corewar);)
 		cycle(corewar);
+#ifdef DEBUG_MODE
+	dump_virtual_mem_color(corewar->memory, corewar->owner_table, corewar);
+#endif
 	return (0);
 }
