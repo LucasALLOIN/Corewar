@@ -14,6 +14,21 @@
 #include "asm.h"
 #include "utils.h"
 
+char *flatten_code(char *code)
+{
+	GARBAGE_ARR char **lines = split_lines(code);
+	char *new_code = 0x0;
+	int len = 0;
+
+	for (int i = find_non_ingored(0, lines); lines[i];) {
+		new_code = my_strcat(new_code, lines[i]);
+		new_code = append(new_code, '\n');
+		i = find_non_ingored(i, lines);
+	}
+	free(code);
+	return (new_code);
+}
+
 static char *compose_filename(char const *file)
 {
 	char *new_file = 0x0;
@@ -41,10 +56,12 @@ static int assemble(char const *file, char const *filename)
 {
 	GARBAGE char *new_filename = compose_filename(filename);
 	GARBAGE char *program_code = 0x0;
+	int skipped_lines = 0;
 	header_t *header = my_calloc(sizeof(header_t));
 	int fd = open(new_filename, O_CREAT | O_RDWR, S_IRWXU);
 
-	program_code = split(file, header);
+	program_code = split(file, header, &skipped_lines);
+	program_code = flatten_code(program_code);
 	encode_code(program_code, fd, header);
 	free(header->prog_name);
 	free(header->comment);
@@ -67,11 +84,11 @@ int assembler(int ac, char **av)
 		write(2, "File couldn't be opened.\n", 25);
 		return (84);
 	}
-	compose_filename(av[1]);
 	file = get_file(fd);
-	if (file_error_handler(file))
+	compose_filename(av[1]);
+	if (error_handler(file))
 		return (84);
-	//assemble(file, av[1]);
+	assemble(file, av[1]);
 	close(fd);
 	return (0);
 }

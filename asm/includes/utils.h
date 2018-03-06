@@ -45,5 +45,6 @@ int my_memcmp(void const *memblock1, void const *memblock2);
 void err_write(char const *error, int line_n);
 char *get_file_name(char *str);
 int ignore_line(char const *line);
+int find_non_ingored(int index, char **lines);
 
 #endif /* UTILS_H_ */

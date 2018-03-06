@@ -14,7 +14,7 @@ char **split_lines(char const *str)
 	char **lines;
 
 	if (!str)
-		return (str);
+		return (0x0);
 	while (find_next(str + of, '\n') != -1) {
 		of = of + find_next(str + of, '\n') + 1;
 		ncount++;

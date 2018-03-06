@@ -48,7 +48,7 @@ int create_label(label_t *label, char **lines)
 int compute_line_size(char const *line)
 {
 	int size = has_not_coding_byte(line) ? 1 : 2;
-	char **params = split_spaces(line);
+	GARBAGE_ARR char **params = split_spaces(line);	
 
 	printf("%s ", params[0]);
 	for (int i = 1; params[i]; i++) {
@@ -64,11 +64,7 @@ int compute_line_size(char const *line)
 		default:
 			size += IND_SIZE;
 		}
-		free(params[i]);
 	}
-	printf("\n");
-	free(params[0]);
-	free(params);
 	return (size);
 }
 

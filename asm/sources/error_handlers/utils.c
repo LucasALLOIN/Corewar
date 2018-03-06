@@ -5,7 +5,9 @@
 **
 */
 
+#include <unistd.h>
 #include "op.h"
+#include "utils.h"
 
 void putnbr_err(int n)
 {
@@ -24,7 +26,18 @@ void putnbr_err(int n)
 		temp = (n % 10) + 48;
 		write(2, &temp, 1);
 	}
-	return (0);
+}
+
+int find_non_ingored(int index, char **lines)
+{
+	int max_line = 0;
+
+	for (int i = 0; lines[i]; i++, max_line++);
+	for (int i = index + 1; lines[i]; i++) {
+		if (!ignore_line(lines[i]))
+			return (i);
+	}
+	return (max_line);
 }
 
 int ignore_line(char const *line)
@@ -42,6 +55,8 @@ char *get_file_name(char *str)
 
 	if (str) {
 		database = str;
+	} else if (str == 1) {
+		free(database);
 	} else {
 		return (database);
 	}
@@ -58,4 +73,5 @@ void err_write(char const *error, int line_n)
 	write(2, ": \033[1;36m", 9);
 	write(2, error, my_strlen(error));
 	write(2, "\033[0m", 4);
+	get_file_name((char *) 1);
 }
