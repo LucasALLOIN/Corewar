@@ -39,15 +39,16 @@ int write_endian(char *mem, int param, int n_bytes)
 	return (written);
 }
 
-int write_param(char *str, int param, int param_n, int control)
+int write_param(char *str, int param, int param_n, ins_t *op)
 {
-	int local_control = (control >> (8 - (param_n * 2))) & 3;
+	int local_control = (op->control_byte >> (8 - (param_n * 2))) & 3;
+	int direct_n = op->code == 10 || op->code == 11 || op->code == 14;
 	
 	switch (local_control) {
 	case 0b01:
 		return (write_endian(str, param, 1));
 	case 0b10:
-		return (write_endian(str, param, 4));
+		return (write_endian(str, param, direct_n ? 2 : 4));
 	case 0b11:
 		return (write_endian(str, param, 2));
 	default:
@@ -84,18 +85,18 @@ void encode_instruction(ins_t *op, int fd)
 	GARBAGE char *mem = my_calloc(compute_instruction_size(op) + 1);
 
 	mem[i++] = op->code;
-	if (op->code != 0x01 && op->code != 0x09 &&
-		op->code != 0x0c && op->code != 0x0f) {
-		mem[i++] = (char) op->control_byte & 255;
+	if (op->code == 0x01 || op->code == 0x09 ||
+		op->code == 0x0c || op->code == 0x0f) {
 		if (op->code == 0x01) {
 			i += write_endian(mem + i, op->param1, 4);
 		} else {
 			i += write_endian(mem + i, op->param1, 2);
 		}
 	} else {
-		i += write_param(mem + i, op->param1, 1, op->control_byte);
-		i += write_param(mem + i, op->param2, 2, op->control_byte);
-		i += write_param(mem + i, op->param3, 3, op->control_byte);
+		mem[i++] = (char) op->control_byte & 255;
+		i += write_param(mem + i, op->param1, 1, op);
+		i += write_param(mem + i, op->param2, 2, op);
+		i += write_param(mem + i, op->param3, 3, op);
 	}
 	write(fd, mem, i);
 }

@@ -34,6 +34,7 @@ SRC	=	$(SRC_DIR)/main.c 				\
 		$(SRC_DIR)/error_handlers/instructions_checks.c	\
 		$(SRC_DIR)/error_handlers/label_checks.c	\
 		$(SRC_DIR)/error_handlers/utils.c		\
+		$(SRC_DIR)/error_handlers/preparser.c		\
 		$(SRC_DIR)/utils/my_calloc.c 			\
 		$(SRC_DIR)/utils/my_atoi.c 			\
 		$(SRC_DIR)/utils/my_strlen.c 			\

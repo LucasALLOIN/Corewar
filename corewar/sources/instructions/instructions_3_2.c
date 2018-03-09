@@ -57,12 +57,10 @@ static int get_sti_mem(process_t *process, core_t *core, int type, int *last)
                 value = core->memory[*last] - 1;
                 *last += 1;
         } else if (type == T_DIR) {
-                value = uchar_to_int(core,
-                        process->pc + uchar_to_short(core, *last) % IDX_MOD);
+                value = uchar_to_short(core, *last);
                 *last += 2;
         } else if (type == T_IND) {
-                value = uchar_to_short(core,
-                        process->pc + uchar_to_short(core, *last) % IDX_MOD);
+                value = uchar_to_short(core, *last);
                 *last += 2;
         }
         return (value);
@@ -84,7 +82,7 @@ int instruction_sti(core_t *core, process_t *process, int *args)
 	if (args[2] == T_REG)
 		value_2 = reg_to_int(REG[value_2]);
 	int_to_uchar(core, process, reg_to_int(REG[index_reg]), \
-		     ADRESS(*pc + value_1 + value_2) % IDX_MOD);
+		     ADRESS(*pc + (value_1 + value_2) % IDX_MOD));
 	*pc = last;
 	return(1);
 }

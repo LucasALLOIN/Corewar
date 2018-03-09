@@ -6,6 +6,7 @@
 */
 
 #include <unistd.h>
+#include <stdlib.h>
 #include "op.h"
 #include "utils.h"
 
@@ -55,7 +56,7 @@ char *get_file_name(char *str)
 
 	if (str) {
 		database = str;
-	} else if (str == 1) {
+	} else if (str == (char *) 1) {
 		free(database);
 	} else {
 		return (database);

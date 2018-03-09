@@ -36,7 +36,7 @@ static void dup_registers(process_t *old, process_t *new)
 {
 	for (int i = 0; i < REG_NUMBER; i++) {
 		for (int y = 0; y < REG_SIZE; y++) {
-			old->registers[i][y] = new->registers[i][y];
+			new->registers[i][y] = old->registers[i][y];
 		}
 	}
 }

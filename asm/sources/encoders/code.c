@@ -14,6 +14,7 @@ static label_t **first_pass(char const *code)
 	int nb_labels = 0;
 	GARBAGE_ARR char **lines = split_lines(code);
 
+	preparse(lines);
 	for (int i = 0; lines[i]; i++) {
 		if (match(lines[i], "*:") && !match(lines[i], "*%:")) {
 			nb_labels++;	
