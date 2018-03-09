@@ -78,7 +78,6 @@ static int not_contains_label(char const *line, char **labels, int n)
 	temp = my_calloc(end);
 	my_memcpy(temp, line + start + 1, end - 1);
 	temp[my_strlen(temp)] = ':';
-	printf("%s\n", temp);
 	for (int i = 0; labels[i]; i++) {
 		if (my_memcmp(labels[i], temp))
 			return (not_contains_label(line + end, labels, n));

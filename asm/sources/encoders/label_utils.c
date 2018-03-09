@@ -65,7 +65,6 @@ int compute_line_size(char const *line)
 			size += IND_SIZE;
 		}
 	}
-	printf("%d\n", size);
 	return (size + has_index);
 }
 

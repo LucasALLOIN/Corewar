@@ -5,6 +5,9 @@
 ** preparer.c
 */
 
+#include <stdlib.h>
+#include "utils.h"
+
 static char *clean_separators(char *line)
 {	
 	char *temp = 0x0;
