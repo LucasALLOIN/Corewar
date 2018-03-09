@@ -48,24 +48,24 @@ int create_label(label_t *label, char **lines)
 int compute_line_size(char const *line)
 {
 	int size = has_not_coding_byte(line) ? 1 : 2;
-	GARBAGE_ARR char **params = split_spaces(line);	
+	GARBAGE_ARR char **params = split_spaces(line);
+	int has_index = params[0][my_strlen(params[0]) - 1] == 'i';
 
-	printf("%s ", params[0]);
 	for (int i = 1; params[i]; i++) {
 		params[i] = clean_separator(params[i]);
-		printf("%s ", params[i]);
 		switch (params[i][0]) {
 		case REG_CHAR:
 			size += 1;
 			break;
 		case DIRECT_CHAR:
-			size += params[i][1] == LABEL_CHAR ? IND_SIZE : DIR_SIZE;
+			size += 2;
+			size += params[i][1] == ':' || has_index ? 0 : 2;
 			break;
 		default:
 			size += IND_SIZE;
 		}
 	}
-	return (size);
+	return (size + has_index);
 }
 
 int compute_label_size(label_t *label)

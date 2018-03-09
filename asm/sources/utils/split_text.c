@@ -42,7 +42,7 @@ char **split_spaces(char const *str)
 		n_count++;
 	}
 	of = 0;
-	lines = my_calloc(sizeof(char*) * (n_count + 1));
+	lines = my_calloc(sizeof(char*) * (n_count + 2));
 	n_count = 0;
 	while (find_next(str + of, ' ') != -1) {
 		lines[n_count] = my_calloc(find_next(str + of, ' ') + 1);

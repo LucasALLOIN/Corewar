@@ -36,8 +36,7 @@ static const op_t op_tab[] = {
 	{0x0, 0, {0}, 0, 0, 0x0}
 };
 
-//TODO: Error Handling with op_codes
-int check_coding_byte(char **params)
+int check_coding_byte(char **params, int index_instruct)
 {
 	int params_n = 0;
 	int control = 0;
@@ -49,7 +48,7 @@ int check_coding_byte(char **params)
 		} else if (params[i][0] == '%' && params[i][1] != ':') {
 			control += 2;
 		} else {
-			control += 3;
+			control += index_instruct ? 2 : 3;
 		}
 	}
 	control = control << 2 * (4 - params_n);
@@ -58,9 +57,12 @@ int check_coding_byte(char **params)
 
 int get_label(char *param, label_t **labels, ins_t *op)
 {
+	int temp = 0;
+
 	for (int i = 0; labels[i]; i++) {
 		if (match(param, labels[i]->name)) {
-			return (labels[i]->id - op->index);
+			temp = labels[i]->id - op->index;
+			return (temp);
 		}
 	}
 	return (0);
@@ -73,7 +75,7 @@ int parse(ins_t *op, int control, char *param, label_t **labels)
 {
 	if (param == 0x0 || control == 0)
 		return (0);
-	if (control == 0b11 && param[1] == LABEL_CHAR) {
+	if (control & 0b10 && param[1] == LABEL_CHAR) {
 		return (get_label(param, labels, op));
 	} else {
 		if (control == 0b11)
@@ -102,6 +104,7 @@ ins_t *line_encoding(char const *line, label_t **labels, int index)
 {
 	char **params = split_spaces(line);
 	ins_t *op = my_calloc(sizeof(ins_t));
+	int index_ins = params[0][my_strlen(params[0]) - 1] == 'i';
 
 	for (int i = 0; params[i]; i++)
 		params[i] = clean_separator(params[i]);
@@ -112,7 +115,7 @@ ins_t *line_encoding(char const *line, label_t **labels, int index)
 		}
 	}
 	op->index = index;
-	op->control_byte = check_coding_byte(params + 1) & 255;
+	op->control_byte = check_coding_byte(params + 1, index_ins) & 255;
 	parse_param(op, params + 1, 1, labels);
 	parse_param(op, params + 1, 2, labels);
 	parse_param(op, params + 1, 3, labels);
