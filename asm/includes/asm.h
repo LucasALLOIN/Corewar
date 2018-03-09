@@ -36,7 +36,7 @@ int encode_code(char const *code, int fd, header_t *header);
 int assembler(int ac, char **av);
 int detect_comment(int fd, char **desc);
 int detect_name(int fd, char **name);
-int check_coding_byte(char **params);
+int check_coding_byte(char **params, int index_ins);
 int compute_line_size(char const *line);
 ins_t *line_encoding(char const *line, label_t **labels, int index);
 int create_label(label_t *label, char **lines);

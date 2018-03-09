@@ -21,13 +21,13 @@ static int is_empty(char **lines)
 int error_handler(char const *file)
 {
 	GARBAGE_ARR char **lines = split_lines(file);
+	int code = 0;
 
-	if (is_empty(lines))
-		return (84);
-	if (check_name(lines) ||
-		check_comment(lines) ||
-		check_labels(lines) ||
-		check_instructions(lines))
-		return (84);
-	return (0);
+	code = code ? code : is_empty(lines);
+	code = code ? code : preparse(lines);
+	code = code ? code : check_name(lines);
+	code = code ? code : check_comment(lines);
+	code = code ? code : check_labels(lines);
+	code = code ? code : check_instructions(lines);
+	return (code);
 }

@@ -66,5 +66,5 @@ int check_name(char **lines)
 	}
 	code = code ? code : check_multiple_def(lines);
 	code = code ? code : check_long_name(lines);
-	return (0);
+	return (code);
 }

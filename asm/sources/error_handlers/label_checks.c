@@ -12,16 +12,18 @@
 static int check_validity(char const *line, int nb)
 {
 	int code = 0;
+	int found = 1;
 
 	for (int i = 0; line[i]; i++) {
 		for (int j = 0; LABEL_CHARS[j]; j++)
-			code = code ? code : LABEL_CHARS[j] == line[i];
-		if (!code && line[i] != LABEL_CHAR) {
+			found = found ? !(LABEL_CHARS[j] == line[i]) : found;
+		if (found && line[i] != LABEL_CHAR) {
 			err_write("Invalid label name.\n", nb);
 			return (1);
 		}
+		found = 1;
 	}
-	return (0);
+	return (code);
 }
 
 static int is_in(char const *line, char **labels, int nb)
@@ -52,7 +54,7 @@ static char **put_in(char const *line, char **labels)
 			my_memcpy(new_tab[i], labels[i], my_strlen(labels[i]));
 		}
 	} else {
-		new_tab = my_calloc(sizeof(char*) * (tab_len + 1));
+		new_tab = my_calloc(sizeof(char*) * (tab_len + 2));
 	}
 	new_tab[tab_len] = my_calloc(my_strlen(line) + 1);
 	my_memcpy(new_tab[tab_len], line, my_strlen(line));
@@ -73,9 +75,10 @@ static int not_contains_label(char const *line, char **labels, int n)
 		start = find_next(line, ':');
 	end = find_next(line + start, ' ');
 	end = end != -1 ? end : my_strlen(line);
-	temp = my_calloc(end - start + 3);
-	my_memcpy(temp, line + start + 1, end - start);
+	temp = my_calloc(end);
+	my_memcpy(temp, line + start + 1, end - 1);
 	temp[my_strlen(temp)] = ':';
+	printf("%s\n", temp);
 	for (int i = 0; labels[i]; i++) {
 		if (my_memcmp(labels[i], temp))
 			return (not_contains_label(line + end, labels, n));
