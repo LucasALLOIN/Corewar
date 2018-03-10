@@ -12,10 +12,12 @@
 
 int has_not_coding_byte(char const *line)
 {
-	return (match(line, "live*") ||
-		match(line, "zjmp*") ||
-		match(line, "fork*") ||
-		match(line, "lfork*"));
+	int s_i = find_next(line, ' ');
+
+	return (my_memncmp(line, "live", s_i) ||
+		my_memncmp(line, "zjmp", s_i) ||
+		my_memncmp(line, "fork", s_i) ||
+		my_memncmp(line, "lfork", s_i));
 }
 
 int write_endian(char *mem, int param, int n_bytes)

@@ -19,12 +19,26 @@
 **       ^^^^^^
 **           size = [ ][ ]
 */
+int get_ldi_mem(process_t *process, core_t *core, int type, int *last)
+{
+	int value = -1;
+
+	if (type == T_REG && core->memory[*last] <= 16) {
+		value = core->memory[*last] - 1;
+		*last += 1;
+	} else if (type == T_DIR) {
+		value = uchar_to_short(core, *last);
+		*last += 2;
+	}
+	return (value);
+}
+
 int instruction_ldi(core_t *core, process_t *process, int *args)
 {
 	unsigned int *pc = &process->pc;
 	int last = *pc + 2;
 	int value_1 = iget_mem(process, core, args[0], &last);
-	int value_2 = iget_mem(process, core, args[1], &last);
+	int value_2 = get_ldi_mem(process, core, args[1], &last);
 	int index_reg = get_mem(process, core, args[2], &last);
 
 	if (!check_valid(args, T_REG | T_DIR | T_IND, T_DIR | T_REG, T_REG) ||
@@ -34,8 +48,8 @@ int instruction_ldi(core_t *core, process_t *process, int *args)
 		value_1 = reg_to_int(REG[value_1]);
 	if (args[1] == T_REG && value_2 <= 16 && value_2 >= 0)
 		value_2 = reg_to_int(REG[value_2]);
-	int_to_reg(*pc + (uchar_to_short(core, *pc + value_1 % IDX_MOD) + \
-		   value_2) % IDX_MOD, REG[index_reg]);
+	int_to_reg(uchar_to_int(core, *pc + (value_1 + value_2) % IDX_MOD), \
+		REG[index_reg]);
 	*pc = last;
 	return(process->carry = 1);
 }

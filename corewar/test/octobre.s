@@ -1,11 +1,12 @@
 .name		"Octobre Rouge V4.2"
 .comment	"And the winner is ..."
 
-		st	r1,19
+	st	r1,19
 		ld	%0,r15
 		fork	%:xxx
 		zjmp	%:torp
-xxx:		live	%42
+xxx:
+	live	%42
 		fork	%:torp
 		zjmp	%:xxx
 	

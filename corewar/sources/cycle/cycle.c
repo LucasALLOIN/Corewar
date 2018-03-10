@@ -59,20 +59,20 @@ int exec_process(process_t *process, core_t *core)
 	return (0);
 }
 
-void check_death(program_t *program)
-{
-	if (program->last_live_cycle == -1) {
-		program->is_alive = 0;
-	} else {
-		program->last_live_cycle = -1;
-	}
-}
-
 void exec_all_process(process_t *process, core_t *core)
 {
 	while (process != NULL) {
 		exec_process(process, core);
 		process = process->next;
+	}
+}
+
+void set_dead(core_t *core)
+{
+	for (int i = 0; i < core->nb_progs; ++i) {
+		if (core->program_tab[i].last_live_cycle == -1)
+			core->program_tab[i].is_alive = 0;
+		core->program_tab[i].last_live_cycle = -1;
 	}
 }
 
@@ -82,17 +82,13 @@ int cycle(core_t *core)
 		if (core->program_tab[i].is_alive)
 			exec_all_process(core->program_tab[i].process_l, core);
 	}
-	if (core->nb_live >= NBR_LIVE) {
-		core->nb_live = 0;
-		core->cycle_to_die -= CYCLE_DELTA;
-	}
-	if (core->nbr_cycle == core->cycle_to_die) {
-		for (int i = 0; i < core->nb_progs; i++)
-			check_death(&core->program_tab[i]);
+	if (core->nbr_cycle >= core->cycle_to_die) {
+		if (core->nb_live >= NBR_LIVE)
+			core->cycle_to_die -= CYCLE_DELTA;
+		set_dead(core);
 		core->nbr_cycle = 0;
+		core->nb_live = 0;
 	}
-	//dump_virtual_mem_color(core->memory, core->owner_table, core);
-        core->nbr_cycle++;
-	return  (1);
+	core->nbr_cycle++;
+	return (1);
 }
-

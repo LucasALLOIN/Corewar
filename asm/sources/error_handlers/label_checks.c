@@ -74,9 +74,9 @@ static int not_contains_label(char const *line, char **labels, int n)
 	while (!start || line[start - 1] != '%')
 		start = find_next(line, ':');
 	end = find_next(line + start, ' ');
-	end = end != -1 ? end : my_strlen(line);
-	temp = my_calloc(end);
-	my_memcpy(temp, line + start + 1, end - 1);
+	end = end != -1 ? end - 1 : my_strlen(line + start + 1);
+	temp = my_calloc(end + 1);
+	my_memcpy(temp, line + start + 1, end);
 	temp[my_strlen(temp)] = ':';
 	for (int i = 0; labels[i]; i++) {
 		if (my_memcmp(labels[i], temp))
@@ -90,9 +90,11 @@ int check_labels(char **lines)
 {
 	GARBAGE_ARR char **labels = 0x0;
 	int code = 0;
+	int space = 0;
 
 	for (int i = find_non_ingored(0, lines); lines[i];) {
-		if (match(lines[i], "*:") && !match(lines[i], "*%:")) {
+		space = find_next(lines[i], ' ');
+		if (space == -1 && match(lines[i], "*:") && !match(lines[i], "*%:")) {
 			code = code ? code : check_validity(lines[i], i + 1);
 			code = code ? code : is_in(lines[i], labels, i + 1);
 			labels = put_in(lines[i], labels);

@@ -34,10 +34,10 @@ static int check_valid_str(char const *str)
 	return (0);
 }
 
-int my_atoi(char const *str)
+long my_atoi(char const *str)
 {
 	int i = 0;
-	int nbr = 1;
+	long nbr = 1;
 
 	if (check_valid_str(str))
 		return (-1);

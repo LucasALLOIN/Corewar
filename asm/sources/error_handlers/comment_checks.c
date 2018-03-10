@@ -53,7 +53,7 @@ static int check_long_comment(char **lines)
 
 int check_comment(char **lines)
 {	
-	int first_line = find_non_ingored(0, lines);
+	int first_line = find_non_ingored(-1, lines);
 	int code = 0;
 
 	first_line = find_non_ingored(first_line, lines);
