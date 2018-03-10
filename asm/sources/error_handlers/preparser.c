@@ -51,11 +51,12 @@ static char **new_line_instructions(char **lines)
 	int offset = 0;
 	int nb_lines = 0;
 	char **new_lines = 0x0;
+	int first_space = 0;
 
 	for (int i = 0; lines[i]; i++, nb_lines++);
 	for (int i = find_non_ingored(-1, lines); lines[i];) {
-		if (match(lines[i], "*: *") && !match(lines[i], "*%:*") &&
-		find_next(lines[i], ' ') != -1)
+		first_space = find_next(lines[i], ' ');
+		if (first_space != -1 && lines[i][first_space - 1] == ':')
 			offset++;
 		i = find_non_ingored(i, lines);
 	}

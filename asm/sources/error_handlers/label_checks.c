@@ -90,9 +90,11 @@ int check_labels(char **lines)
 {
 	GARBAGE_ARR char **labels = 0x0;
 	int code = 0;
+	int space = 0;
 
 	for (int i = find_non_ingored(0, lines); lines[i];) {
-		if (match(lines[i], "*:") && !match(lines[i], "*%:")) {
+		space = find_next(lines[i], ' ');
+		if (space == -1 && match(lines[i], "*:") && !match(lines[i], "*%:")) {
 			code = code ? code : check_validity(lines[i], i + 1);
 			code = code ? code : is_in(lines[i], labels, i + 1);
 			labels = put_in(lines[i], labels);

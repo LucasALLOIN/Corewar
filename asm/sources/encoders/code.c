@@ -16,9 +16,6 @@ static label_t **first_pass(char const *code)
 
 	preparse(&lines);
 	for (int i = 0; lines[i]; i++) {
-		printf("%d => %s\n", i, lines[i]);
-	}
-	for (int i = 0; lines[i]; i++) {
 		if (match(lines[i], "*:") && !match(lines[i], "*%:")) {
 			nb_labels++;	
 		}	
@@ -44,9 +41,7 @@ static void second_pass(label_t **labels)
 		} else {
 			labels[i]->id = labels[i - 1]->id + labels[i - 1]->sz;
 		}
-		printf("Labels : %s\n====\n", labels[i]->name);
 		labels[i]->sz = compute_label_size(labels[i]);
-		printf("(%d) Size : %d Name : %s\n", labels[i]->id, labels[i]->sz, labels[i]->name);
 	}
 }
 

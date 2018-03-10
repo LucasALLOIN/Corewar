@@ -19,7 +19,7 @@ static char *extract_name(char **lines)
 	int end = 0;
 
 	for (int i = find_non_ingored(-1, lines); lines[i];) {
-		if (!name_line && match(lines[i], ".name \"*\""))
+		if (!name_line && match(lines[i], ".name*\"*\""))
 			name_line = lines[i];
 		i = find_non_ingored(i, lines);
 	}
@@ -39,7 +39,7 @@ static char *extract_description(char **lines)
 	int end = 0;
 
 	for (int i = find_non_ingored(0, lines); lines[i];) {
-		if (!comment_line && match(lines[i], ".comment \"*\""))
+		if (!comment_line && match(lines[i], ".comment*\"*\""))
 			comment_line = lines[i];
 		i = find_non_ingored(i, lines);
 	}
