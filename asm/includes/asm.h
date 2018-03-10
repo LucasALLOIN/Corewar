@@ -32,7 +32,7 @@ struct label {
 typedef struct label label_t;
 
 int error_handler(char const *file);
-void preparse(char **lines);
+void preparse(char ***lines);
 int check_name(char **lines);
 int check_comment(char **lines);
 int check_labels(char **lines);

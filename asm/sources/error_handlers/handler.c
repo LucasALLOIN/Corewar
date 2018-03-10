@@ -24,7 +24,7 @@ int error_handler(char const *file)
 	int code = 0;
 
 	code = code ? code : is_empty(lines);
-	preparse(lines);
+	preparse(&lines);
 	code = code ? code : check_name(lines);
 	code = code ? code : check_comment(lines);
 	code = code ? code : check_labels(lines);

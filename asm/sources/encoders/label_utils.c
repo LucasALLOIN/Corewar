@@ -49,7 +49,8 @@ int compute_line_size(char const *line)
 {
 	int size = has_not_coding_byte(line) ? 1 : 2;
 	GARBAGE_ARR char **params = split_spaces(line);
-	int has_index = params[0][my_strlen(params[0]) - 1] == 'i';
+	int has_index = params[0][my_strlen(params[0]) - 1] == 'i' ||
+		match(params[0], "*fork");
 
 	for (int i = 1; params[i]; i++) {
 		params[i] = clean_separator(params[i]);
@@ -65,15 +66,18 @@ int compute_line_size(char const *line)
 			size += IND_SIZE;
 		}
 	}
-	return (size + has_index);
+	return (size);
 }
 
 int compute_label_size(label_t *label)
 {
 	int size = 0;
+	int space_len = 0;
+	int has_not_byte = 0;
 
 	for (int i = 0; label->lines[i]; i++) {
-		size += compute_line_size(label->lines[i]);	
+		printf("\t%s => %d\n", label->lines[i], compute_line_size(label->lines[i]));
+		size += compute_line_size(label->lines[i]);
 	}
 	return (size);
 }

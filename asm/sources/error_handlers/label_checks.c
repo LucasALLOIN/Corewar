@@ -74,9 +74,9 @@ static int not_contains_label(char const *line, char **labels, int n)
 	while (!start || line[start - 1] != '%')
 		start = find_next(line, ':');
 	end = find_next(line + start, ' ');
-	end = end != -1 ? end : my_strlen(line);
-	temp = my_calloc(end);
-	my_memcpy(temp, line + start + 1, end - 1);
+	end = end != -1 ? end - 1 : my_strlen(line + start + 1);
+	temp = my_calloc(end + 1);
+	my_memcpy(temp, line + start + 1, end);
 	temp[my_strlen(temp)] = ':';
 	for (int i = 0; labels[i]; i++) {
 		if (my_memcmp(labels[i], temp))

@@ -48,7 +48,7 @@ int check_coding_byte(char **params, int index_instruct)
 		} else if (params[i][0] == '%' && params[i][1] != ':') {
 			control += 2;
 		} else {
-			control += index_instruct ? 2 : 3;
+			control += params[i][1] != ':' ? 3 : 2;
 		}
 	}
 	control = control << 2 * (4 - params_n);
@@ -60,7 +60,7 @@ int get_label(char *param, label_t **labels, ins_t *op)
 	int temp = 0;
 
 	for (int i = 0; labels[i]; i++) {
-		if (match(param, labels[i]->name)) {
+		if (my_memcmp(param + 2, labels[i]->name)) {
 			temp = labels[i]->id - op->index;
 			return (temp);
 		}
