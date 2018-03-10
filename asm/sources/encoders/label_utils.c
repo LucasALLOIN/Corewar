@@ -76,8 +76,9 @@ int compute_label_size(label_t *label)
 	int has_not_byte = 0;
 
 	for (int i = 0; label->lines[i]; i++) {
-		printf("\t%s => %d\n", label->lines[i], compute_line_size(label->lines[i]));
+		printf("\t%s => %d", label->lines[i], compute_line_size(label->lines[i]));
 		size += compute_line_size(label->lines[i]);
+		printf("\n");
 	}
 	return (size);
 }
