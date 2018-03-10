@@ -2,7 +2,7 @@
 .comment        "Just a basic Winner Program"
 
 entree:	live	%42		# entree
-	fork	%:tir
+	ld	%0,r5
 	ld	%0,r5
 	zjmp	%:bite
 
@@ -65,15 +65,15 @@ p32deb:	zjmp	%0
 p32:	sub	r6,r4,r6
 	add	r6,r6,r11
 	ldi	%:p32deb,r6,r7
-	sti	r7,%-510,r11
+	sti	r7,%-510,r11	
 p32li:	live	%1
 	ld	%0,r10
 	sti	r7,%-250,r6
 	zjmp	%-192
 
 tirvd:	zjmp	%:tirvd2
-
-bite:	sti     r1,%:copie,%2   # Pour le ld a l'entree
+	
+bite:	sti     r1,%:copie,%2
         ldi     %:copie,%3,r2   # met le ld a l'entree
         sti     r2,%:entree,%-4
         ldi     %:copie,%-1,r2
@@ -81,8 +81,8 @@ bite:	sti     r1,%:copie,%2   # Pour le ld a l'entree
 
 	sti	r1,%:p32li,%1
 	sti	r1,%:b0,%1
-
-	ld	%0,r2
+	
+	ld	%0,r2		
 	ld	%8,r3		# prepare les fork
 	ld	%1,r4
 	ld	%0,r6
@@ -150,14 +150,6 @@ tart:	sti	r1,%:p64li,%1
 	zjmp	%:p64
 	sub	r2,r4,r2
 	zjmp	%:p32
-#	sub	r2,r4,r2
-#	zjmp	%:infi
-#	sub	r2,r4,r2
-#	zjmp	%:infi
-#	sub	r2,r4,r2
-#	zjmp	%:infi
-#	sub	r2,r4,r2
-#	zjmp	%:infi
 	ld	%0,r2
 	zjmp	%:infi
 
@@ -217,7 +209,7 @@ p64deb:	zjmp	%0
 
 p64:	ld	%10,r8
 	sub	r6,r8,r6
-	and	r6,%-2147483648,r8
+	and	r6,%2147483648,r8
 	zjmp	%:cont
 	ld	%118,r8
 	add	r6,r8,r6

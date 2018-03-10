@@ -36,19 +36,19 @@ static const op_t op_tab[] = {
 	{0x0, 0, {0}, 0, 0, 0x0}
 };
 
-int check_coding_byte(char **params, int index_instruct)
+int check_coding_byte(char **params)
 {
 	int params_n = 0;
 	int control = 0;
 
-	for (int i = 0; params[i]; i++, params_n++) {
+	for (int i = 0; params[i] && params[i][0] != '#'; i++, params_n++) {
 		control = control << 2;
 		if (params[i][0] == 'r') {
 			control += 1;
 		} else if (params[i][0] == '%' && params[i][1] != ':') {
 			control += 2;
 		} else {
-			control += index_instruct ? 2 : 3;
+			control += params[i][1] != ':' ? 3 : 2;
 		}
 	}
 	control = control << 2 * (4 - params_n);
@@ -60,7 +60,7 @@ int get_label(char *param, label_t **labels, ins_t *op)
 	int temp = 0;
 
 	for (int i = 0; labels[i]; i++) {
-		if (match(param, labels[i]->name)) {
+		if (my_memcmp(param + 2, labels[i]->name)) {
 			temp = labels[i]->id - op->index;
 			return (temp);
 		}
@@ -104,7 +104,6 @@ ins_t *line_encoding(char const *line, label_t **labels, int index)
 {
 	char **params = split_spaces(line);
 	ins_t *op = my_calloc(sizeof(ins_t));
-	int index_ins = params[0][my_strlen(params[0]) - 1] == 'i';
 
 	for (int i = 0; params[i]; i++)
 		params[i] = clean_separator(params[i]);
@@ -115,7 +114,7 @@ ins_t *line_encoding(char const *line, label_t **labels, int index)
 		}
 	}
 	op->index = index;
-	op->control_byte = check_coding_byte(params + 1, index_ins) & 255;
+	op->control_byte = check_coding_byte(params + 1) & 255;
 	parse_param(op, params + 1, 1, labels);
 	parse_param(op, params + 1, 2, labels);
 	parse_param(op, params + 1, 3, labels);

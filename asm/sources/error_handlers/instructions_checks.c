@@ -37,7 +37,7 @@ static const op_t op_tab[] = {
 static int check_arg(char const *arg, char arg_type)
 {
 	if (arg_type & T_IND) {
-		if (arg[0] <= '9' && arg[0] >= '0')
+		if ((arg[0] <= '9' && arg[0] >= '0') || arg[0] == '-')
 			return (0);
 	}
 	if (arg_type & T_REG) {
@@ -57,8 +57,9 @@ static int check_args_for(char **lines, int inst, int n_line)
 	int args = 0;
 	int code = 0;
 
-	for (int i = 1; !code && params[i]; i++, args++) {
+	for (int i = 1; !code && params[i] && params[i][0] != '#'; i++) {
 		code = check_arg(params[i], op_tab[inst].type[i - 1]);
+		args++;
 	}
 	if (code || args < op_tab[inst].nbr_args) {
 		err_write("The argument given"
@@ -90,7 +91,7 @@ static int check_args(char **lines, int inst, int n_line)
 	int reg = 1;
 	int code = 0;
 
-	for (int i = 1; !code && params[i]; i++) {
+	for (int i = 1; !code && params[i] && params[i][0] != '#'; i++) {
 		if (i > op_tab[inst].nbr_args) {
 			err_write("Too many arguments"
 			" given to the instruction.\n", n_line + 1);

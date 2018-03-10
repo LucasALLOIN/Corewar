@@ -51,7 +51,7 @@ static int check_long_name(char **lines)
 
 int check_name(char **lines)
 {
-	int first_line = find_non_ingored(0, lines);
+	int first_line = find_non_ingored(-1, lines);
 	int code = 0;
 
 	if (match(lines[first_line], ".comment \"*\"")) {

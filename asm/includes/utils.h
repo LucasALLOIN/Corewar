@@ -40,11 +40,12 @@ void my_memcpy(void *mem_dest, const void *mem_src, int len);
 int find_prec(char const *mem, int index, char c);
 char **split_lines(char const *str);
 char **split_spaces(char const *str);
-int my_atoi(char const *str);
+long my_atoi(char const *str);
 int my_memcmp(void const *memblock1, void const *memblock2);
 void err_write(char const *error, int line_n);
 char *get_file_name(char *str);
 int ignore_line(char const *line);
 int find_non_ingored(int index, char **lines);
+int my_memncmp(void const *memblock1, void const *memblock2, int n);
 
 #endif /* UTILS_H_ */
