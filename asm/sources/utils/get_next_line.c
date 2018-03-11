@@ -68,24 +68,24 @@ static char *format_buffer(int *t, char *buffer, char *res)
 char *get_next_line(int fd)
 {
 	static char buffer[READ_SIZE + 1];
-	char *res = malloc(READ_SIZE + 1);
+	char *re = malloc(READ_SIZE + 1);
 	int t[2] = {0, 1};
 	static int a[2] = {0, -50};
 
-	if (fd < 0 || res == NULL || verify(fd, buffer, &a[0], &a[1]))
+	if (fd < 0 || re == NULL || verify(fd, buffer, &a[0], &a[1]))
 		return (NULL);
-	for (int g = 0; g < READ_SIZE; res[g] = 0, g = g + 1);
+	for (int g = 0; g < READ_SIZE; re[g] = 0, g = g + 1);
 	for (int z = 0; buffer[t[0]] != '\n'; z = z + 1) {
-		res[z] = buffer[t[0]];
+		re[z] = buffer[t[0]];
 		t[0] = t[0] + 1;
 		if (buffer[t[0]] == '\0' && a[1] != 0) {
-			res = my_cat(res, t, &z, buffer);
+			re = my_cat(re, t, &z, buffer);
 			a[1] = read(fd, buffer, READ_SIZE);
 		}
-		if (is_e(z, t[0], &a[0], a[1]) >= 1 || a[1] < 0 || res == NULL) {
-			free(is_e(z, t[0], &a[0], a[1]) == 2 ? NULL : res);
-			return (is_e(z, t[0], &a[0], a[1]) == 2 ? res : NULL);
+		if (is_e(z, t[0], &a[0], a[1]) > 0 || a[1] < 0 || re == NULL) {
+			free(is_e(z, t[0], &a[0], a[1]) == 2 ? NULL : re);
+			return (is_e(z, t[0], &a[0], a[1]) == 2 ? re : NULL);
 		}
 	}
-	return (format_buffer(t, buffer, res));
+	return (format_buffer(t, buffer, re));
 }

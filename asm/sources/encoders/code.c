@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2017
 ** sources/encoders/code.c
 ** File description:
-**
+** code
 */
 
 #include "asm.h"
@@ -17,10 +17,10 @@ static label_t **first_pass(char const *code)
 	preparse(&lines);
 	for (int i = 0; lines[i]; i++) {
 		if (match(lines[i], "*:") && !match(lines[i], "*%:")) {
-			nb_labels++;	
-		}	
+			nb_labels++;
+		}
 	}
-	labels = my_calloc(sizeof(label_t*) * (nb_labels + 1));
+	labels = my_calloc(sizeof(label_t *) * (nb_labels + 1));
 	nb_labels = 0;
 	for (int i = 0; lines[i];) {
 		if (match(lines[i], "*:") && !match(lines[i], "*%:")) {

@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2017
 ** sources/utils/split_lines.c
 ** File description:
-**
+** Split text
 */
 
 #include "utils.h"
@@ -20,7 +20,7 @@ char **split_lines(char const *str)
 		ncount++;
 	}
 	of = 0;
-	lines = my_calloc(sizeof(char*) * (ncount + 1));
+	lines = my_calloc(sizeof(char *) * (ncount + 1));
 	ncount = 0;
 	while (find_next(str + of, '\n') != -1) {
 		lines[ncount] = my_calloc(find_next(str + of, '\n') + 1);
@@ -42,7 +42,7 @@ char **split_spaces(char const *str)
 		n_count++;
 	}
 	of = 0;
-	lines = my_calloc(sizeof(char*) * (n_count + 2));
+	lines = my_calloc(sizeof(char *) * (n_count + 2));
 	n_count = 0;
 	while (find_next(str + of, ' ') != -1) {
 		lines[n_count] = my_calloc(find_next(str + of, ' ') + 1);

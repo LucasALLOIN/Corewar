@@ -9,11 +9,11 @@
 #include "utils.h"
 
 static char *clean_separators(char *line)
-{	
+{
 	char *temp = 0x0;
 
 	for (int i = 0; line[i]; i++) {
-		if (line[i] == ',')
+		if (line[i] == 44)
 			line[i] = ' ';
 	}
 	temp = clean_str(line);
@@ -21,27 +21,27 @@ static char *clean_separators(char *line)
 	return (temp);
 }
 
-static void add_lines(char **new_lines, char **lines)
+static void add_lines(char **new, char **lns)
 {
-	char *temp = 0x0;
+	char *tmp = 0x0;
 	int len_temp = 0;
-	int offset = 0;
+	int off = 0;
 	int len = 0;
 
-	for (int i = 0; lines[i]; i++) {
-		len = my_strlen(lines[i]);
-		len_temp = find_next(lines[i], ':');
-		if (len_temp != -1 && lines[i][len_temp - 1] != '%' &&
-			lines[i][len_temp + 1] == ' ') {
-			temp = lines[i] + find_next(lines[i], ':') + 2;
-			new_lines[i + offset] = my_calloc(find_next(lines[i], ':') + 1);
-			my_memcpy(new_lines[i + offset], lines[i], find_next(lines[i], ':') + 1);
-			new_lines[i + offset + 1] = my_calloc(my_strlen(temp) + 1);
-			my_memcpy(new_lines[i + offset + 1], temp, my_strlen(temp));
-			offset++;
+	for (int i = 0; lns[i]; i++) {
+		len = my_strlen(lns[i]);
+		len_temp = find_next(lns[i], ':');
+		if (len_temp != -1 && lns[i][len_temp - 1] != '%' &&
+			lns[i][len_temp + 1] == ' ') {
+			tmp = lns[i] + find_next(lns[i], ':') + 2;
+			new[i + off] = my_calloc(len_temp + 2);
+			my_memcpy(new[i + off], lns[i], len_temp + 1);
+			new[i + off + 1] = my_calloc(my_strlen(tmp) + 1);
+			my_memcpy(new[i + off + 1], tmp, my_strlen(tmp));
+			off++;
 		} else {
-			new_lines[i + offset] = my_calloc(len + 2);
-			my_memcpy(new_lines[i + offset], lines[i], len);
+			new[i + off] = my_calloc(len + 2);
+			my_memcpy(new[i + off], lns[i], len);
 		}
 	}
 }

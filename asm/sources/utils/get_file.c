@@ -8,7 +8,7 @@
 #include <stdlib.h>
 #include "utils.h"
 
-static char* my_strdup(char const *str)
+static char *my_strdup(char const *str)
 {
 	char *new = my_calloc(my_strlen(str) + 1);
 

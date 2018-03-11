@@ -7,19 +7,19 @@
 
 #include "utils.h"
 
-int my_memcmp(void const *memblock1, void const *memblock2)
+int my_memcmp(void const *memblk1, void const *memblk2)
 {
-	for (int i = 0; ((char*)memblock1)[i] && ((char*)memblock2)[i]; i++) {
-		if (((char*)memblock1)[i] != ((char*)memblock2)[i])
+	for (int i = 0; ((char *)memblk1)[i] && ((char *)memblk2)[i]; i++) {
+		if (((char *)memblk1)[i] != ((char *)memblk2)[i])
 			return (0);
 	}
-	return (my_strlen(memblock1) == my_strlen(memblock2));
+	return (my_strlen(memblk1) == my_strlen(memblk2));
 }
 
-int my_memncmp(void const *memblock1, void const *memblock2, int n)
+int my_memncmp(void const *mem1, void const *mem2, int n)
 {
-	for (int i = 0; i < n && ((char*)memblock1)[i] && ((char*)memblock2)[i]; i++) {
-		if (((char*)memblock1)[i] != ((char*)memblock2)[i])
+	for (int i = 0; i < n && ((char *)mem1)[i] && ((char *)mem2)[i]; i++) {
+		if (((char *)mem1)[i] != ((char *)mem2)[i])
 			return (0);
 	}
 	return (1);
