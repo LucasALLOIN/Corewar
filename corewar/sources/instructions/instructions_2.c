@@ -23,7 +23,7 @@
 int instruction_error(UNUSED core_t *core, process_t *process, UNUSED int *args)
 {
 	process->pc += 1;
-	return(1);
+	return (1);
 }
 
 /*
@@ -42,10 +42,9 @@ int instruction_ld(core_t *core, process_t *process, int *args)
 	int value =  get_mem(process, core, args[0], &last);
 	int index_reg = get_mem(process, core, args[1], &last);
 
-	if (!check_valid(args, T_DIR | T_IND, T_REG, 0) ||
-		index_reg == -1 || value == -1) {
-		*pc = last;
-		return (process->carry = 0);
+	if (!check_valid(args, T_DIR | T_IND, T_REG, 0)
+	|| index_reg == -1 || value == -1) {
+		return (*pc = last);
 	}
 	int_to_reg(value, REG[index_reg]);
 	*pc = last;
@@ -83,8 +82,8 @@ int instruction_st(core_t *core, process_t *process, int *args)
 	int index_reg = get_mem(process, core, args[0], &last);
 	int value = get_st_mem(process, core, args[1], &last);
 
-	if (!check_valid(args, T_REG, T_IND | T_REG, 0) ||
-	    index_reg == -1 || value == -1) {
+	if (!check_valid(args, T_REG, T_IND | T_REG, 0)
+	|| index_reg == -1 || value == -1) {
 		return (*pc = last);
 	}
 	if (args[1] == T_REG)
@@ -110,8 +109,8 @@ int instruction_lld(core_t *core, process_t *process, int *args)
 	int index_reg = lget_mem(process, core, args[1], &last);
 	int value =  lget_mem(process, core, args[0], &last);
 
-	if (!check_valid(args, T_DIR | T_IND, T_REG, 0) ||
-		index_reg == -1 || value == -1) {
+	if (!check_valid(args, T_DIR | T_IND, T_REG, 0)
+	|| index_reg == -1 || value == -1) {
 		return (*pc = last);
 	}
 	int_to_reg(value, REG[index_reg]);
