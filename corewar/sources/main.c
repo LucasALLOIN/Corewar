@@ -15,12 +15,11 @@ int get_args(char *argv[], int i, core_t *core, int nb_champ)
 	switch (argv[i][1]) {
 	case 'n':
 		core->program_tab[nb_champ].live_code = my_getnbr(argv[i + 1]);
-		my_printf("n = %s\n", argv[i + 1]);
 		break;
 	case 'a':
 		core->program_tab[nb_champ].adress = my_getnbr(argv[i + 1]);
-		core->program_tab[nb_champ].process_l->load_adress = my_getnbr(argv[i + 1]);
-		my_printf("a = %s\n", argv[i + 1]);
+		core->program_tab[nb_champ].process_l->load_adress = \
+			my_getnbr(argv[i + 1]);
 		break;
 	default:
 		if (my_strcmp(argv[i], "-dump")) {
@@ -45,8 +44,10 @@ int parse_args(int argc, char *argv[], core_t *corewar)
 		if (argv[i][0] == '-' && argc > i)
 			err = get_args(argv, i, corewar, nb_champ);
 		else if (i && argv[i - 1][0] != '-') {
-			corewar->program_tab[nb_champ].file_name = my_calloc(my_strlen(argv[i]) + 1);
-			my_strcpy(corewar->program_tab[nb_champ].file_name, argv[i]);
+			corewar->program_tab[nb_champ].file_name = \
+				my_calloc(my_strlen(argv[i]) + 1);
+			my_strcpy(corewar->program_tab[nb_champ].file_name,\
+					argv[i]);
 			nb_champ++;
 		}
 		if (err != 0)
@@ -60,7 +61,7 @@ int is_champ_alive(core_t *core)
 {
 	int z = 0;
 
-        for (int i = 0; i < core->nb_progs; i++) {
+	for (int i = 0; i < core->nb_progs; i++) {
 		if (core->program_tab[i].is_alive)
 			z++;
 	}
@@ -90,13 +91,7 @@ int main(int argc, char *argv[])
 	if (err == -1)
 		return (84);
 	corewar_init(corewar);
-#ifdef DEBUG_MODE
-	dump_virtual_mem_color(corewar->memory, corewar->owner_table, corewar);
-#endif
-	while(is_champ_alive(corewar))
+	while (is_champ_alive(corewar))
 		cycle(corewar);
-#ifdef DEBUG_MODE
-	dump_virtual_mem_color(corewar->memory, corewar->owner_table, corewar);
-#endif
 	return (0);
 }

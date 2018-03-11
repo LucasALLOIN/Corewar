@@ -27,7 +27,7 @@ int instruction_live(core_t *core, process_t *process, UNUSED int *args)
 		if (core->program_tab[i].number == uchar_to_int(core, adress)) {
 			core->program_tab[i].last_live_cycle = core->nbr_cycle;
 			my_printf("The player %d(%s) is alive.\n",
-		        core->program_tab[i].number, \
+			core->program_tab[i].number, \
 			core->program_tab[i].header.prog_name);
 		}
 	core->nb_live += 1;
@@ -86,7 +86,7 @@ int instruction_lfork(core_t *core, process_t *process, UNUSED int *args)
 	newpc = process->pc + \
 	(uchar_to_short(core, ADRESS(process->pc + 1)));
 	dup_process(process, newpc, newid);
-        process->pc += 3;
+	process->pc += 3;
 	return(1);
 }
 

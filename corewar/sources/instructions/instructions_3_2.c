@@ -14,12 +14,12 @@
 **
 ** [1]  [2]  [3]
 ** RID  R-D  R--
-**       
+**
 ** [3] = memory[pc + [1] % IDX_MOD] + [2]
 **       ^^^^^^
 **           size = [ ][ ]
 */
-int get_ldi_mem(process_t *process, core_t *core, int type, int *last)
+int get_ldi_mem(UNUSED process_t *process, core_t *core, int type, int *last)
 {
 	int value = -1;
 
@@ -56,37 +56,37 @@ int instruction_ldi(core_t *core, process_t *process, int *args)
 
 /*
 ** [1]  [2]  [3]
-** R    RID  RID  
+** R    RID  RID
 **
 ** memory[pc + [2] + [3] % IDX_MOD] = [1];
 ** ^^^^^^
 **     size [ ][ ][ ][ ]
 **
 */
-static int get_sti_mem(process_t *process, core_t *core, int type, int *last)
+static int get_sti_mem(core_t *core, int type, int *last)
 {
-        int value = -1;
+	int value = -1;
 
-        if (type == T_REG) {
-                value = core->memory[*last] - 1;
-                *last += 1;
-        } else if (type == T_DIR) {
-                value = uchar_to_short(core, *last);
-                *last += 2;
-        } else if (type == T_IND) {
-                value = uchar_to_short(core, *last);
-                *last += 2;
-        }
-        return (value);
+	if (type == T_REG) {
+		value = core->memory[*last] - 1;
+		*last += 1;
+	} else if (type == T_DIR) {
+		value = uchar_to_short(core, *last);
+		*last += 2;
+	} else if (type == T_IND) {
+		value = uchar_to_short(core, *last);
+		*last += 2;
+	}
+	return (value);
 }
 
 int instruction_sti(core_t *core, process_t *process, int *args)
 {
 	unsigned int *pc = &process->pc;
-	int last = *pc + 2; 
+	int last = *pc + 2;
 	int index_reg = get_mem(process, core, args[0], &last);
-	int value_1 = get_sti_mem(process, core, args[1], &last);
-	int value_2 = get_sti_mem(process, core, args[2], &last);
+	int value_1 = get_sti_mem(core, args[1], &last);
+	int value_2 = get_sti_mem(core, args[2], &last);
 
 	if (!check_valid(args, T_REG, T_REG | T_DIR | T_IND, T_DIR | T_REG) ||
 	    index_reg == -1 || value_1 == -1 || value_2 == -1)
@@ -103,7 +103,7 @@ int instruction_sti(core_t *core, process_t *process, int *args)
 
 /*
 ** [1]  [2]  [3]
-** R    RID  RID  
+** R    RID  RID
 **
 ** memory[pc + [2] + [3]] = [1];
 ** ^^^^^^

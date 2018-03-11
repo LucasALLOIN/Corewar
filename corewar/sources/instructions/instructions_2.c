@@ -18,7 +18,7 @@
 ** ---  ---  ---
 **
 ** default instruction
-** 
+**
 */
 int instruction_error(UNUSED core_t *core, process_t *process, UNUSED int *args)
 {
@@ -42,7 +42,7 @@ int instruction_ld(core_t *core, process_t *process, int *args)
 	int value =  get_mem(process, core, args[0], &last);
 	int index_reg = get_mem(process, core, args[1], &last);
 
-	if (!check_valid(args, T_DIR | T_IND, T_REG, 0) || 
+	if (!check_valid(args, T_DIR | T_IND, T_REG, 0) ||
 		index_reg == -1 || value == -1) {
 		*pc = last;
 		return (process->carry = 0);
@@ -60,7 +60,7 @@ int instruction_ld(core_t *core, process_t *process, int *args)
 ** [2] = [1]
 **
 */
-int get_st_mem(process_t *process, core_t *core, int type, int *last)
+int get_st_mem(UNUSED process_t *process, core_t *core, int type, int *last)
 {
 	int value = -1;
 

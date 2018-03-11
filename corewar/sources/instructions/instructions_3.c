@@ -82,7 +82,7 @@ int instruction_and(core_t *core, process_t *process, int *args)
 	int and = 0;
 
 	if (!check_valid(
-	    args, T_REG | T_DIR | T_IND, T_REG | T_IND | T_DIR, T_REG) || 
+	    args, T_REG | T_DIR | T_IND, T_REG | T_IND | T_DIR, T_REG) ||
 	    value_1 == -1 || value_2 == -1 || value_3 == -1) {
 		process->carry = 0;
 		return (process->pc += 2);

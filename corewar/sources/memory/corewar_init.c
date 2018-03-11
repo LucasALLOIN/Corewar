@@ -75,8 +75,8 @@ int corewar_init(core_t *core)
 	int b_size = total_size(core);
 
 	for (int i = 0; i < core->nb_progs; ++i) {
-		load_memory(core->program_tab[i].process_l, core, MEM_SIZE - b_size, \
-		i);
+		load_memory(core->program_tab[i].process_l, core, MEM_SIZE \
+			- b_size, i);
 		core->program_tab[i].process_l->parent = &core->program_tab[i];
 		set_owner_table(core, core->program_tab[i].process_l);
 	}
