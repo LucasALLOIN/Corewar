@@ -46,7 +46,7 @@ int parse_args(int argc, char *argv[], core_t *corewar)
 		else if (i && argv[i - 1][0] != '-') {
 			corewar->program_tab[nb_champ].file_name = \
 				my_calloc(my_strlen(argv[i]) + 1);
-			my_strcpy(corewar->program_tab[nb_champ].file_name,\
+			my_strcpy(corewar->program_tab[nb_champ].file_name, \
 					argv[i]);
 			nb_champ++;
 		}
@@ -70,9 +70,9 @@ int is_champ_alive(core_t *core)
 	for (int i = 0; i < core->nb_progs; i++)
 		if (core->program_tab[i].is_alive) {
 			z = 3;
-			my_printf("The player %d(%s) has won.",
-			core->program_tab[i].number,
-			core->program_tab[i].header.prog_name);
+			my_printf("The player %d(%s) has won."
+				, core->program_tab[i].number
+				, core->program_tab[i].header.prog_name);
 		}
 	return (0);
 }

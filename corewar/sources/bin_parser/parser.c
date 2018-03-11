@@ -48,22 +48,9 @@ int bin_parser(core_t *corewar, int i)
 {
 	int fd = open(corewar->program_tab[i].file_name, O_RDONLY);
 
-#ifdef DEBUG_MODE
-	my_printf("==== Parsing file %s ====\n\n", \
-	corewar->program_tab[i].file_name);
-#endif
 	if (fd == -1 || header_parser(fd, corewar, i)) {
-#ifdef DEBUG_MODE
-		my_printf("Error\n");
-#endif
 		return (-1);
 	}
 	corewar->program_tab[i].fd = fd;
-#ifdef DEBUG_MODE
-	my_printf("%s: %s\n", corewar->program_tab[i].header.prog_name, \
-	corewar->program_tab[i].header.comment);
-	my_printf("Magic: %d, Size: ", corewar->program_tab[i].header.magic);
-	my_printf("%d\n\n", corewar->program_tab[i].header.prog_size);
-#endif
 	return (0);
 }
