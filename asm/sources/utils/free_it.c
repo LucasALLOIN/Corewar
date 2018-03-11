@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2017
 ** sources/utils/free_it.c
 ** File description:
-**
+** Free
 */
 
 #include <stdlib.h>

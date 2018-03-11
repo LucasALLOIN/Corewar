@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2017
 ** sources/file_splitter.c
 ** File description:
-**
+** Splitter for header comment and name
 */
 
 #include <unistd.h>
