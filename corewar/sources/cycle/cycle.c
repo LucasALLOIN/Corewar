@@ -39,7 +39,7 @@ int exec_process(process_t *process, core_t *core)
 {
 	int args[3] = {0, 0, 0};
 	int inst = 0;
-	
+
 	if (process->pc >= MEM_SIZE + 1)
 		process->pc = ADRESS(process->pc);
 	if (--process->turn_to_exec > 0)
@@ -47,11 +47,9 @@ int exec_process(process_t *process, core_t *core)
 	get_ins_args(core->memory[ADRESS(process->pc + 1)], args);
 	inst = core->memory[ADRESS(process->pc)];
 	if (process->was_waiting) {
-#ifdef DEBUG_MODE
-		printf("instruction = %d\nprocess id: %d\nprocess pc %d\n",inst , process->id, process->pc);
-#endif
 		process->was_waiting = 0;
-		INSTRUCTION_ARRAY[(inst <= 0x0f) ? inst : 0](core, process, args);
+		INSTRUCTION_ARRAY[(inst <= 0x0f) ? \
+			inst : 0](core, process, args);
 	} else if (!process->was_waiting) {
 		process->turn_to_exec = cycle_x[(inst <= 0x0f) ? inst : 0];
 		process->was_waiting = 1;
