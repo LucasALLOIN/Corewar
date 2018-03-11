@@ -2,12 +2,14 @@
 ** EPITECH PROJECT, 2017
 ** sources/error_handlers/label_checks.c
 ** File description:
-**
+** Label checker
 */
 
 #include <stdlib.h>
 #include "utils.h"
 #include "op.h"
+
+static const char *LABEL_CHARS = "abcdefghijklmnopqrstuvwxyz_0123456789";
 
 static int check_validity(char const *line, int nb)
 {
@@ -47,14 +49,14 @@ static char **put_in(char const *line, char **labels)
 
 	if (labels) {
 		for (int i = 0; labels && labels[i]; i++)
-			tab_len++;	
-		new_tab = my_calloc(sizeof(char*) * ((tab_len) + 2));
+			tab_len++;
+		new_tab = my_calloc(sizeof(char *) * ((tab_len) + 2));
 		for (int i = 0; labels && labels[i]; i++) {
 			new_tab[i] = my_calloc(my_strlen(labels[i]) + 1);
 			my_memcpy(new_tab[i], labels[i], my_strlen(labels[i]));
 		}
 	} else {
-		new_tab = my_calloc(sizeof(char*) * (tab_len + 2));
+		new_tab = my_calloc(sizeof(char *) * (tab_len + 2));
 	}
 	new_tab[tab_len] = my_calloc(my_strlen(line) + 1);
 	my_memcpy(new_tab[tab_len], line, my_strlen(line));
@@ -68,7 +70,7 @@ static int not_contains_label(char const *line, char **labels, int n)
 	GARBAGE char *temp = 0x0;
 	int start = 0;
 	int end = 0;
-	
+
 	if (!match(line, "*%:*"))
 		return (0);
 	while (!start || line[start - 1] != '%')
@@ -94,7 +96,7 @@ int check_labels(char **lines)
 
 	for (int i = find_non_ingored(0, lines); lines[i];) {
 		space = find_next(lines[i], ' ');
-		if (space == -1 && match(lines[i], "*:") && !match(lines[i], "*%:")) {
+		if (space == -1 && match(lines[i], "*:")) {
 			code = code ? code : check_validity(lines[i], i + 1);
 			code = code ? code : is_in(lines[i], labels, i + 1);
 			labels = put_in(lines[i], labels);

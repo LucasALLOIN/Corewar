@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2017
 ** sources/error_handlers/comment_checks.c
 ** File description:
-**
+** Comment checker
 */
 
 #include "utils.h"
@@ -16,7 +16,8 @@ static int check_after_name(char **lines)
 	first_line = find_non_ingored(first_line, lines);
 	for (int i = first_line; lines[i]; i = find_non_ingored(i, lines)) {
 		if (match(lines[i], ".comment \"*\"")) {
-			err_write("The comment must be just after the name.\n", i + 1);
+			err_write("The comment must be just"
+			" after the name.\n", i + 1);
 			return (84);
 		}
 	}
@@ -52,7 +53,7 @@ static int check_long_comment(char **lines)
 }
 
 int check_comment(char **lines)
-{	
+{
 	int first_line = find_non_ingored(-1, lines);
 	int code = 0;
 

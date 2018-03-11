@@ -1,4 +1,4 @@
-#
+##
 ## EPITECH PROJECT, 2017
 ## Makefile
 ## File description:
@@ -52,7 +52,7 @@ WARN	=	-W -Wall -Wextra
 
 CFLAGS	=	-I $(ROOT)/includes $(WARN) -g
 
-LDFLAGS	=	-L $(ROOT)/library -l myprintf
+LDFLAGS	=	-L $(ROOT)/library
 
 LIB	?=	1
 
@@ -132,7 +132,7 @@ buildrepo:
 			$(call make-repo)
 
 re:			fclean
-			$(V)make --no-print-directory all 
+			$(V)make --no-print-directory all
 
 echo_build:		echo_debug
 			$(V)printf "$(GREEN)Begin of the build !\n$(ORANGE)Warnings : \n$(WHITE)"

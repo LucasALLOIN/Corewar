@@ -12,24 +12,19 @@ NAME	=	asm
 all:	$(NAME)
 
 $(NAME):
-	@make --no-print-directory -C library/my_printf/src all
 	@make --no-print-directory -C sources/ all
 
 re:
-	@make --no-print-directory -C library/my_printf/src re
 	@make --no-print-directory -C sources/ re
 
 debug:
-	@make --no-print-directory -C library/my_printf/src re DEB=1
 	@make --no-print-directory -C sources/ re DEB=1
 
 clean:
 	@make --no-print-directory -C sources/ clean
-	@make --no-print-directory -C library/my_printf/src clean
 
 fclean:
 	@make --no-print-directory -C sources/ fclean
-	@make --no-print-directory -C library/my_printf/src fclean
 
 test_run:
 	@make --no-print-directory -C bonus/unittest re

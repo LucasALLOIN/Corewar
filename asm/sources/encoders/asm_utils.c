@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2017
 ** sources/encoders/asm_utils.c
 ** File description:
-**
+** Asm utils
 */
 
 #include <unistd.h>
@@ -45,7 +45,7 @@ int write_param(char *str, int param, int param_n, ins_t *op)
 {
 	int local_control = (op->control_byte >> (8 - (param_n * 2))) & 3;
 	int direct_n = op->code == 10 || op->code == 11 || op->code == 14;
-	
+
 	switch (local_control) {
 	case 0b01:
 		return (write_endian(str, param, 1));

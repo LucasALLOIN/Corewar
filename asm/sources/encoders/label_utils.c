@@ -33,11 +33,12 @@ int create_label(label_t *label, char **lines)
 	label->name = my_calloc(my_strlen(lines[0]));
 	my_memcpy(label->name, lines[0], my_strlen(lines[0]) - 1);
 	for (int i = 0; lines[i]; i++, max_lines++) {
-		if (!label_lines && match(lines[i], "*:") && !match(lines[i], "*%:"))
+		if (!label_lines && match(lines[i], "*:") &&
+			!match(lines[i], "*%:"))
 			label_lines = i;
 	}
 	label_lines = label_lines ? label_lines : max_lines;
-	label->lines = my_calloc(sizeof(char*) * (label_lines + 1));
+	label->lines = my_calloc(sizeof(char *) * (label_lines + 1));
 	for (int i = 1; i < label_lines; i++) {
 		label->lines[i - 1] = my_calloc(my_strlen(lines[i]) + 1);
 		my_memcpy(label->lines[i - 1], lines[i], my_strlen(lines[i]));
@@ -57,10 +58,10 @@ int compute_line_size(char const *line)
 		if (params[i][0] == '#')
 			break;
 		switch (params[i][0]) {
-		case REG_CHAR:
+		case 'r':
 			size += 1;
 			break;
-		case DIRECT_CHAR:
+		case '%':
 			size += 2;
 			size += params[i][1] == ':' || has_index ? 0 : 2;
 			break;
