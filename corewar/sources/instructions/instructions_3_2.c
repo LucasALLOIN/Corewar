@@ -51,7 +51,7 @@ int instruction_ldi(core_t *core, process_t *process, int *args)
 	int_to_reg(uchar_to_int(core, *pc + (value_1 + value_2) % IDX_MOD), \
 		REG[index_reg]);
 	*pc = last;
-	return(process->carry = 1);
+	return(process->carry = !uchar_to_int(core, *pc + (value_1 + value_2)));
 }
 
 /*
@@ -128,5 +128,5 @@ int instruction_lldi(core_t *core, process_t *process, int *args)
 	int_to_reg(uchar_to_int(core, *pc + (value_1 + value_2)),
 		REG[index_reg]);
 	*pc = last;
-	return(process->carry = 1);
+	return(process->carry = !uchar_to_int(core, *pc + (value_1 + value_2)));
 }

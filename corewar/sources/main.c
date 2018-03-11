@@ -70,7 +70,7 @@ int is_champ_alive(core_t *core)
 	for (int i = 0; i < core->nb_progs; i++)
 		if (core->program_tab[i].is_alive) {
 			z = 3;
-			my_printf("The player %d(%s) has won.",
+			my_printf("The player %d(%s) has won.\n",
 			core->program_tab[i].number,
 			core->program_tab[i].header.prog_name);
 		}
