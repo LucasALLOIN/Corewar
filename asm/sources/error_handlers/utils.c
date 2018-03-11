@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2017
 ** sources/error_handlers/utils.c
 ** File description:
-**
+** utils
 */
 
 #include <unistd.h>

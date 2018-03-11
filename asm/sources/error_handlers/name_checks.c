@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2017
 ** sources/error_handlers/file_error.c
 ** File description:
-**
+** Name checker
 */
 
 #include <unistd.h>

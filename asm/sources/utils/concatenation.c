@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2017
 ** sources/utils/my_strcat.c
 ** File description:
-**
+** concatenation
 */
 
 #include <stdlib.h>
@@ -11,9 +11,9 @@
 void my_memcpy(void *mem_dest, const void *mem_src, int len)
 {
 	while (len) {
-		*((unsigned char*)mem_dest) = *((unsigned char*)mem_src);
-		(unsigned char*)mem_dest++;
-		(unsigned char*)mem_src++;
+		*((unsigned char *)mem_dest) = *((unsigned char *)mem_src);
+		(unsigned char *)mem_dest++;
+		(unsigned char *)mem_src++;
 		len--;
 	}
 }

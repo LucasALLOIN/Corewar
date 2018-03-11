@@ -2,56 +2,56 @@
 ** EPITECH PROJECT, 2017
 ** sources/error_handlers/instructions_checks.c
 ** File description:
-**
+** Instruction checker
 */
 
 #include "op.h"
 #include "utils.h"
 
 static const op_t op_tab[] = {
-    	{"live", 1, {T_DIR}, 1, 10, "alive"},
-    	{"ld", 2, {T_DIR | T_IND, T_REG}, 2, 5, "load"},
-    	{"st", 2, {T_REG, T_IND | T_REG}, 3, 5, "store"},
-    	{"add", 3, {T_REG, T_REG, T_REG}, 4, 10, "addition"},
-    	{"sub", 3, {T_REG, T_REG, T_REG}, 5, 10, "soustraction"},
-    	{"and", 3, {T_REG | T_DIR | T_IND, T_REG | T_IND | T_DIR, T_REG}, 6,
-	6, "et (and  r1, r2, r3   r1&r2 -> r3"},
-    	{"or", 3, {T_REG | T_IND | T_DIR, T_REG | T_IND | T_DIR, T_REG}, 7, 6,
-     	"ou  (or   r1, r2, r3   r1 | r2 -> r3"},
-    	{"xor", 3, {T_REG | T_IND | T_DIR, T_REG | T_IND | T_DIR, T_REG}, 8,
-	6, "ou (xor  r1, r2, r3   r1^r2 -> r3"},
-    	{"zjmp", 1, {T_DIR}, 9, 20, "jump if zero"},
-    	{"ldi", 3, {T_REG | T_DIR | T_IND, T_DIR | T_REG, T_REG}, 10, 25,
-     	"load index"},
-    	{"sti", 3, {T_REG, T_REG | T_DIR | T_IND, T_DIR | T_REG}, 11, 25,
-     	"store index"},
-    	{"fork", 1, {T_DIR}, 12, 800, "fork"},
-    	{"lld", 2, {T_DIR | T_IND, T_REG}, 13, 10, "long load"},
-	{"lldi", 3, {T_REG | T_DIR | T_IND, T_DIR | T_REG, T_REG}, 14, 50,
+	{"live", 1, {2}, 1, 10, "alive"},
+	{"ld", 2, {2 | 4, 1}, 2, 5, "load"},
+	{"st", 2, {1, 4 | 1}, 3, 5, "store"},
+	{"add", 3, {1, 1, 1}, 4, 10, "addition"},
+	{"sub", 3, {1, 1, 1}, 5, 10, "soustraction"},
+	{"and", 3, {1 | 2 | 4, 1 | 4 | 2, 1}, 6, 6,
+	"et (and  r1, r2, r3   r1&r2 -> r3"},
+	{"or", 3, {1 | 4 | 2, 1 | 4 | 2, 1}, 7, 6,
+	"ou  (or   r1, r2, r3   r1 | r2 -> r3"},
+	{"xor", 3, {1 | 4 | 2, 1 | 4 | 2, 1}, 8, 6,
+	"ou (xor  r1, r2, r3   r1xorr2 -> r3"},
+	{"zjmp", 1, {2}, 9, 20, "jump if zero"},
+	{"ldi", 3, {1 | 2 | 4, 2 | 1, 1}, 10, 25,
+	"load index"},
+	{"sti", 3, {1, 1 | 2 | 4, 2 | 1}, 11, 25,
+	"store index"},
+	{"fork", 1, {2}, 12, 800, "fork"},
+	{"lld", 2, {2 | 4, 1}, 13, 10, "long load"},
+	{"lldi", 3, {1 | 2 | 4, 2 | 1, 1}, 14, 50,
 	"long load index"},
-	{"lfork", 1, {T_DIR}, 15, 1000, "long fork"},
-	{"aff", 1, {T_REG}, 16, 2, "aff"},
+	{"lfork", 1, {2}, 15, 1000, "long fork"},
+	{"aff", 1, {1}, 16, 2, "aff"},
 	{0x0, 0, {0}, 0, 0, 0x0}
 };
 
 static int check_arg(char const *arg, char arg_type)
 {
-	if (arg_type & T_IND) {
+	if (arg_type & 4) {
 		if ((arg[0] <= '9' && arg[0] >= '0') || arg[0] == '-')
 			return (0);
 	}
-	if (arg_type & T_REG) {
+	if (arg_type & 1) {
 		if (arg[0] == 'r')
 			return (0);
 	}
-	if (arg_type & T_DIR) {
+	if (arg_type & 2) {
 		if (arg[0] == '%')
 			return (0);
 	}
 	return (84);
 }
 
-static int check_args_for(char **lines, int inst, int n_line)
+static int check_args_ins(char **lines, int inst, int n_line)
 {
 	GARBAGE_ARR char **params = split_spaces(lines[n_line]);
 	int args = 0;
@@ -123,7 +123,7 @@ int check_instructions(char **lines)
 		}
 		ret = ret ? ret : check_inst_name(lines, &current_inst, i);
 		ret = ret ? ret : check_args(lines, current_inst, i);
-		ret = ret ? ret : check_args_for(lines, current_inst, i);
+		ret = ret ? ret : check_args_ins(lines, current_inst, i);
 		i = find_non_ingored(i, lines);
 	}
 	return (ret);
