@@ -25,6 +25,7 @@ clean:
 
 fclean:
 	@make --no-print-directory -C sources/ fclean
+	@rm -rf release
 
 test_run:
 	@make --no-print-directory -C bonus/unittest re
