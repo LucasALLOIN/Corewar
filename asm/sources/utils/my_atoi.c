@@ -54,3 +54,19 @@ long my_atoi(char const *str)
 	}
 	return (nbr);
 }
+
+int is_only_number(char const *str)
+{
+	int is_minus = 0;
+
+	for (int i = 0; str[i]; i++) {
+		if ((str[i] == '+' || str[i] == '-') && i == 0)
+			is_minus = 1;
+		if (getnbr_isnum(str[i]))
+			is_minus = 0;
+		if ((!getnbr_isnum(str[i])) &&
+		((str[i] != '+' && str[i] != '-') && i == 0))
+			return (0);
+	}
+	return (is_minus ? 0 : 1);
+}

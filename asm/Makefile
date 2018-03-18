@@ -26,6 +26,7 @@ clean:
 fclean:
 	@make --no-print-directory -C sources/ fclean
 	@rm -rf release
+	@rm -rf vgcore*
 
 test_run:
 	@make --no-print-directory -C bonus/unittest re
