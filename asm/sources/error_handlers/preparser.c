@@ -101,8 +101,8 @@ void preparse(char ***lines)
 		(*lines)[i] = clean_separators((*lines)[i]);
 	}
 	if (match((*lines)[index], ".name *")) {
-		index = find_non_ingored(index, *lines);
-		index = find_non_ingored(index, *lines);
+		index = index == -1 ? -1 : find_non_ingored(index, *lines);
+		index = index == -1 ? -1 : find_non_ingored(index, *lines);
 	}
 	if (!(*lines)[index])
 		return;
