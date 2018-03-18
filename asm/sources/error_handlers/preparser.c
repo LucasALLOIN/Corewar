@@ -92,9 +92,20 @@ static char **sanitize_instructions(char **lines)
 
 void preparse(char ***lines)
 {
+	int index = -1;
+
+	if (!*lines)
+		return;
+	index = find_non_ingored(index, *lines);
 	for (int i = 0; (*lines)[i]; i++) {
 		(*lines)[i] = clean_separators((*lines)[i]);
 	}
+	if (match((*lines)[index], ".name *")) {
+		index = find_non_ingored(index, *lines);
+		index = find_non_ingored(index, *lines);
+	}
+	if (!(*lines)[index])
+		return;
 	*lines = sanitize_instructions(*lines);
 	*lines = new_line_instructions(*lines);
 }

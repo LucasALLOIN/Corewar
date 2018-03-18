@@ -11,7 +11,7 @@
 
 static int check_first_line(char **lines)
 {
-	int first_line = find_non_ingored(0, lines);
+	int first_line = find_non_ingored(-1, lines);
 
 	for (int i = first_line; lines[i]; i = find_non_ingored(i, lines)) {
 		if (match(lines[i], ".name \"*\"")) {
@@ -25,7 +25,7 @@ static int check_first_line(char **lines)
 
 static int check_multiple_def(char **lines)
 {
-	int first_line = find_non_ingored(0, lines);
+	int first_line = find_non_ingored(-1, lines);
 
 	for (int i = find_non_ingored(first_line, lines); lines[i];) {
 		if (match(lines[i], ".name \"*\"")) {
@@ -40,7 +40,7 @@ static int check_multiple_def(char **lines)
 
 static int check_long_name(char **lines)
 {
-	int first_line = find_non_ingored(0, lines);
+	int first_line = find_non_ingored(-1, lines);
 
 	if (my_strlen(lines[first_line]) >= PROG_NAME_LENGTH + 8) {
 		err_write("The program name is too long.\n", first_line);
