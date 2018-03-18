@@ -21,7 +21,7 @@ char *flatten_code(char *code)
 	GARBAGE_ARR char **lines = split_lines(code);
 	char *new_code = 0x0;
 
-	for (int i = find_non_ingored(0, lines); lines[i];) {
+	for (int i = find_non_ingored(-1, lines); lines[i];) {
 		new_code = my_strcat(new_code, lines[i]);
 		new_code = append(new_code, '\n');
 		i = find_non_ingored(i, lines);
