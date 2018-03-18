@@ -84,6 +84,7 @@ int encode_code(char const *code, int fd, header_t *header)
 	labels = first_pass(code);
 	second_pass(labels);
 	header->prog_size = third_pass(labels);
+	encode_header(header, fd);
 	fourth_pass(labels, fd);
 	return (0);
 }

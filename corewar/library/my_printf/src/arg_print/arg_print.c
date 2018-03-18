@@ -28,7 +28,7 @@ void print_others(va_list var, arg_option_t *arg_opt)
 		while (arg_opt->conv_type != STR[i])
 			i++;
 		PRINT_STR[i](va_arg(var, char *), arg_opt->precision,
-			     arg_opt->presize);
+			arg_opt->presize);
 	}
 }
 

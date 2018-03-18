@@ -46,7 +46,7 @@ void dup_process(process_t *process, int newpc, int id)
 	process_t *new_node = my_calloc(sizeof(process_t));
 	process_t *tmp = process;
 
-        dup_registers(process, new_node);
+	dup_registers(process, new_node);
 	new_node->load_adress = process->load_adress;
 	new_node->turn_to_exec = process->turn_to_exec;
 	new_node->was_waiting = process->was_waiting;

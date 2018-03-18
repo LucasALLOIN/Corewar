@@ -34,7 +34,7 @@ static void diese_it(arg_option_t *arg_opt)
 static void pad_it(arg_option_t *arg_opt, long long nbr)
 {
 	char pad_char = ((arg_opt->zero && arg_opt->minus == 0) == 1 ?
-			 '0' : ' ');
+			'0' : ' ');
 	int size_nb = get_sizenb(nbr, arg_opt->conv_type);
 	int pad_size = arg_opt->width - size_nb;
 	int iter = 0;
@@ -44,7 +44,7 @@ static void pad_it(arg_option_t *arg_opt, long long nbr)
 	if (arg_opt->diese == 1 && arg_opt->conv_type == 'o')
 		pad_size--;
 	if (arg_opt->diese == 1 && (arg_opt->conv_type == 'x' ||
-				    arg_opt->conv_type == 'X'))
+				arg_opt->conv_type == 'X'))
 		pad_size -= 2;
 	while (iter < pad_size) {
 		my_putchar(pad_char);

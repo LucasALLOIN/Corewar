@@ -20,7 +20,7 @@ char **split_lines(char const *str)
 		ncount++;
 	}
 	of = 0;
-	lines = my_calloc(sizeof(char *) * (ncount + 1));
+	lines = my_calloc(sizeof(char *) * (ncount + 2));
 	ncount = 0;
 	while (find_next(str + of, '\n') != -1) {
 		lines[ncount] = my_calloc(find_next(str + of, '\n') + 1);
