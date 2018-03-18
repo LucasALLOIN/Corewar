@@ -10,4 +10,4 @@
 
 char *get_next_line(int fd);
 
-#endif /* ! READ_SIZE */
+#endif /* READ_SIZE */

@@ -62,8 +62,7 @@ int compute_line_size(char const *line)
 			size += 1;
 			break;
 		case '%':
-			size += 2;
-			size += params[i][1] == ':' || has_index ? 0 : 2;
+			size += params[i][1] == ':' || has_index ? 2 : 4;
 			break;
 		default:
 			size += IND_SIZE;

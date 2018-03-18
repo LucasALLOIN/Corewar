@@ -61,17 +61,17 @@ static void check_formats(const char *format, arg_option_t *arg_option, int *i)
 
 	(*i)++;
 	while (!is_in((char *) &format[*i], (char *) CONV) &&
-	       (format[*i] != '\0' && format[*i] != '%')) {
+		(format[*i] != '\0' && format[*i] != '%')) {
 		if (is_in((char *) &format[*i], (char *)FLAGS) && bl == 0) {
 			get_flags(format[*i], arg_option);
 			dot_test(format, *i, arg_option);
 		} else if (is_in((char *) &format[*i], (char *) NBR) ||
-			   format[*i] == '*') {
+			format[*i] == '*') {
 			dot_test(format, *i, arg_option);
 			nbr_detect(format, arg_option, i);
 			bl += 1;
 		} else if ((format[*i] == 'h' || format[*i] == 'l') &&
-			   arg_option->len_mod == 0)
+			arg_option->len_mod == 0)
 			arg_option->len_mod = get_length(format, i);
 		(*i)++;
 	}

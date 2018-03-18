@@ -26,7 +26,7 @@ static int get_nbarg(const char *format)
 }
 
 static void jump_arg(int *iter, arg_option_t **arg_option, va_list variables,
-		     const char *format)
+		const char *format)
 {
 	if (arg_option[iter[1]]->conv_type == 'e') {
 		my_putchar(format[iter[0]]);
@@ -38,7 +38,7 @@ static void jump_arg(int *iter, arg_option_t **arg_option, va_list variables,
 }
 
 int my_print_str(const char *format, arg_option_t **arg_option,
-		 va_list variables)
+		va_list variables)
 {
 	int ret_count = 0;
 	int iter[2] = {0, 0};

@@ -19,14 +19,10 @@ static int if_part_2(const char *copy, const char *str)
 
 static int if_part_1(const char *copy, const char *str)
 {
-	if (copy[0] == 0)
-		return (copy - str);
-	else if (copy[1] == 0)
-		return (copy - str + 1);
-	else if (copy[2] == 0)
-		return (copy - str + 2);
-	else if (copy[3] == 0)
-		return (copy - str + 3);
+	for (int i = 0; i < 4; i++) {
+		if (copy[i] == 0)
+			return (copy - str + i);
+	}
 	return (if_part_2(copy, str));
 }
 
