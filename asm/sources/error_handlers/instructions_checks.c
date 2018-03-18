@@ -45,7 +45,8 @@ static int check_arg(char const *arg, char arg_type)
 			return (0);
 	}
 	if (arg_type & 2) {
-		if (arg[0] == '%' && is_only_number(arg + 1))
+		if (arg[0] == '%' &&
+		(is_only_number(arg + 1) || arg[1] == ':'))
 			return (0);
 	}
 	return (84);
