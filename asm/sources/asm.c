@@ -77,7 +77,7 @@ int assembler(int ac, char **av)
 	int fd = 0;
 
 	if (ac != 2) {
-		write(2, "There should be an argument.\n", 29);
+		write(2, "Usage: ./asm file_name[.s] ....\n", 32);
 		return (84);
 	}
 	fd = open(av[1], O_RDONLY);
