@@ -90,12 +90,12 @@ static char **sanitize_instructions(char **lines)
 	return (new_lines);
 }
 
-void preparse(char ***lines)
+int preparse(char ***lines)
 {
 	int index = -1;
 
 	if (!*lines)
-		return;
+		return (0);
 	index = find_non_ingored(index, *lines);
 	for (int i = 0; (*lines)[i]; i++) {
 		(*lines)[i] = clean_separators((*lines)[i]);
@@ -105,7 +105,8 @@ void preparse(char ***lines)
 		index = index == -1 ? -1 : find_non_ingored(index, *lines);
 	}
 	if (!(*lines)[index])
-		return;
+		return (0);
 	*lines = sanitize_instructions(*lines);
 	*lines = new_line_instructions(*lines);
+	return (0);
 }

@@ -15,23 +15,21 @@
 /*
 **
 ** [1]  [2]  [3]
-** ---  ---  --- 
-** 
+** ---  ---  ---
+**
 ** default instruction
-** 
+**
 */
-int instruction_error(UNUSED core_t *core, process_t *process, UNUSED int *args)
+int instruction_error(UNUSED core_t *core, process_t *proce, UNUSED int *arg)
 {
-	//my_printf("\e[1;34mGood Job process %s you lost 1 cycle at PC %d\e[0m\n"
-		//  , process->parent->header.prog_name, process->pc);
-	process->pc += 1;
-	return(1);
+	proce->pc += 1;
+	return (1);
 }
 
 /*
 **
 ** [1]  [2]  [3]
-** -ID  R--  --- 
+** -ID  R--  ---
 **
 ** [2] = memory[ [1] % IDX_MOD ]
 **       ^^^^^^
@@ -44,8 +42,8 @@ int instruction_ld(core_t *core, process_t *process, int *args)
 	int value =  get_mem(process, core, args[0], &last);
 	int index_reg = get_mem(process, core, args[1], &last);
 
-	if (!check_valid(args, T_DIR | T_IND, T_REG, 0) || 
-	    index_reg == -1 || value == -1) {
+	if (!check_valid(args, T_DIR | T_IND, T_REG, 0) ||
+		index_reg == -1 || value == -1) {
 		*pc = last;
 		return (process->carry = 0);
 	}
@@ -57,7 +55,7 @@ int instruction_ld(core_t *core, process_t *process, int *args)
 /*
 **
 ** [1]  [2]  [3]
-** RI-  R--  ---  
+** RI-  R--  ---
 **
 ** [2] = [1]
 **
@@ -86,7 +84,7 @@ int instruction_st(core_t *core, process_t *process, int *args)
 	int value = get_st_mem(process, core, args[1], &last);
 
 	if (!check_valid(args, T_REG, T_IND | T_REG, 0) ||
-	    index_reg == -1 || value == -1) {
+		index_reg == -1 || value == -1) {
 		*pc = last;
 		return (process->carry = 0);
 	}
@@ -100,7 +98,7 @@ int instruction_st(core_t *core, process_t *process, int *args)
 /*
 **
 ** [1]  [2]  [3]
-** -ID  R--  --- 
+** -ID  R--  ---
 **
 ** [2] = [1]
 **
@@ -112,8 +110,8 @@ int instruction_lld(core_t *core, process_t *process, int *args)
 	int index_reg = lget_mem(process, core, args[1], &last);
 	int value =  lget_mem(process, core, args[0], &last);
 
-	if (!check_valid(args, T_DIR | T_IND, T_REG, 0) || 
-	    index_reg == -1 || value == -1) {
+	if (!check_valid(args, T_DIR | T_IND, T_REG, 0) ||
+		index_reg == -1 || value == -1) {
 		*pc = last;
 		return (process->carry = 0);
 	}

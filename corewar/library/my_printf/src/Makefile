@@ -24,7 +24,7 @@ SRC	=	$(SRC_DIR)/arg_print/arg_print.c	\
 		$(SRC_DIR)/print/print_string.c		\
 		$(SRC_DIR)/print/print_unsigned.c	\
 		$(SRC_DIR)/utils/struct_funct.c		\
-		$(SRC_DIR)/utils/utils.c		
+		$(SRC_DIR)/utils/utils.c
 
 OBJS	=	$(SRC:.c=.o)
 
@@ -68,7 +68,7 @@ fclean: 	clean
 		$(V)rm -f $(LIB)
 
 re:		fclean
-		$(V)make --no-print-directory all 
+		$(V)make --no-print-directory all
 
 %.o:		%.c
 		$(V)printf "$(BLUE)Compiling [$(ORANGE)$(notdir $<)$(BLUE) -> $(RED) $(notdir $@) $(BLUE)]\n$(WHITE)"

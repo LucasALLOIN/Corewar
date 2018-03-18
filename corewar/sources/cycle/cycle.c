@@ -35,26 +35,27 @@ void get_ins_args(byte_t byte, int *args)
 	}
 }
 
-int exec_process(process_t *process, core_t *core)
+int exec_process(process_t *pross, core_t *cor)
 {
 	int args[3] = {0, 0, 0};
 	int inst = 0;
-	
-	if (process->pc >= MEM_SIZE + 1)
-		process->pc = ADRESS(process->pc);
-	if (--process->turn_to_exec > 0)
+
+	if (pross->pc >= MEM_SIZE + 1)
+		pross->pc = ADRESS(pross->pc);
+	if (--pross->turn_to_exec > 0)
 		return (-1);
-	get_ins_args(core->memory[ADRESS(process->pc + 1)], args);
-	inst = core->memory[ADRESS(process->pc)];
-	if (process->was_waiting) {
+	get_ins_args(cor->memory[ADRESS(pross->pc + 1)], args);
+	inst = cor->memory[ADRESS(pross->pc)];
+	if (pross->was_waiting) {
 #ifdef DEBUG_MODE
-		printf("instruction = %d\nprocess id: %d\nprocess pc %d\n",inst , process->id, process->pc);
+		my_printf("instruction = %d\nprocess id: %d\nprocess pc %d\n",
+		inst, pross->id, pross->pc);
 #endif
-		process->was_waiting = 0;
-		INSTRUCTION_ARRAY[(inst <= 0x0f) ? inst : 0](core, process, args);
-	} else if (!process->was_waiting) {
-		process->turn_to_exec = cycle_x[(inst <= 0x0f) ? inst : 0];
-		process->was_waiting = 1;
+		pross->was_waiting = 0;
+		INSTRUCTION_ARRAY[(inst <= 0x0f) ? inst : 0](cor, pross, args);
+	} else if (!pross->was_waiting) {
+		pross->turn_to_exec = cycle_x[(inst <= 0x0f) ? inst : 0];
+		pross->was_waiting = 1;
 	}
 	return (0);
 }

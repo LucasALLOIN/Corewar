@@ -121,7 +121,7 @@ buildrepo:
 			$(call make-repo)
 
 re:			fclean
-			$(V)make --no-print-directory all 
+			$(V)make --no-print-directory all
 
 echo_build:		echo_debug
 			$(V)printf "$(GREEN)Begin of the build !\n$(ORANGE)Warnings : \n$(WHITE)"

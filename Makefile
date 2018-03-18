@@ -11,7 +11,7 @@ ASM_DIR		=	./asm
 
 COREWAR_DIR	=	./corewar
 
-TEST		=	./bonus/unitest	
+TEST		=	./bonus/unitest
 
 COREWAR		=	$(COREWAR_DIR)/corewar
 
@@ -22,11 +22,11 @@ ASM		=	$(ASM_DIR)/asm
 
 all:	$(COREWAR) $(ASM)
 
-$(COREWAR):	
+$(COREWAR):
 		@printf "\e[32;1m[COMPILING COREWAR]\e[0m\n"
-		@make --no-print-directory -C $(COREWAR_DIR) all 
+		@make --no-print-directory -C $(COREWAR_DIR) all
 
-$(ASM):		
+$(ASM):
 		@printf "\e[32;1m[COMPILING ASM]\e[0m\n"
 		@make --no-print-directory -C $(ASM_DIR) all
 
@@ -40,7 +40,7 @@ debug:
 		@printf "\e[32;1m[COMPILING DEBUG MODE COREWAR]\e[0m\n"
 		@printf "\e[32;1m[COMPILING DEBUG MODE ASM]\e[0m\n"
 		@make --no-print-directory -C $(COREWAR_DIR) debug
-		@make --no-print-directory -C $(ASM_DIR) debug 
+		@make --no-print-directory -C $(ASM_DIR) debug
 
 clean:
 		@printf "\e[32;1m[CLEANING COREWAR]\e[0m\n"
