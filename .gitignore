@@ -7,3 +7,5 @@ vgcore.*
 *.a
 .dir*
 *.cor
+corewar
+asm

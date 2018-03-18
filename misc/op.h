@@ -17,11 +17,6 @@ static const int LABEL_CHAR = ':';
 static const int DIRECT_CHAR = '%';
 static const int SEPARATOR_CHAR = ',';
 
-static const char *LABEL_CHARS = "abcdefghijklmnopqrstuvwxyz_0123456789";
-
-static const char *NAME_CMD_STRING = ".name";
-static const char *COMMENT_CMD_STRING = ".comment";
-
 static const int REG_NUMBER = 16;
 
 typedef char args_type_t;
@@ -34,7 +29,7 @@ static const int T_LAB = 8;
 struct  op_s {
 	char *mnemonique;
 	char nbr_args;
-	args_type_t type[MAX_ARGS_NUMBER];
+	args_type_t type[4];
 	char code;
 	int nbr_cycles;
 	char *comment;
@@ -44,7 +39,7 @@ typedef struct op_s op_t;
 
 static const int IND_SIZE = 2;
 static const int DIR_SIZE = 4;
-static const int REG_SIZE = DIR_SIZE;
+static const int REG_SIZE = 4;
 
 extern op_t op_tab[];
 
@@ -55,9 +50,9 @@ static const int COREWAR_EXEC_MAGIC = 0xea83f3;
 
 struct header_s {
 	int magic;
-	char prog_name[PROG_NAME_LENGTH + 1];
+	char prog_name[129];
 	int prog_size;
-	char comment[COMMENT_LENGTH + 1];
+	char comment[2049];
 };
 
 typedef struct header_s header_t;

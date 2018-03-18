@@ -9,7 +9,7 @@
 #define PROG_H_
 
 typedef struct process_s {
-	byte_t registers[REG_NUMBER][REG_SIZE];
+	byte_t registers[16][4];
 	int load_adress;
 	int turn_to_exec;
 	int was_waiting;

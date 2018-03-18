@@ -15,7 +15,7 @@ typedef unsigned char byte_t;
 #include "process.h"
 #include "args.h"
 
-#define ADRESS(x) ((x) % MEM_SIZE)
+#define ADRESS(x) ((x) % 6144)
 static const int CHAMPIONS = 4;
 #define UNUSED __attribute__((unused))
 
@@ -26,9 +26,9 @@ static const int CHAMPIONS = 4;
 ** Virtual memory: size defined in op.h.
 */
 typedef struct core_s {
-	byte_t memory[MEM_SIZE];
-	byte_t owner_table[MEM_SIZE];
-	program_t program_tab[MAX_ARGS_NUMBER];
+	byte_t memory[6144];
+	byte_t owner_table[6144];
+	program_t program_tab[4];
 	int cycle_to_die;
 	int nbr_cycle;
 	int nb_live;
