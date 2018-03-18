@@ -97,8 +97,5 @@ int main(int argc, char *argv[])
 #endif
 	while (is_champ_alive(corewar))
 		cycle(corewar);
-#ifdef DEBUG_MODE
-	dump_virtual_mem_color(corewar->memory, corewar->owner_table, corewar);
-#endif
 	return (0);
 }

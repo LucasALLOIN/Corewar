@@ -80,9 +80,5 @@ int corewar_init(core_t *core)
 		core->program_tab[i].process_l->parent = &core->program_tab[i];
 		set_owner_table(core, core->program_tab[i].process_l);
 	}
-#ifdef DEBUG_MODE
-	my_printf("===== MEMORY DUMP AFTER CHAMPION INJECTION =====\n\n");
-	dump_virtual_mem_color(core->memory, core->owner_table, core);
-#endif
 	return (0);
 }

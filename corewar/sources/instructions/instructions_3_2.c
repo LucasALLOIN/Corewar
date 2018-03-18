@@ -19,7 +19,7 @@
 **       ^^^^^^
 **           size = [ ][ ]
 */
-int get_ldi_mem(process_t *process, core_t *core, int type, int *last)
+int get_ldi_mem(UNUSED process_t *process, core_t *core, int type, int *last)
 {
 	int value = -1;
 
@@ -63,7 +63,7 @@ int instruction_ldi(core_t *core, process_t *process, int *args)
 **     size [ ][ ][ ][ ]
 **
 */
-static int get_sti_mem(process_t *process, core_t *core, int type, int *last)
+static int get_sti_mem(core_t *core, int type, int *last)
 {
 	int value = -1;
 
@@ -85,8 +85,8 @@ int instruction_sti(core_t *core, process_t *process, int *args)
 	unsigned int *pc = &process->pc;
 	int last = *pc + 2;
 	int index_reg = get_mem(process, core, args[0], &last);
-	int value_1 = get_sti_mem(process, core, args[1], &last);
-	int value_2 = get_sti_mem(process, core, args[2], &last);
+	int value_1 = get_sti_mem(core, args[1], &last);
+	int value_2 = get_sti_mem(core, args[2], &last);
 
 	if (!check_valid(args, T_REG, T_REG | T_DIR | T_IND, T_DIR | T_REG) ||
 		index_reg == -1 || value_1 == -1 || value_2 == -1)
@@ -125,8 +125,8 @@ int instruction_lldi(core_t *core, process_t *process, int *args)
 		value_1 = reg_to_int(REG[value_1]);
 	if (args[1] == T_REG)
 		value_2 = reg_to_int(REG[value_2]);
-	int_to_reg(uchar_to_int(core, *pc + (value_1 + value_2)),
-		REG[index_reg]);
+	int_to_reg(uchar_to_int(core, *pc + (value_1 + value_2))
+		, REG[index_reg]);
 	*pc = last;
 	return (process->carry = 1);
 }

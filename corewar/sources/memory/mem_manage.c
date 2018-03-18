@@ -51,6 +51,7 @@ void short_to_uchar(core_t *core, process_t *process, short nb, int start)
 short uchar_to_short(core_t *core, int start)
 {
 	mem_short_t mem_short;
+
 	mem_short.byte[0] = core->memory[ADRESS(start + 1)];
 	mem_short.byte[1] = core->memory[ADRESS(start)];
 	return (mem_short.nb);

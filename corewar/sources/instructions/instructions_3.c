@@ -26,7 +26,6 @@ int instruction_add(core_t *core, process_t *process, UNUSED int *args)
 
 	if (!((r1 >= 0 && r1 <= 15) && (r2 >= 0 && r2 <= 15) && \
 	(r3 >= 0 && r3 <= 15))) {
-		process->carry = 0;
 		process->pc += 5;
 		return (0);
 	}

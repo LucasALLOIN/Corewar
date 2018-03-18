@@ -49,7 +49,7 @@ int instruction_ld(core_t *core, process_t *process, int *args)
 	}
 	int_to_reg(value, REG[index_reg]);
 	*pc = last;
-	return (process->carry = 1);
+	return (process->carry = !value);
 }
 
 /*
@@ -60,7 +60,7 @@ int instruction_ld(core_t *core, process_t *process, int *args)
 ** [2] = [1]
 **
 */
-int get_st_mem(process_t *process, core_t *core, int type, int *last)
+int get_st_mem(UNUSED process_t *process, core_t *core, int type, int *last)
 {
 	int value = -1;
 
@@ -91,7 +91,8 @@ int instruction_st(core_t *core, process_t *process, int *args)
 	if (args[1] == T_REG)
 		int_to_reg(reg_to_int(REG[value]), REG[index_reg]);
 	else
-		int_to_uchar(core, process, reg_to_int(REG[index_reg]), value);
+		int_to_uchar(core, process, reg_to_int(REG[index_reg]), \
+				*pc + value % IDX_MOD);
 	return (*pc = last);
 }
 
@@ -117,5 +118,5 @@ int instruction_lld(core_t *core, process_t *process, int *args)
 	}
 	int_to_reg(value, REG[index_reg]);
 	*pc = last;
-	return (process->carry = 1);
+	return (process->carry = !value);
 }
