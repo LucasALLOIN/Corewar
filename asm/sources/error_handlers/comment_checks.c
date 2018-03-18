@@ -58,6 +58,10 @@ int check_comment(char **lines)
 	int code = 0;
 
 	first_line = find_non_ingored(first_line, lines);
+	if (!lines[first_line]) {
+		err_write("No comment specified.\n", 0);
+		return (84);
+	}
 	if (!match(lines[first_line], ".comment \"*\"")) {
 		if (check_after_name(lines))
 			return (84);
