@@ -14,6 +14,8 @@
 #include "asm.h"
 #include "utils.h"
 
+static const int COR_PERMS = S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH;
+
 char *flatten_code(char *code)
 {
 	GARBAGE_ARR char **lines = split_lines(code);
@@ -57,7 +59,7 @@ static int assemble(char const *file, char const *filename)
 	GARBAGE char *program_code = 0x0;
 	int skipped_lines = 0;
 	header_t *header = my_calloc(sizeof(header_t));
-	int fd = open(new_filename, O_CREAT | O_RDWR, S_IRWXU);
+	int fd = open(new_filename, O_CREAT | O_RDWR, COR_PERMS);
 
 	program_code = split(file, header, &skipped_lines);
 	program_code = flatten_code(program_code);
