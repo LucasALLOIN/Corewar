@@ -45,7 +45,7 @@ static int check_arg(char const *arg, char arg_type)
 			return (0);
 	}
 	if (arg_type & 2) {
-		if (arg[0] == '%')
+		if (arg[0] == '%' && is_only_number(arg + 1))
 			return (0);
 	}
 	return (84);
@@ -72,11 +72,13 @@ static int check_args_ins(char **lines, int inst, int n_line)
 static int check_inst_name(char **line, int *instruction, int n_line)
 {
 	int last_space = find_next(line[n_line], ' ');
-	char *inst = my_calloc(last_space + 1);
+	char *inst = 0x0;
 
+	last_space = last_space > 0 ? last_space : my_strlen(line[n_line]);
+	inst = my_calloc(last_space + 2);
 	my_memcpy(inst, line[n_line], last_space);
 	for (int i = 0; op_tab[i].mnemonique; i++) {
-		if (my_memcmp(op_tab[i].mnemonique, inst)) {
+		if (my_memncmp(op_tab[i].mnemonique, inst, my_strlen(inst))) {
 			*instruction = i;
 			return (0);
 		}

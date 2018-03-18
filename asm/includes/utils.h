@@ -47,5 +47,6 @@ char *get_file_name(char *str);
 int ignore_line(char const *line);
 int find_non_ingored(int index, char **lines);
 int my_memncmp(void const *memblock1, void const *memblock2, int n);
+int is_only_number(char const *str);
 
 #endif /* UTILS_H_ */

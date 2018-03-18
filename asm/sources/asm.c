@@ -14,12 +14,14 @@
 #include "asm.h"
 #include "utils.h"
 
+static const int COR_PERMS = S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH;
+
 char *flatten_code(char *code)
 {
 	GARBAGE_ARR char **lines = split_lines(code);
 	char *new_code = 0x0;
 
-	for (int i = find_non_ingored(0, lines); lines[i];) {
+	for (int i = find_non_ingored(-1, lines); lines[i];) {
 		new_code = my_strcat(new_code, lines[i]);
 		new_code = append(new_code, '\n');
 		i = find_non_ingored(i, lines);
@@ -57,7 +59,7 @@ static int assemble(char const *file, char const *filename)
 	GARBAGE char *program_code = 0x0;
 	int skipped_lines = 0;
 	header_t *header = my_calloc(sizeof(header_t));
-	int fd = open(new_filename, O_CREAT | O_RDWR, S_IRWXU);
+	int fd = open(new_filename, O_CREAT | O_RDWR, COR_PERMS);
 
 	program_code = split(file, header, &skipped_lines);
 	program_code = flatten_code(program_code);
@@ -75,7 +77,7 @@ int assembler(int ac, char **av)
 	int fd = 0;
 
 	if (ac != 2) {
-		write(2, "There should be an argument.\n", 29);
+		write(2, "Usage: ./asm file_name[.s] ....\n", 32);
 		return (84);
 	}
 	fd = open(av[1], O_RDONLY);

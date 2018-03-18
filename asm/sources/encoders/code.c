@@ -36,11 +36,10 @@ static label_t **first_pass(char const *code)
 static void second_pass(label_t **labels)
 {
 	for (int i = 0; labels[i]; i++) {
-		if (i == 0) {
+		if (i == 0)
 			labels[i]->id = 0;
-		} else {
+		else
 			labels[i]->id = labels[i - 1]->id + labels[i - 1]->sz;
-		}
 		labels[i]->sz = compute_label_size(labels[i]);
 	}
 }
@@ -76,11 +75,15 @@ static void fourth_pass(label_t **labels, int fd)
 
 int encode_code(char const *code, int fd, header_t *header)
 {
-	GARBAGE_LAB label_t **labels = first_pass(code);
+	GARBAGE_LAB label_t **labels = 0x0;
 
+	if (!code) {
+		encode_header(header, fd);
+		return (0);
+	}
+	labels = first_pass(code);
 	second_pass(labels);
 	header->prog_size = third_pass(labels);
-	encode_header(header, fd);
 	fourth_pass(labels, fd);
 	return (0);
 }

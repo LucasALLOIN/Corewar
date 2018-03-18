@@ -11,7 +11,7 @@
 static int check_after_name(char **lines)
 {
 
-	int first_line = find_non_ingored(0, lines);
+	int first_line = find_non_ingored(-1, lines);
 
 	first_line = find_non_ingored(first_line, lines);
 	for (int i = first_line; lines[i]; i = find_non_ingored(i, lines)) {
@@ -26,7 +26,7 @@ static int check_after_name(char **lines)
 
 static int check_multiple_def(char **lines)
 {
-	int first_line = find_non_ingored(0, lines);
+	int first_line = find_non_ingored(-1, lines);
 
 	first_line = find_non_ingored(first_line, lines);
 	for (int i = find_non_ingored(first_line, lines); lines[i];) {
@@ -42,7 +42,7 @@ static int check_multiple_def(char **lines)
 
 static int check_long_comment(char **lines)
 {
-	int first_line = find_non_ingored(0, lines);
+	int first_line = find_non_ingored(-1, lines);
 
 	first_line = find_non_ingored(first_line, lines);
 	if (my_strlen(lines[first_line]) >= COMMENT_LENGTH + 11) {
