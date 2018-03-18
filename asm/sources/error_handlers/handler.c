@@ -9,6 +9,10 @@
 
 static int is_empty(char **lines)
 {
+	if (!lines) {
+		err_write("The file is empty.\n", 0);
+		return (84);
+	}
 	for (int i = 0; lines[i]; i++) {
 		if (!ignore_line(lines[i])) {
 			return (0);
