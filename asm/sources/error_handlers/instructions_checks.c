@@ -96,7 +96,6 @@ static int check_args(char **lines, int inst, int n_line)
 
 	for (int i = 1; !code && params[i] && params[i][0] != '#'; i++) {
 		if (i > op_tab[inst].nbr_args) {
-			printf("%s\n", op_tab[inst].mnemonique);
 			err_write("Too many arguments"
 			" given to the instruction.\n", n_line + 1);
 			return (84);
