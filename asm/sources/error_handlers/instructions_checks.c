@@ -79,7 +79,7 @@ static int check_inst_name(char **line, int *instruction, int n_line)
 	inst = my_calloc(last_space + 2);
 	my_memcpy(inst, line[n_line], last_space);
 	for (int i = 0; op_tab[i].mnemonique; i++) {
-		if (my_memncmp(op_tab[i].mnemonique, inst, my_strlen(inst))) {
+		if (my_memcmp(op_tab[i].mnemonique, inst)) {
 			*instruction = i;
 			return (0);
 		}
@@ -96,6 +96,7 @@ static int check_args(char **lines, int inst, int n_line)
 
 	for (int i = 1; !code && params[i] && params[i][0] != '#'; i++) {
 		if (i > op_tab[inst].nbr_args) {
+			printf("%s\n", op_tab[inst].mnemonique);
 			err_write("Too many arguments"
 			" given to the instruction.\n", n_line + 1);
 			return (84);
